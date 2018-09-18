@@ -4093,6 +4093,28 @@ var KalturaServerNodeService = {
 	},
 	
 	/**
+	 * Get the edge server node full path.
+	 * @param	hostName	string		 (optional)
+	 * @param	protocol	string		 (optional, default: http)
+	 * @param	deliveryFormat	string		 (optional, default: null)
+	 * @param	deliveryType	string		 (optional, default: null)
+	 **/
+	getFullPath: function(hostName, protocol, deliveryFormat, deliveryType){
+		if(!protocol)
+			protocol = "http";
+		if(!deliveryFormat)
+			deliveryFormat = null;
+		if(!deliveryType)
+			deliveryType = null;
+		var kparams = new Object();
+		kparams.hostName = hostName;
+		kparams.protocol = protocol;
+		kparams.deliveryFormat = deliveryFormat;
+		kparams.deliveryType = deliveryType;
+		return new KalturaRequestBuilder("servernode", "getFullPath", kparams);
+	},
+	
+	/**
 	 * .
 	 * @param	filter	KalturaServerNodeFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
@@ -4124,14 +4146,18 @@ var KalturaServerNodeService = {
 	 * Update server node status.
 	 * @param	hostName	string		 (optional)
 	 * @param	serverNode	KalturaServerNode		 (optional, default: null)
+	 * @param	serverNodeStatus	int		 (optional, enum: KalturaServerNodeStatus, default: 1)
 	 **/
-	reportStatus: function(hostName, serverNode){
+	reportStatus: function(hostName, serverNode, serverNodeStatus){
 		if(!serverNode)
 			serverNode = null;
+		if(!serverNodeStatus)
+			serverNodeStatus = 1;
 		var kparams = new Object();
 		kparams.hostName = hostName;
 		if (serverNode != null)
 			kparams.serverNode = serverNode;
+		kparams.serverNodeStatus = serverNodeStatus;
 		return new KalturaRequestBuilder("servernode", "reportStatus", kparams);
 	},
 	
@@ -9497,7 +9523,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-09-17');
+	this.setClientTag('ajax:18-09-18');
 	this.setApiVersion('14.6.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
