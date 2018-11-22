@@ -108,5 +108,26 @@ var KalturaCategoryEntryService = {
 		kparams.entryId = entryId;
 		kparams.categoryId = categoryId;
 		return new KalturaRequestBuilder("categoryentry", "syncPrivacyContext", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	fileData	HTMLElement		 (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadJobData		 (optional, default: null)
+	 * @param	bulkUploadCategoryEntryData	KalturaBulkUploadCategoryEntryData		 (optional, default: null)
+	 **/
+	updateStatusfrombulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
+		if(!bulkUploadData)
+			bulkUploadData = null;
+		if(!bulkUploadCategoryEntryData)
+			bulkUploadCategoryEntryData = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		if (bulkUploadData != null)
+			kparams.bulkUploadData = bulkUploadData;
+		if (bulkUploadCategoryEntryData != null)
+			kparams.bulkUploadCategoryEntryData = bulkUploadCategoryEntryData;
+		return new KalturaRequestBuilder("categoryentry", "updateStatusfrombulk", kparams, kfiles);
 	}
 }

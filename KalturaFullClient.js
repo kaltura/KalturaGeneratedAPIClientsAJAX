@@ -820,6 +820,27 @@ var KalturaCategoryEntryService = {
 		kparams.entryId = entryId;
 		kparams.categoryId = categoryId;
 		return new KalturaRequestBuilder("categoryentry", "syncPrivacyContext", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	fileData	HTMLElement		 (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadJobData		 (optional, default: null)
+	 * @param	bulkUploadCategoryEntryData	KalturaBulkUploadCategoryEntryData		 (optional, default: null)
+	 **/
+	updateStatusfrombulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
+		if(!bulkUploadData)
+			bulkUploadData = null;
+		if(!bulkUploadCategoryEntryData)
+			bulkUploadCategoryEntryData = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		if (bulkUploadData != null)
+			kparams.bulkUploadData = bulkUploadData;
+		if (bulkUploadCategoryEntryData != null)
+			kparams.bulkUploadCategoryEntryData = bulkUploadCategoryEntryData;
+		return new KalturaRequestBuilder("categoryentry", "updateStatusfrombulk", kparams, kfiles);
 	}
 }
 
@@ -9523,8 +9544,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-11-21');
-	this.setApiVersion('14.8.0');
+	this.setClientTag('ajax:18-11-22');
+	this.setApiVersion('14.9.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
