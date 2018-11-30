@@ -116,7 +116,7 @@ var KalturaCategoryEntryService = {
 	 * @param	bulkUploadData	KalturaBulkUploadJobData		 (optional, default: null)
 	 * @param	bulkUploadCategoryEntryData	KalturaBulkUploadCategoryEntryData		 (optional, default: null)
 	 **/
-	updateStatusfrombulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
+	updateStatusFromBulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
 		if(!bulkUploadData)
 			bulkUploadData = null;
 		if(!bulkUploadCategoryEntryData)
@@ -128,6 +128,6 @@ var KalturaCategoryEntryService = {
 			kparams.bulkUploadData = bulkUploadData;
 		if (bulkUploadCategoryEntryData != null)
 			kparams.bulkUploadCategoryEntryData = bulkUploadCategoryEntryData;
-		return new KalturaRequestBuilder("categoryentry", "updateStatusfrombulk", kparams, kfiles);
+		return new KalturaRequestBuilder("categoryentry", "updateStatusFromBulk", kparams, kfiles);
 	}
 }

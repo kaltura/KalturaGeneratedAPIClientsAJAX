@@ -828,7 +828,7 @@ var KalturaCategoryEntryService = {
 	 * @param	bulkUploadData	KalturaBulkUploadJobData		 (optional, default: null)
 	 * @param	bulkUploadCategoryEntryData	KalturaBulkUploadCategoryEntryData		 (optional, default: null)
 	 **/
-	updateStatusfrombulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
+	updateStatusFromBulk: function(fileData, bulkUploadData, bulkUploadCategoryEntryData){
 		if(!bulkUploadData)
 			bulkUploadData = null;
 		if(!bulkUploadCategoryEntryData)
@@ -840,7 +840,7 @@ var KalturaCategoryEntryService = {
 			kparams.bulkUploadData = bulkUploadData;
 		if (bulkUploadCategoryEntryData != null)
 			kparams.bulkUploadCategoryEntryData = bulkUploadCategoryEntryData;
-		return new KalturaRequestBuilder("categoryentry", "updateStatusfrombulk", kparams, kfiles);
+		return new KalturaRequestBuilder("categoryentry", "updateStatusFromBulk", kparams, kfiles);
 	}
 }
 
@@ -9544,7 +9544,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-11-29');
+	this.setClientTag('ajax:18-11-30');
 	this.setApiVersion('14.9.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
