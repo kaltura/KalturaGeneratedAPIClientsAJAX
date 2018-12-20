@@ -47,7 +47,7 @@ var KalturaCategoryUserService = {
 	},
 	
 	/**
-	 * Copy all memeber from parent category.
+	 * Copy all member from parent category.
 	 * @param	categoryId	int		 (optional)
 	 **/
 	copyFromCategory: function(categoryId){

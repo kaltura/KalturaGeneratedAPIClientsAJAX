@@ -304,7 +304,7 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
-	 * Update entry thumbnail using url..
+	 * Update entry thumbnail using URL..
 	 * @param	entryId	string		Media entry id (optional)
 	 * @param	url	string		file url (optional)
 	 **/

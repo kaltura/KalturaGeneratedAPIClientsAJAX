@@ -27,7 +27,7 @@ var KalturaMixingService = {
 	},
 	
 	/**
-	 * Appends a media entry to a the end of the mix timeline, this will save the mix timeline as a new version..
+	 * Appends a media entry to the end of the mix timeline, this will save the mix timeline as a new version..
 	 * @param	mixEntryId	string		Mix entry to append to its timeline (optional)
 	 * @param	mediaEntryId	string		Media entry to append to the timeline (optional)
 	 **/

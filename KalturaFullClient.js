@@ -610,7 +610,7 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
-	 * Update entry thumbnail using url..
+	 * Update entry thumbnail using URL..
 	 * @param	entryId	string		Media entry id (optional)
 	 * @param	url	string		file url (optional)
 	 **/
@@ -664,7 +664,7 @@ var KalturaBulkUploadService = {
 	 * Add new bulk upload batch job
  *		 Conversion profile id can be specified in the API or in the CSV file, the one in the CSV file will be stronger.
  *		 If no conversion profile was specified, partner's default will be used.
-	 * @param	conversionProfileId	int		Convertion profile id to use for converting the current bulk (-1 to use partner's default) (optional)
+	 * @param	conversionProfileId	int		Conversion profile id to use for converting the current bulk (-1 to use partner's default) (optional)
 	 * @param	csvFileData	HTMLElement		bulk upload file (optional)
 	 * @param	bulkUploadType	string		 (optional, enum: KalturaBulkUploadType, default: null)
 	 * @param	uploadedBy	string		 (optional, default: null)
@@ -1016,7 +1016,7 @@ var KalturaCategoryUserService = {
 	},
 	
 	/**
-	 * Copy all memeber from parent category.
+	 * Copy all member from parent category.
 	 * @param	categoryId	int		 (optional)
 	 **/
 	copyFromCategory: function(categoryId){
@@ -1373,7 +1373,7 @@ var KalturaDeliveryProfileService = {
 	},
 	
 	/**
-	 * Update exisiting delivery.
+	 * Update existing delivery profile.
 	 * @param	id	string		 (optional)
 	 * @param	delivery	KalturaDeliveryProfile		 (optional)
 	 **/
@@ -2745,9 +2745,9 @@ var KalturaMediaService = {
 	},
 	
 	/**
-	 * Add new entry after the file was recored on the server and the token id exists.
+	 * Add new entry after the file was recorded on the server and the token id exists.
 	 * @param	mediaEntry	KalturaMediaEntry		Media entry metadata (optional)
-	 * @param	webcamTokenId	string		Token id for the recored webcam file (optional)
+	 * @param	webcamTokenId	string		Token id for the recorded webcam file (optional)
 	 **/
 	addFromRecordedWebcam: function(mediaEntry, webcamTokenId){
 		var kparams = new Object();
@@ -3074,7 +3074,7 @@ var KalturaMediaService = {
 	},
 	
 	/**
-	 * Update entry thumbnail using url.
+	 * Update entry thumbnail using URL.
 	 * @param	entryId	string		Media entry id (optional)
 	 * @param	url	string		file url (optional)
 	 **/
@@ -3138,7 +3138,7 @@ var KalturaMixingService = {
 	},
 	
 	/**
-	 * Appends a media entry to a the end of the mix timeline, this will save the mix timeline as a new version..
+	 * Appends a media entry to the end of the mix timeline, this will save the mix timeline as a new version..
 	 * @param	mixEntryId	string		Mix entry to append to its timeline (optional)
 	 * @param	mediaEntryId	string		Media entry to append to the timeline (optional)
 	 **/
@@ -3333,7 +3333,7 @@ var KalturaPartnerService = {
 	/**
 	 * Get usage statistics for a partner
  *		 Calculation is done according to partner's package
- *		 Additional data returned is a graph points of streaming usage in a timeframe
+ *		 Additional data returned is a graph points of streaming usage in a time frame
  *		 The resolution can be "days" or "months".
 	 * @param	year	int		 (optional)
 	 * @param	month	int		 (optional, default: 1)
@@ -3355,7 +3355,7 @@ var KalturaPartnerService = {
 	
 	/**
 	 * List partners by filter with paging support
- *		 Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
+ *		 Current implementation will only list the sub partners of the partner initiating the API call (using the current KS).
  *		 This action is only partially implemented to support listing sub partners of a VAR partner..
 	 * @param	filter	KalturaPartnerFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
@@ -3674,7 +3674,7 @@ var KalturaPlaylistService = {
 	},
 	
 	/**
-	 * Revrieve playlist for playing purpose, based on media entry filters.
+	 * Retrieve playlist for playing purpose, based on media entry filters.
 	 * @param	filters	array		 (optional)
 	 * @param	totalResults	int		 (optional)
 	 * @param	detailed	string		 (optional, default: 1)
@@ -3740,7 +3740,7 @@ var KalturaPlaylistService = {
 	
 	/**
 	 * Update existing playlist
- *		 Note - you cannot change playlist type. updated playlist must be of the same type..
+ *		 Note - you cannot change playlist type. Updated playlist must be of the same type..
 	 * @param	id	string		 (optional)
 	 * @param	playlist	KalturaPlaylist		 (optional)
 	 * @param	updateStats	bool		 (optional, default: false)
@@ -3775,7 +3775,7 @@ var KalturaReportService = {
 	},
 	
 	/**
-	 * report getBaseTotal action allows to get a the total base for storage reports.
+	 * report getBaseTotal action allows to get the total base for storage reports.
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
@@ -3849,7 +3849,7 @@ var KalturaReportService = {
 	},
 	
 	/**
-	 * will create a Csv file for the given report and return the URL to access it.
+	 * will create a CSV file for the given report and return the URL to access it.
 	 * @param	reportTitle	string		The title of the report to display at top of CSV (optional)
 	 * @param	reportText	string		The text of the filter of the report (optional)
 	 * @param	headers	string		The headers of the columns - a map between the enumerations on the server side and the their display text (optional)
@@ -4531,7 +4531,7 @@ var KalturaSyndicationFeedService = {
 	},
 	
 	/**
-	 * request conversion for all entries that doesnt have the required flavor param
+	 * request conversion for all entries that doesn't have the required flavor param
  *		 returns a comma-separated ids of conversion jobs.
 	 * @param	feedId	string		 (optional)
 	 **/
@@ -5648,7 +5648,7 @@ var KalturaWidgetService = {
 	},
 	
 	/**
-	 * Update exisiting widget.
+	 * Update existing widget.
 	 * @param	id	string		 (optional)
 	 * @param	widget	KalturaWidget		 (optional)
 	 **/
@@ -9544,8 +9544,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-12-12');
-	this.setApiVersion('14.10.0');
+	this.setClientTag('ajax:18-12-20');
+	this.setApiVersion('14.11.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

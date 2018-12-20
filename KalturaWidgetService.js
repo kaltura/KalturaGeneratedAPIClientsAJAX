@@ -54,7 +54,7 @@ var KalturaWidgetService = {
 	},
 	
 	/**
-	 * Update exisiting widget.
+	 * Update existing widget.
 	 * @param	id	string		 (optional)
 	 * @param	widget	KalturaWidget		 (optional)
 	 **/

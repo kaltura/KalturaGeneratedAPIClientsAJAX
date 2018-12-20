@@ -80,9 +80,9 @@ var KalturaMediaService = {
 	},
 	
 	/**
-	 * Add new entry after the file was recored on the server and the token id exists.
+	 * Add new entry after the file was recorded on the server and the token id exists.
 	 * @param	mediaEntry	KalturaMediaEntry		Media entry metadata (optional)
-	 * @param	webcamTokenId	string		Token id for the recored webcam file (optional)
+	 * @param	webcamTokenId	string		Token id for the recorded webcam file (optional)
 	 **/
 	addFromRecordedWebcam: function(mediaEntry, webcamTokenId){
 		var kparams = new Object();
@@ -409,7 +409,7 @@ var KalturaMediaService = {
 	},
 	
 	/**
-	 * Update entry thumbnail using url.
+	 * Update entry thumbnail using URL.
 	 * @param	entryId	string		Media entry id (optional)
 	 * @param	url	string		file url (optional)
 	 **/

@@ -63,7 +63,7 @@ var KalturaPartnerService = {
 	/**
 	 * Get usage statistics for a partner
  *		 Calculation is done according to partner's package
- *		 Additional data returned is a graph points of streaming usage in a timeframe
+ *		 Additional data returned is a graph points of streaming usage in a time frame
  *		 The resolution can be "days" or "months".
 	 * @param	year	int		 (optional)
 	 * @param	month	int		 (optional, default: 1)
@@ -85,7 +85,7 @@ var KalturaPartnerService = {
 	
 	/**
 	 * List partners by filter with paging support
- *		 Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
+ *		 Current implementation will only list the sub partners of the partner initiating the API call (using the current KS).
  *		 This action is only partially implemented to support listing sub partners of a VAR partner..
 	 * @param	filter	KalturaPartnerFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)

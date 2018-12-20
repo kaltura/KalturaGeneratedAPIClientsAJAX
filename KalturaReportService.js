@@ -18,7 +18,7 @@ var KalturaReportService = {
 	},
 	
 	/**
-	 * report getBaseTotal action allows to get a the total base for storage reports.
+	 * report getBaseTotal action allows to get the total base for storage reports.
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
@@ -92,7 +92,7 @@ var KalturaReportService = {
 	},
 	
 	/**
-	 * will create a Csv file for the given report and return the URL to access it.
+	 * will create a CSV file for the given report and return the URL to access it.
 	 * @param	reportTitle	string		The title of the report to display at top of CSV (optional)
 	 * @param	reportText	string		The text of the filter of the report (optional)
 	 * @param	headers	string		The headers of the columns - a map between the enumerations on the server side and the their display text (optional)

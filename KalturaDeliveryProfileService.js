@@ -53,7 +53,7 @@ var KalturaDeliveryProfileService = {
 	},
 	
 	/**
-	 * Update exisiting delivery.
+	 * Update existing delivery profile.
 	 * @param	id	string		 (optional)
 	 * @param	delivery	KalturaDeliveryProfile		 (optional)
 	 **/

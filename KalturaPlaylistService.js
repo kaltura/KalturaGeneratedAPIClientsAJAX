@@ -94,7 +94,7 @@ var KalturaPlaylistService = {
 	},
 	
 	/**
-	 * Revrieve playlist for playing purpose, based on media entry filters.
+	 * Retrieve playlist for playing purpose, based on media entry filters.
 	 * @param	filters	array		 (optional)
 	 * @param	totalResults	int		 (optional)
 	 * @param	detailed	string		 (optional, default: 1)
@@ -160,7 +160,7 @@ var KalturaPlaylistService = {
 	
 	/**
 	 * Update existing playlist
- *		 Note - you cannot change playlist type. updated playlist must be of the same type..
+ *		 Note - you cannot change playlist type. Updated playlist must be of the same type..
 	 * @param	id	string		 (optional)
 	 * @param	playlist	KalturaPlaylist		 (optional)
 	 * @param	updateStats	bool		 (optional, default: false)

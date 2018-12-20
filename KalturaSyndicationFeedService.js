@@ -62,7 +62,7 @@ var KalturaSyndicationFeedService = {
 	},
 	
 	/**
-	 * request conversion for all entries that doesnt have the required flavor param
+	 * request conversion for all entries that doesn't have the required flavor param
  *		 returns a comma-separated ids of conversion jobs.
 	 * @param	feedId	string		 (optional)
 	 **/
