@@ -6,7 +6,7 @@ before_script:
     - sh -e /etc/init.d/xvfb start
     - sleep 3
 script: 
-    - sed -e "s#@YOUR_PARTNER_ID@#$PARTNER_ID#g" -e "s#@YOUR_ADMIN_SECRET@#$ADMIN_SECRET#g" -e "s#@SERVICE_URL@#https://www.kaltura.com#g" test/config.template.js > test/config.js
+    - sed -e "s#@YOUR_PARTNER_ID@#$PARTNER_ID#g" -e "s#@YOUR_ADMIN_SECRET@#$ADMIN_SECRET#g" -e "s#https://www.kaltura.com#https://www.kaltura.com#g" test/config.template.js > test/config.js
     - cd test && npm install && ./node_modules/.bin/karma start --browsers PhantomJS --single-run
 notifications:
   email:
