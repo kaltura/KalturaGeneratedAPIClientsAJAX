@@ -8403,14 +8403,18 @@ var KalturaScheduleEventService = {
 	 * @param	resourceIds	string		comma separated (optional)
 	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
 	 * @param	scheduleEventIdToIgnore	string		 (optional, default: null)
+	 * @param	scheduleEventConflictType	int		 (optional, enum: KalturaScheduleEventConflictType, default: 1)
 	 **/
-	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore){
+	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore, scheduleEventConflictType){
 		if(!scheduleEventIdToIgnore)
 			scheduleEventIdToIgnore = null;
+		if(!scheduleEventConflictType)
+			scheduleEventConflictType = 1;
 		var kparams = new Object();
 		kparams.resourceIds = resourceIds;
 		kparams.scheduleEvent = scheduleEvent;
 		kparams.scheduleEventIdToIgnore = scheduleEventIdToIgnore;
+		kparams.scheduleEventConflictType = scheduleEventConflictType;
 		return new KalturaRequestBuilder("schedule_scheduleevent", "getConflicts", kparams);
 	},
 	
@@ -8568,17 +8572,21 @@ var KalturaScheduleEventResourceService = {
 	 * List KalturaScheduleEventResource objects.
 	 * @param	filter	KalturaScheduleEventResourceFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 * @param	filterBlackoutConflicts	bool		 (optional, default: true)
 	 **/
-	listAction: function(filter, pager){
+	listAction: function(filter, pager, filterBlackoutConflicts){
 		if(!filter)
 			filter = null;
 		if(!pager)
 			pager = null;
+		if(!filterBlackoutConflicts)
+			filterBlackoutConflicts = true;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
+		kparams.filterBlackoutConflicts = filterBlackoutConflicts;
 		return new KalturaRequestBuilder("schedule_scheduleeventresource", "list", kparams);
 	},
 	
@@ -9544,7 +9552,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-14');
+	this.setClientTag('ajax:19-01-16');
 	this.setApiVersion('14.12.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);

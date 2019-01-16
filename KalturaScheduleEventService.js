@@ -64,14 +64,18 @@ var KalturaScheduleEventService = {
 	 * @param	resourceIds	string		comma separated (optional)
 	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
 	 * @param	scheduleEventIdToIgnore	string		 (optional, default: null)
+	 * @param	scheduleEventConflictType	int		 (optional, enum: KalturaScheduleEventConflictType, default: 1)
 	 **/
-	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore){
+	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore, scheduleEventConflictType){
 		if(!scheduleEventIdToIgnore)
 			scheduleEventIdToIgnore = null;
+		if(!scheduleEventConflictType)
+			scheduleEventConflictType = 1;
 		var kparams = new Object();
 		kparams.resourceIds = resourceIds;
 		kparams.scheduleEvent = scheduleEvent;
 		kparams.scheduleEventIdToIgnore = scheduleEventIdToIgnore;
+		kparams.scheduleEventConflictType = scheduleEventConflictType;
 		return new KalturaRequestBuilder("schedule_scheduleevent", "getConflicts", kparams);
 	},
 	

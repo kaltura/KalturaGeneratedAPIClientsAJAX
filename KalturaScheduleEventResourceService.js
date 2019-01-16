@@ -41,17 +41,21 @@ var KalturaScheduleEventResourceService = {
 	 * List KalturaScheduleEventResource objects.
 	 * @param	filter	KalturaScheduleEventResourceFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 * @param	filterBlackoutConflicts	bool		 (optional, default: true)
 	 **/
-	listAction: function(filter, pager){
+	listAction: function(filter, pager, filterBlackoutConflicts){
 		if(!filter)
 			filter = null;
 		if(!pager)
 			pager = null;
+		if(!filterBlackoutConflicts)
+			filterBlackoutConflicts = true;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
+		kparams.filterBlackoutConflicts = filterBlackoutConflicts;
 		return new KalturaRequestBuilder("schedule_scheduleeventresource", "list", kparams);
 	},
 	
