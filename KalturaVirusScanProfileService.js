@@ -66,7 +66,7 @@ var KalturaVirusScanProfileService = {
 	},
 	
 	/**
-	 * Update exisitng virus scan profile, it is possible to update the virus scan profile id too.
+	 * Update existing virus scan profile, it is possible to update the virus scan profile id too.
 	 * @param	virusScanProfileId	int		 (optional)
 	 * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional)
 	 **/

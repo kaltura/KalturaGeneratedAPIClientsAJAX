@@ -2426,7 +2426,7 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
-	 * Creates perioding metadata sync-point events on a live stream.
+	 * Creates periodic metadata sync-point events on a live stream.
 	 * @param	entryId	string		Kaltura live-stream entry id (optional)
 	 * @param	interval	int		Events interval in seconds (optional)
 	 * @param	duration	int		Duration in seconds (optional)
@@ -7827,12 +7827,12 @@ var KalturaMetadataService = {
 	},
 	
 	/**
-	 * Allows you to add a metadata xml data from remote URL.
+	 * Allows you to add a metadata XML data from remote URL.
  *		 Enables different permissions than addFromUrl action..
 	 * @param	metadataProfileId	int		 (optional)
 	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
 	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote url (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
 	 **/
 	addFromBulk: function(metadataProfileId, objectType, objectId, url){
 		var kparams = new Object();
@@ -7861,11 +7861,11 @@ var KalturaMetadataService = {
 	},
 	
 	/**
-	 * Allows you to add a metadata xml data from remote URL.
+	 * Allows you to add a metadata XML data from remote URL.
 	 * @param	metadataProfileId	int		 (optional)
 	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
 	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote url (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
 	 **/
 	addFromUrl: function(metadataProfileId, objectType, objectId, url){
 		var kparams = new Object();
@@ -8119,7 +8119,7 @@ var KalturaMetadataProfileService = {
 	},
 	
 	/**
-	 * Update an existing metadata object xslt file.
+	 * Update an existing metadata object XSLT file.
 	 * @param	id	int		 (optional)
 	 * @param	xsltFile	HTMLElement		XSLT file, will be executed on every metadata add/update (optional)
 	 **/
@@ -8747,7 +8747,7 @@ var KalturaShortLinkService = {
 	},
 	
 	/**
-	 * Update exisitng short link.
+	 * Update existing short link.
 	 * @param	id	string		 (optional)
 	 * @param	shortLink	KalturaShortLink		 (optional)
 	 **/
@@ -8923,7 +8923,7 @@ var KalturaVirusScanProfileService = {
 	},
 	
 	/**
-	 * Update exisitng virus scan profile, it is possible to update the virus scan profile id too.
+	 * Update existing virus scan profile, it is possible to update the virus scan profile id too.
 	 * @param	virusScanProfileId	int		 (optional)
 	 * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional)
 	 **/
@@ -9552,7 +9552,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-24');
+	this.setClientTag('ajax:19-01-25');
 	this.setApiVersion('14.13.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);

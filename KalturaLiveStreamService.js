@@ -86,7 +86,7 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
-	 * Creates perioding metadata sync-point events on a live stream.
+	 * Creates periodic metadata sync-point events on a live stream.
 	 * @param	entryId	string		Kaltura live-stream entry id (optional)
 	 * @param	interval	int		Events interval in seconds (optional)
 	 * @param	duration	int		Duration in seconds (optional)

@@ -52,7 +52,7 @@ var KalturaShortLinkService = {
 	},
 	
 	/**
-	 * Update exisitng short link.
+	 * Update existing short link.
 	 * @param	id	string		 (optional)
 	 * @param	shortLink	KalturaShortLink		 (optional)
 	 **/

@@ -130,7 +130,7 @@ var KalturaMetadataProfileService = {
 	},
 	
 	/**
-	 * Update an existing metadata object xslt file.
+	 * Update an existing metadata object XSLT file.
 	 * @param	id	int		 (optional)
 	 * @param	xsltFile	HTMLElement		XSLT file, will be executed on every metadata add/update (optional)
 	 **/

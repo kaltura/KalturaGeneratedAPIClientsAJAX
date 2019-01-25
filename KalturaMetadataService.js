@@ -20,12 +20,12 @@ var KalturaMetadataService = {
 	},
 	
 	/**
-	 * Allows you to add a metadata xml data from remote URL.
+	 * Allows you to add a metadata XML data from remote URL.
  *		 Enables different permissions than addFromUrl action..
 	 * @param	metadataProfileId	int		 (optional)
 	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
 	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote url (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
 	 **/
 	addFromBulk: function(metadataProfileId, objectType, objectId, url){
 		var kparams = new Object();
@@ -54,11 +54,11 @@ var KalturaMetadataService = {
 	},
 	
 	/**
-	 * Allows you to add a metadata xml data from remote URL.
+	 * Allows you to add a metadata XML data from remote URL.
 	 * @param	metadataProfileId	int		 (optional)
 	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
 	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote url (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
 	 **/
 	addFromUrl: function(metadataProfileId, objectType, objectId, url){
 		var kparams = new Object();
