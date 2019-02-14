@@ -22,14 +22,19 @@ var KalturaReportService = {
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
+	 * @param	responseOptions	KalturaReportResponseOptions		 (optional, default: null)
 	 **/
-	getBaseTotal: function(reportType, reportInputFilter, objectIds){
+	getBaseTotal: function(reportType, reportInputFilter, objectIds, responseOptions){
 		if(!objectIds)
 			objectIds = null;
+		if(!responseOptions)
+			responseOptions = null;
 		var kparams = new Object();
 		kparams.reportType = reportType;
 		kparams.reportInputFilter = reportInputFilter;
 		kparams.objectIds = objectIds;
+		if (responseOptions != null)
+			kparams.responseOptions = responseOptions;
 		return new KalturaRequestBuilder("report", "getBaseTotal", kparams);
 	},
 	
@@ -39,17 +44,22 @@ var KalturaReportService = {
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
 	 * @param	dimension	string		 (optional, default: null)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
+	 * @param	responseOptions	KalturaReportResponseOptions		 (optional, default: null)
 	 **/
-	getGraphs: function(reportType, reportInputFilter, dimension, objectIds){
+	getGraphs: function(reportType, reportInputFilter, dimension, objectIds, responseOptions){
 		if(!dimension)
 			dimension = null;
 		if(!objectIds)
 			objectIds = null;
+		if(!responseOptions)
+			responseOptions = null;
 		var kparams = new Object();
 		kparams.reportType = reportType;
 		kparams.reportInputFilter = reportInputFilter;
 		kparams.dimension = dimension;
 		kparams.objectIds = objectIds;
+		if (responseOptions != null)
+			kparams.responseOptions = responseOptions;
 		return new KalturaRequestBuilder("report", "getGraphs", kparams);
 	},
 	
@@ -60,18 +70,23 @@ var KalturaReportService = {
 	 * @param	pager	KalturaFilterPager		 (optional)
 	 * @param	order	string		 (optional, default: null)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
+	 * @param	responseOptions	KalturaReportResponseOptions		 (optional, default: null)
 	 **/
-	getTable: function(reportType, reportInputFilter, pager, order, objectIds){
+	getTable: function(reportType, reportInputFilter, pager, order, objectIds, responseOptions){
 		if(!order)
 			order = null;
 		if(!objectIds)
 			objectIds = null;
+		if(!responseOptions)
+			responseOptions = null;
 		var kparams = new Object();
 		kparams.reportType = reportType;
 		kparams.reportInputFilter = reportInputFilter;
 		kparams.pager = pager;
 		kparams.order = order;
 		kparams.objectIds = objectIds;
+		if (responseOptions != null)
+			kparams.responseOptions = responseOptions;
 		return new KalturaRequestBuilder("report", "getTable", kparams);
 	},
 	
@@ -80,14 +95,19 @@ var KalturaReportService = {
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
+	 * @param	responseOptions	KalturaReportResponseOptions		 (optional, default: null)
 	 **/
-	getTotal: function(reportType, reportInputFilter, objectIds){
+	getTotal: function(reportType, reportInputFilter, objectIds, responseOptions){
 		if(!objectIds)
 			objectIds = null;
+		if(!responseOptions)
+			responseOptions = null;
 		var kparams = new Object();
 		kparams.reportType = reportType;
 		kparams.reportInputFilter = reportInputFilter;
 		kparams.objectIds = objectIds;
+		if (responseOptions != null)
+			kparams.responseOptions = responseOptions;
 		return new KalturaRequestBuilder("report", "getTotal", kparams);
 	},
 	
@@ -102,8 +122,9 @@ var KalturaReportService = {
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
 	 * @param	order	string		 (optional, default: null)
 	 * @param	objectIds	string		- one ID or more (separated by ',') of specific objects to query (optional, default: null)
+	 * @param	responseOptions	KalturaReportResponseOptions		 (optional, default: null)
 	 **/
-	getUrlForReportAsCsv: function(reportTitle, reportText, headers, reportType, reportInputFilter, dimension, pager, order, objectIds){
+	getUrlForReportAsCsv: function(reportTitle, reportText, headers, reportType, reportInputFilter, dimension, pager, order, objectIds, responseOptions){
 		if(!dimension)
 			dimension = null;
 		if(!pager)
@@ -112,6 +133,8 @@ var KalturaReportService = {
 			order = null;
 		if(!objectIds)
 			objectIds = null;
+		if(!responseOptions)
+			responseOptions = null;
 		var kparams = new Object();
 		kparams.reportTitle = reportTitle;
 		kparams.reportText = reportText;
@@ -123,6 +146,8 @@ var KalturaReportService = {
 			kparams.pager = pager;
 		kparams.order = order;
 		kparams.objectIds = objectIds;
+		if (responseOptions != null)
+			kparams.responseOptions = responseOptions;
 		return new KalturaRequestBuilder("report", "getUrlForReportAsCsv", kparams);
 	},
 	
