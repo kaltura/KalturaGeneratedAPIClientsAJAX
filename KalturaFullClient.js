@@ -5976,6 +5976,76 @@ var KalturaAuditTrailService = {
 }
 
 /**
+ *Class definition for the Kaltura service: beacon.
+ **/
+var KalturaBeaconService = {
+	/**
+	 * .
+	 * @param	beacon	KalturaBeacon		 (optional)
+	 * @param	shouldLog	int		 (optional, enum: KalturaNullableBoolean)
+	 **/
+	add: function(beacon, shouldLog){
+		if(!shouldLog)
+			shouldLog = 0;
+		var kparams = new Object();
+		kparams.beacon = beacon;
+		kparams.shouldLog = shouldLog;
+		return new KalturaRequestBuilder("beacon_beacon", "add", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaBeaconEnhanceFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	enhanceSearch: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "enhanceSearch", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaBeaconFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	searchParams	KalturaBeaconSearchParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
+	 **/
+	searchScheduledResource: function(searchParams, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "searchScheduledResource", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: bulk.
  **/
 var KalturaBulkService = {
@@ -6305,6 +6375,59 @@ var KalturaCaptionAssetItemService = {
 		if (captionAssetItemPager != null)
 			kparams.captionAssetItemPager = captionAssetItemPager;
 		return new KalturaRequestBuilder("captionsearch_captionassetitem", "searchEntries", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: confMaps.
+ **/
+var KalturaConfMapsService = {
+	/**
+	 * Add configuration map.
+	 * @param	map	KalturaConfMaps		 (optional)
+	 **/
+	add: function(map){
+		var kparams = new Object();
+		kparams.map = map;
+		return new KalturaRequestBuilder("confmaps_confmaps", "add", kparams);
+	},
+	
+	/**
+	 * Get configuration map.
+	 * @param	filter	KalturaConfMapsFilter		 (optional)
+	 **/
+	get: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("confmaps_confmaps", "get", kparams);
+	},
+	
+	/**
+	 * List configuration maps names.
+	 **/
+	getMapNames: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("confmaps_confmaps", "getMapNames", kparams);
+	},
+	
+	/**
+	 * List configuration maps.
+	 * @param	filter	KalturaConfMapsFilter		 (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("confmaps_confmaps", "list", kparams);
+	},
+	
+	/**
+	 * Update configuration map.
+	 * @param	map	KalturaConfMaps		 (optional)
+	 **/
+	update: function(map){
+		var kparams = new Object();
+		kparams.map = map;
+		return new KalturaRequestBuilder("confmaps_confmaps", "update", kparams);
 	}
 }
 
@@ -8720,6 +8843,34 @@ var KalturaScheduledTaskProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: searchHistory.
+ **/
+var KalturaSearchHistoryService = {
+	/**
+	 * .
+	 * @param	searchTerm	string		 (optional)
+	 **/
+	deleteAction: function(searchTerm){
+		var kparams = new Object();
+		kparams.searchTerm = searchTerm;
+		return new KalturaRequestBuilder("searchhistory_searchhistory", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaESearchHistoryFilter		 (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("searchhistory_searchhistory", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: shortLink.
  **/
 var KalturaShortLinkService = {
@@ -9577,7 +9728,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-03');
+	this.setClientTag('ajax:19-03-04');
 	this.setApiVersion('14.15.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
