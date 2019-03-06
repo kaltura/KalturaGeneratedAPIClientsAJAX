@@ -61,5 +61,17 @@ var KalturaGroupUserService = {
 		kparams.removeFromExistingGroups = removeFromExistingGroups;
 		kparams.createNewGroups = createNewGroups;
 		return new KalturaRequestBuilder("groupuser", "sync", kparams);
+	},
+	
+	/**
+	 * update GroupUser.
+	 * @param	groupUserId	string		 (optional)
+	 * @param	groupUser	KalturaGroupUser		Id (optional)
+	 **/
+	update: function(groupUserId, groupUser){
+		var kparams = new Object();
+		kparams.groupUserId = groupUserId;
+		kparams.groupUser = groupUser;
+		return new KalturaRequestBuilder("groupuser", "update", kparams);
 	}
 }
