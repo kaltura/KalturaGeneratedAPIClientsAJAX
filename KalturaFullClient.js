@@ -8499,6 +8499,348 @@ var KalturaQuizService = {
 }
 
 /**
+ *Class definition for the Kaltura service: vendorCatalogItem.
+ **/
+var KalturaVendorCatalogItemService = {
+	/**
+	 * Allows you to add an service catalog item.
+	 * @param	vendorCatalogItem	KalturaVendorCatalogItem		 (optional)
+	 **/
+	add: function(vendorCatalogItem){
+		var kparams = new Object();
+		kparams.vendorCatalogItem = vendorCatalogItem;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "add", kparams);
+	},
+	
+	/**
+	 * Delete vedor catalog item object.
+	 * @param	id	int		 (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve specific catalog item by id.
+	 * @param	id	int		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "get", kparams);
+	},
+	
+	/**
+	 * List KalturaVendorCatalogItem objects.
+	 * @param	filter	KalturaVendorCatalogItemFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing vedor catalog item object.
+	 * @param	id	int		 (optional)
+	 * @param	vendorCatalogItem	KalturaVendorCatalogItem		 (optional)
+	 **/
+	update: function(id, vendorCatalogItem){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.vendorCatalogItem = vendorCatalogItem;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "update", kparams);
+	},
+	
+	/**
+	 * Update vendor catalog item status by id.
+	 * @param	id	int		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaVendorCatalogItemStatus)
+	 **/
+	updateStatus: function(id, status){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.status = status;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "updateStatus", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: reachProfile.
+ **/
+var KalturaReachProfileService = {
+	/**
+	 * Allows you to add a partner specific reach profile.
+	 * @param	reachProfile	KalturaReachProfile		 (optional)
+	 **/
+	add: function(reachProfile){
+		var kparams = new Object();
+		kparams.reachProfile = reachProfile;
+		return new KalturaRequestBuilder("reach_reachprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete vednor profile by id.
+	 * @param	id	int		 (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_reachprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve specific reach profile by id.
+	 * @param	id	int		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_reachprofile", "get", kparams);
+	},
+	
+	/**
+	 * List KalturaReachProfile objects.
+	 * @param	filter	KalturaReachProfileFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("reach_reachprofile", "list", kparams);
+	},
+	
+	/**
+	 * sync vednor profile credit.
+	 * @param	reachProfileId	int		 (optional)
+	 **/
+	syncCredit: function(reachProfileId){
+		var kparams = new Object();
+		kparams.reachProfileId = reachProfileId;
+		return new KalturaRequestBuilder("reach_reachprofile", "syncCredit", kparams);
+	},
+	
+	/**
+	 * Update an existing reach profile object.
+	 * @param	id	int		 (optional)
+	 * @param	reachProfile	KalturaReachProfile		 (optional)
+	 **/
+	update: function(id, reachProfile){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.reachProfile = reachProfile;
+		return new KalturaRequestBuilder("reach_reachprofile", "update", kparams);
+	},
+	
+	/**
+	 * Update reach profile status by id.
+	 * @param	id	int		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaReachProfileStatus)
+	 **/
+	updateStatus: function(id, status){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.status = status;
+		return new KalturaRequestBuilder("reach_reachprofile", "updateStatus", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: entryVendorTask.
+ **/
+var KalturaEntryVendorTaskService = {
+	/**
+	 * Cancel entry task. will only occur for task in PENDING or PENDING_MODERATION status.
+	 * @param	id	int		vendor task id (optional)
+	 * @param	abortReason	string		 (optional, default: null)
+	 **/
+	abort: function(id, abortReason){
+		if(!abortReason)
+			abortReason = null;
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.abortReason = abortReason;
+		return new KalturaRequestBuilder("reach_entryvendortask", "abort", kparams);
+	},
+	
+	/**
+	 * Allows you to add a entry vendor task.
+	 * @param	entryVendorTask	KalturaEntryVendorTask		 (optional)
+	 **/
+	add: function(entryVendorTask){
+		var kparams = new Object();
+		kparams.entryVendorTask = entryVendorTask;
+		return new KalturaRequestBuilder("reach_entryvendortask", "add", kparams);
+	},
+	
+	/**
+	 * Approve entry vendor task for execution..
+	 * @param	id	int		vendor task id to approve (optional)
+	 **/
+	approve: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_entryvendortask", "approve", kparams);
+	},
+	
+	/**
+	 * add batch job that sends an email with a link to download an updated CSV that contains list of users.
+	 * @param	filter	KalturaEntryVendorTaskFilter		A filter used to exclude specific tasks (optional)
+	 **/
+	exportToCsv: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("reach_entryvendortask", "exportToCsv", kparams);
+	},
+	
+	/**
+	 * Extend access key in case the existing one has expired..
+	 * @param	id	int		vendor task id (optional)
+	 **/
+	extendAccessKey: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_entryvendortask", "extendAccessKey", kparams);
+	},
+	
+	/**
+	 * Retrieve specific entry vendor task by id.
+	 * @param	id	int		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_entryvendortask", "get", kparams);
+	},
+	
+	/**
+	 * get KalturaEntryVendorTask objects for specific vendor partner.
+	 * @param	filter	KalturaEntryVendorTaskFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	getJobs: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("reach_entryvendortask", "getJobs", kparams);
+	},
+	
+	/**
+	 * List KalturaEntryVendorTask objects.
+	 * @param	filter	KalturaEntryVendorTaskFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("reach_entryvendortask", "list", kparams);
+	},
+	
+	/**
+	 * Reject entry vendor task for execution..
+	 * @param	id	int		vendor task id to reject (optional)
+	 * @param	rejectReason	string		 (optional, default: null)
+	 **/
+	reject: function(id, rejectReason){
+		if(!rejectReason)
+			rejectReason = null;
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.rejectReason = rejectReason;
+		return new KalturaRequestBuilder("reach_entryvendortask", "reject", kparams);
+	},
+	
+	/**
+	 * Will serve a requested csv.
+	 * @param	id	string		- the requested file id (optional)
+	 **/
+	serveCsv: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_entryvendortask", "serveCsv", kparams);
+	},
+	
+	/**
+	 * Update entry vendor task. Only the properties that were set will be updated..
+	 * @param	id	int		vendor task id to update (optional)
+	 * @param	entryVendorTask	KalturaEntryVendorTask		evntry vendor task to update (optional)
+	 **/
+	update: function(id, entryVendorTask){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.entryVendorTask = entryVendorTask;
+		return new KalturaRequestBuilder("reach_entryvendortask", "update", kparams);
+	},
+	
+	/**
+	 * Update entry vendor task. Only the properties that were set will be updated..
+	 * @param	id	int		vendor task id to update (optional)
+	 * @param	entryVendorTask	KalturaEntryVendorTask		evntry vendor task to update (optional)
+	 **/
+	updateJob: function(id, entryVendorTask){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.entryVendorTask = entryVendorTask;
+		return new KalturaRequestBuilder("reach_entryvendortask", "updateJob", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: PartnerCatalogItem.
+ **/
+var KalturaPartnerCatalogItemService = {
+	/**
+	 * Assign existing catalogItem to specific account.
+	 * @param	id	int		source catalog item to assign to partner (optional)
+	 **/
+	add: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_partnercatalogitem", "add", kparams);
+	},
+	
+	/**
+	 * Remove existing catalogItem from specific account.
+	 * @param	id	int		source catalog item to remove (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("reach_partnercatalogitem", "delete", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: scheduleEvent.
  **/
 var KalturaScheduleEventService = {
@@ -9740,7 +10082,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-06');
+	this.setClientTag('ajax:19-03-07');
 	this.setApiVersion('14.16.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
