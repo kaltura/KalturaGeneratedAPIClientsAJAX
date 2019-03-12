@@ -35,6 +35,21 @@ var KalturaESearchService = {
 	
 	/**
 	 * .
+	 * @param	searchParams	KalturaESearchGroupParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
+	 **/
+	searchGroup: function(searchParams, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchGroup", kparams);
+	},
+	
+	/**
+	 * .
 	 * @param	searchParams	KalturaESearchUserParams		 (optional)
 	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/

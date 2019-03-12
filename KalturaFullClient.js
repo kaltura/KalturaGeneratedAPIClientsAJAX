@@ -7569,6 +7569,21 @@ var KalturaESearchService = {
 	
 	/**
 	 * .
+	 * @param	searchParams	KalturaESearchGroupParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
+	 **/
+	searchGroup: function(searchParams, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchGroup", kparams);
+	},
+	
+	/**
+	 * .
 	 * @param	searchParams	KalturaESearchUserParams		 (optional)
 	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/
@@ -10029,7 +10044,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-11');
+	this.setClientTag('ajax:19-03-12');
 	this.setApiVersion('14.16.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
