@@ -1528,6 +1528,21 @@ var KalturaEntryServerNodeService = {
 }
 
 /**
+ *Class definition for the Kaltura service: exportcsv.
+ **/
+var KalturaExportcsvService = {
+	/**
+	 * Will serve a requested CSV.
+	 * @param	id	string		- the requested file id (optional)
+	 **/
+	serveCsv: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("exportcsv", "serveCsv", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: fileAsset.
  **/
 var KalturaFileAssetService = {
@@ -2916,6 +2931,16 @@ var KalturaMediaService = {
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		return new KalturaRequestBuilder("media", "delete", kparams);
+	},
+	
+	/**
+	 * Creates a batch job that sends an email with a link to download a CSV containing a list of entries.
+	 * @param	data	KalturaMediaEsearchExportToCsvJobData		job data indicating filter to pass to the job (optional)
+	 **/
+	exportToCsv: function(data){
+		var kparams = new Object();
+		kparams.data = data;
+		return new KalturaRequestBuilder("media", "exportToCsv", kparams);
 	},
 	
 	/**
@@ -7857,6 +7882,18 @@ var KalturaGroupService = {
 	},
 	
 	/**
+	 * clone the group (groupId), and set group id with the neeGroupName..
+	 * @param	originalGroupId	string		The unique identifier in the partner's system (optional)
+	 * @param	newGroupName	string		The unique identifier in the partner's system (optional)
+	 **/
+	cloneAction: function(originalGroupId, newGroupName){
+		var kparams = new Object();
+		kparams.originalGroupId = originalGroupId;
+		kparams.newGroupName = newGroupName;
+		return new KalturaRequestBuilder("group_group", "clone", kparams);
+	},
+	
+	/**
 	 * Delete group by ID.
 	 * @param	groupId	string		The unique identifier in the partner's system (optional)
 	 **/
@@ -10111,8 +10148,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-19');
-	this.setApiVersion('14.16.0');
+	this.setClientTag('ajax:19-03-26');
+	this.setApiVersion('14.17.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

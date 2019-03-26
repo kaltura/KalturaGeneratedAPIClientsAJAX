@@ -242,6 +242,16 @@ var KalturaMediaService = {
 	},
 	
 	/**
+	 * Creates a batch job that sends an email with a link to download a CSV containing a list of entries.
+	 * @param	data	KalturaMediaEsearchExportToCsvJobData		job data indicating filter to pass to the job (optional)
+	 **/
+	exportToCsv: function(data){
+		var kparams = new Object();
+		kparams.data = data;
+		return new KalturaRequestBuilder("media", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * Flag inappropriate media entry for moderation.
 	 * @param	moderationFlag	KalturaModerationFlag		 (optional)
 	 **/

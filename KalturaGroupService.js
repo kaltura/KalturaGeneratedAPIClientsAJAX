@@ -14,6 +14,18 @@ var KalturaGroupService = {
 	},
 	
 	/**
+	 * clone the group (groupId), and set group id with the neeGroupName..
+	 * @param	originalGroupId	string		The unique identifier in the partner's system (optional)
+	 * @param	newGroupName	string		The unique identifier in the partner's system (optional)
+	 **/
+	cloneAction: function(originalGroupId, newGroupName){
+		var kparams = new Object();
+		kparams.originalGroupId = originalGroupId;
+		kparams.newGroupName = newGroupName;
+		return new KalturaRequestBuilder("group_group", "clone", kparams);
+	},
+	
+	/**
 	 * Delete group by ID.
 	 * @param	groupId	string		The unique identifier in the partner's system (optional)
 	 **/
