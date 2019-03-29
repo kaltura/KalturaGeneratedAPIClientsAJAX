@@ -18,6 +18,16 @@ var KalturaReportService = {
 	},
 	
 	/**
+	 * .
+	 * @param	params	KalturaReportExportParams		 (optional)
+	 **/
+	exportToCsv: function(params){
+		var kparams = new Object();
+		kparams.params = params;
+		return new KalturaRequestBuilder("report", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * report getBaseTotal action allows to get the total base for storage reports.
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)

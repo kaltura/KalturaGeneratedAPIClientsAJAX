@@ -3812,6 +3812,16 @@ var KalturaReportService = {
 	},
 	
 	/**
+	 * .
+	 * @param	params	KalturaReportExportParams		 (optional)
+	 **/
+	exportToCsv: function(params){
+		var kparams = new Object();
+		kparams.params = params;
+		return new KalturaRequestBuilder("report", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * report getBaseTotal action allows to get the total base for storage reports.
 	 * @param	reportType	string		 (optional, enum: KalturaReportType)
 	 * @param	reportInputFilter	KalturaReportInputFilter		 (optional)
@@ -10148,7 +10158,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-28');
+	this.setClientTag('ajax:19-03-29');
 	this.setApiVersion('14.17.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
