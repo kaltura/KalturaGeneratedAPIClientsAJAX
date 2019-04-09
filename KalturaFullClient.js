@@ -5761,11 +5761,15 @@ var KalturaAnnotationService = {
 	 * Clone cuePoint with id to given entry.
 	 * @param	id	string		 (optional)
 	 * @param	entryId	string		 (optional)
+	 * @param	parentId	string		 (optional, default: null)
 	 **/
-	cloneAction: function(id, entryId){
+	cloneAction: function(id, entryId, parentId){
+		if(!parentId)
+			parentId = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.entryId = entryId;
+		kparams.parentId = parentId;
 		return new KalturaRequestBuilder("annotation_annotation", "clone", kparams);
 	},
 	
@@ -10158,8 +10162,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-04-08');
-	this.setApiVersion('14.17.0');
+	this.setClientTag('ajax:19-04-09');
+	this.setApiVersion('14.18.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

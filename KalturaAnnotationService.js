@@ -28,11 +28,15 @@ var KalturaAnnotationService = {
 	 * Clone cuePoint with id to given entry.
 	 * @param	id	string		 (optional)
 	 * @param	entryId	string		 (optional)
+	 * @param	parentId	string		 (optional, default: null)
 	 **/
-	cloneAction: function(id, entryId){
+	cloneAction: function(id, entryId, parentId){
+		if(!parentId)
+			parentId = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.entryId = entryId;
+		kparams.parentId = parentId;
 		return new KalturaRequestBuilder("annotation_annotation", "clone", kparams);
 	},
 	
