@@ -38,6 +38,18 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Returns partner public info by Id.
+	 * @param	id	int		 (optional, default: null)
+	 **/
+	getPublicInfo: function(id){
+		if(!id)
+			id = null;
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("partner", "getPublicInfo", kparams);
+	},
+	
+	/**
 	 * Retrieve partner secret and admin secret.
 	 * @param	partnerId	int		 (optional)
 	 * @param	adminEmail	string		 (optional)

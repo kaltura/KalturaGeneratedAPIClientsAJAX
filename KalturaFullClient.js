@@ -3345,6 +3345,18 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Returns partner public info by Id.
+	 * @param	id	int		 (optional, default: null)
+	 **/
+	getPublicInfo: function(id){
+		if(!id)
+			id = null;
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("partner", "getPublicInfo", kparams);
+	},
+	
+	/**
 	 * Retrieve partner secret and admin secret.
 	 * @param	partnerId	int		 (optional)
 	 * @param	adminEmail	string		 (optional)
@@ -10166,7 +10178,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-05-20');
+	this.setClientTag('ajax:19-05-21');
 	this.setApiVersion('15.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
