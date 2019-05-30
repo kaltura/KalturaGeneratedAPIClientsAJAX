@@ -16,7 +16,7 @@ var KalturaScheduleEventService = {
 	/**
 	 * Add new bulk upload batch job.
 	 * @param	fileData	HTMLElement		 (optional)
-	 * @param	bulkUploadData	KalturaBulkUploadICalJobData		 (optional, default: null)
+	 * @param	bulkUploadData	KalturaBulkUploadScheduleEventJobData		 (optional, default: null)
 	 **/
 	addFromBulkUpload: function(fileData, bulkUploadData){
 		if(!bulkUploadData)

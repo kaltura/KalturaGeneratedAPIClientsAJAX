@@ -8953,7 +8953,7 @@ var KalturaScheduleEventService = {
 	/**
 	 * Add new bulk upload batch job.
 	 * @param	fileData	HTMLElement		 (optional)
-	 * @param	bulkUploadData	KalturaBulkUploadICalJobData		 (optional, default: null)
+	 * @param	bulkUploadData	KalturaBulkUploadScheduleEventJobData		 (optional, default: null)
 	 **/
 	addFromBulkUpload: function(fileData, bulkUploadData){
 		if(!bulkUploadData)
@@ -10178,8 +10178,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-05-29');
-	this.setApiVersion('15.0.0');
+	this.setClientTag('ajax:19-05-30');
+	this.setApiVersion('15.1.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
