@@ -5477,6 +5477,16 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * get QR image content.
+	 * @param	hashKey	string		 (optional)
+	 **/
+	generateQrCode: function(hashKey){
+		var kparams = new Object();
+		kparams.hashKey = hashKey;
+		return new KalturaRequestBuilder("user", "generateQrCode", kparams);
+	},
+	
+	/**
 	 * Retrieves a user object for a specified user ID..
 	 * @param	userId	string		The user's unique identifier in the partner's system (optional, default: null)
 	 **/
@@ -10178,7 +10188,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-06-04');
+	this.setClientTag('ajax:19-06-05');
 	this.setApiVersion('15.1.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);

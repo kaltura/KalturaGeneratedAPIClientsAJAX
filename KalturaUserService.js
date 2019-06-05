@@ -110,6 +110,16 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * get QR image content.
+	 * @param	hashKey	string		 (optional)
+	 **/
+	generateQrCode: function(hashKey){
+		var kparams = new Object();
+		kparams.hashKey = hashKey;
+		return new KalturaRequestBuilder("user", "generateQrCode", kparams);
+	},
+	
+	/**
 	 * Retrieves a user object for a specified user ID..
 	 * @param	userId	string		The user's unique identifier in the partner's system (optional, default: null)
 	 **/
