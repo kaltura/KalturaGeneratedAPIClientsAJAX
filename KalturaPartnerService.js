@@ -54,12 +54,16 @@ var KalturaPartnerService = {
 	 * @param	partnerId	int		 (optional)
 	 * @param	adminEmail	string		 (optional)
 	 * @param	cmsPassword	string		 (optional)
+	 * @param	otp	string		 (optional, default: null)
 	 **/
-	getSecrets: function(partnerId, adminEmail, cmsPassword){
+	getSecrets: function(partnerId, adminEmail, cmsPassword, otp){
+		if(!otp)
+			otp = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.adminEmail = adminEmail;
 		kparams.cmsPassword = cmsPassword;
+		kparams.otp = otp;
 		return new KalturaRequestBuilder("partner", "getSecrets", kparams);
 	},
 	
