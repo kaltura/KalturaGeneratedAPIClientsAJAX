@@ -177,17 +177,21 @@ var KalturaAdminUserService = {
 	 * @param	password	string		 (optional)
 	 * @param	newEmail	string		Optional, provide only when you want to update the email (optional)
 	 * @param	newPassword	string		 (optional)
+	 * @param	otp	string		the user's one-time password (optional, default: null)
 	 **/
-	updatePassword: function(email, password, newEmail, newPassword){
+	updatePassword: function(email, password, newEmail, newPassword, otp){
 		if(!newEmail)
 			newEmail = "";
 		if(!newPassword)
 			newPassword = "";
+		if(!otp)
+			otp = null;
 		var kparams = new Object();
 		kparams.email = email;
 		kparams.password = password;
 		kparams.newEmail = newEmail;
 		kparams.newPassword = newPassword;
+		kparams.otp = otp;
 		return new KalturaRequestBuilder("adminuser", "updatePassword", kparams);
 	}
 }
@@ -5670,8 +5674,9 @@ var KalturaUserService = {
 	 * @param	newPassword	string		Optional, The user's new password (optional)
 	 * @param	newFirstName	string		Optional, The user's new first name (optional, default: null)
 	 * @param	newLastName	string		Optional, The user's new last name (optional, default: null)
+	 * @param	otp	string		the user's one-time password (optional, default: null)
 	 **/
-	updateLoginData: function(oldLoginId, password, newLoginId, newPassword, newFirstName, newLastName){
+	updateLoginData: function(oldLoginId, password, newLoginId, newPassword, newFirstName, newLastName, otp){
 		if(!newLoginId)
 			newLoginId = "";
 		if(!newPassword)
@@ -5680,6 +5685,8 @@ var KalturaUserService = {
 			newFirstName = null;
 		if(!newLastName)
 			newLastName = null;
+		if(!otp)
+			otp = null;
 		var kparams = new Object();
 		kparams.oldLoginId = oldLoginId;
 		kparams.password = password;
@@ -5687,6 +5694,7 @@ var KalturaUserService = {
 		kparams.newPassword = newPassword;
 		kparams.newFirstName = newFirstName;
 		kparams.newLastName = newLastName;
+		kparams.otp = otp;
 		return new KalturaRequestBuilder("user", "updateLoginData", kparams);
 	}
 }
@@ -10192,7 +10200,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-07-10');
+	this.setClientTag('ajax:19-07-17');
 	this.setApiVersion('15.3.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);

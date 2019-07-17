@@ -299,8 +299,9 @@ var KalturaUserService = {
 	 * @param	newPassword	string		Optional, The user's new password (optional)
 	 * @param	newFirstName	string		Optional, The user's new first name (optional, default: null)
 	 * @param	newLastName	string		Optional, The user's new last name (optional, default: null)
+	 * @param	otp	string		the user's one-time password (optional, default: null)
 	 **/
-	updateLoginData: function(oldLoginId, password, newLoginId, newPassword, newFirstName, newLastName){
+	updateLoginData: function(oldLoginId, password, newLoginId, newPassword, newFirstName, newLastName, otp){
 		if(!newLoginId)
 			newLoginId = "";
 		if(!newPassword)
@@ -309,6 +310,8 @@ var KalturaUserService = {
 			newFirstName = null;
 		if(!newLastName)
 			newLastName = null;
+		if(!otp)
+			otp = null;
 		var kparams = new Object();
 		kparams.oldLoginId = oldLoginId;
 		kparams.password = password;
@@ -316,6 +319,7 @@ var KalturaUserService = {
 		kparams.newPassword = newPassword;
 		kparams.newFirstName = newFirstName;
 		kparams.newLastName = newLastName;
+		kparams.otp = otp;
 		return new KalturaRequestBuilder("user", "updateLoginData", kparams);
 	}
 }

@@ -47,17 +47,21 @@ var KalturaAdminUserService = {
 	 * @param	password	string		 (optional)
 	 * @param	newEmail	string		Optional, provide only when you want to update the email (optional)
 	 * @param	newPassword	string		 (optional)
+	 * @param	otp	string		the user's one-time password (optional, default: null)
 	 **/
-	updatePassword: function(email, password, newEmail, newPassword){
+	updatePassword: function(email, password, newEmail, newPassword, otp){
 		if(!newEmail)
 			newEmail = "";
 		if(!newPassword)
 			newPassword = "";
+		if(!otp)
+			otp = null;
 		var kparams = new Object();
 		kparams.email = email;
 		kparams.password = password;
 		kparams.newEmail = newEmail;
 		kparams.newPassword = newPassword;
+		kparams.otp = otp;
 		return new KalturaRequestBuilder("adminuser", "updatePassword", kparams);
 	}
 }
