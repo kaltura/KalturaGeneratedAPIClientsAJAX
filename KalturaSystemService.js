@@ -6,6 +6,14 @@ var KalturaSystemService = {
 	/**
 	 * .
 	 **/
+	getHealthCheck: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("system", "getHealthCheck", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
 	getTime: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "getTime", kparams);

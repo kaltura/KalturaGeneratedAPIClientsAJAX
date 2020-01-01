@@ -4653,6 +4653,14 @@ var KalturaSystemService = {
 	/**
 	 * .
 	 **/
+	getHealthCheck: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("system", "getHealthCheck", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
 	getTime: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "getTime", kparams);
@@ -10200,7 +10208,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-12-31');
+	this.setClientTag('ajax:20-01-01');
 	this.setApiVersion('15.14.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
