@@ -62,6 +62,16 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * Archive a live entry which was recorded.
+	 * @param	liveEntryId	string		 (optional)
+	 **/
+	archive: function(liveEntryId){
+		var kparams = new Object();
+		kparams.liveEntryId = liveEntryId;
+		return new KalturaRequestBuilder("livestream", "archive", kparams);
+	},
+	
+	/**
 	 * Authenticate live-stream entry against stream token and partner limitations.
 	 * @param	entryId	string		Live stream entry id (optional)
 	 * @param	token	string		Live stream broadcasting token (optional)

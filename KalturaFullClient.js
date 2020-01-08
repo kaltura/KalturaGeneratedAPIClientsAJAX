@@ -2433,6 +2433,16 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * Archive a live entry which was recorded.
+	 * @param	liveEntryId	string		 (optional)
+	 **/
+	archive: function(liveEntryId){
+		var kparams = new Object();
+		kparams.liveEntryId = liveEntryId;
+		return new KalturaRequestBuilder("livestream", "archive", kparams);
+	},
+	
+	/**
 	 * Authenticate live-stream entry against stream token and partner limitations.
 	 * @param	entryId	string		Live stream entry id (optional)
 	 * @param	token	string		Live stream broadcasting token (optional)
@@ -10208,8 +10218,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-01-07');
-	this.setApiVersion('15.14.0');
+	this.setClientTag('ajax:20-01-08');
+	this.setApiVersion('15.15.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
