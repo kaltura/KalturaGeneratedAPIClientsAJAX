@@ -149,6 +149,16 @@ var KalturaLiveStreamService = {
 	
 	/**
 	 * Delivering the status of a live stream (on-air/offline) if it is possible.
+	 * @param	id	string		ID of the live stream entry (optional)
+	 **/
+	getDetails: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("livestream", "getDetails", kparams);
+	},
+	
+	/**
+	 * Delivering the status of a live stream (on-air/offline) if it is possible.
 	 * @param	id	string		ID of the live stream (optional)
 	 * @param	protocol	string		protocol of the stream to test. (optional, enum: KalturaPlaybackProtocol)
 	 **/
