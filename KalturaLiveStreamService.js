@@ -64,10 +64,12 @@ var KalturaLiveStreamService = {
 	/**
 	 * Archive a live entry which was recorded.
 	 * @param	liveEntryId	string		 (optional)
+	 * @param	vodEntryId	string		 (optional)
 	 **/
-	archive: function(liveEntryId){
+	archive: function(liveEntryId, vodEntryId){
 		var kparams = new Object();
 		kparams.liveEntryId = liveEntryId;
+		kparams.vodEntryId = vodEntryId;
 		return new KalturaRequestBuilder("livestream", "archive", kparams);
 	},
 	

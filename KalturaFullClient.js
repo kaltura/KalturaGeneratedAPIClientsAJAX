@@ -2435,10 +2435,12 @@ var KalturaLiveStreamService = {
 	/**
 	 * Archive a live entry which was recorded.
 	 * @param	liveEntryId	string		 (optional)
+	 * @param	vodEntryId	string		 (optional)
 	 **/
-	archive: function(liveEntryId){
+	archive: function(liveEntryId, vodEntryId){
 		var kparams = new Object();
 		kparams.liveEntryId = liveEntryId;
+		kparams.vodEntryId = vodEntryId;
 		return new KalturaRequestBuilder("livestream", "archive", kparams);
 	},
 	
@@ -10228,7 +10230,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-02-11');
+	this.setClientTag('ajax:20-02-12');
 	this.setApiVersion('15.17.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
