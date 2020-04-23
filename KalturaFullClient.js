@@ -2411,6 +2411,20 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * Allocates a conference room or returns ones that has already been allocated.
+	 * @param	entryId	string		 (optional)
+	 * @param	env	string		 (optional)
+	 **/
+	allocateConferenceRoom: function(entryId, env){
+		if(!env)
+			env = "";
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.env = env;
+		return new KalturaRequestBuilder("livestream", "allocateConferenceRoom", kparams);
+	},
+	
+	/**
 	 * Append recorded video to live entry.
 	 * @param	entryId	string		Live entry id (optional)
 	 * @param	assetId	string		Live asset id (optional)
@@ -2507,6 +2521,20 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * When the conf is finished this API should be called..
+	 * @param	entryId	string		 (optional)
+	 * @param	serverNodeId	int		 (optional, default: null)
+	 **/
+	finishConf: function(entryId, serverNodeId){
+		if(!serverNodeId)
+			serverNodeId = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.serverNodeId = serverNodeId;
+		return new KalturaRequestBuilder("livestream", "finishConf", kparams);
+	},
+	
+	/**
 	 * Get live stream entry by ID..
 	 * @param	entryId	string		Live stream entry id (optional)
 	 * @param	version	int		Desired version of the data (optional, default: -1)
@@ -2568,6 +2596,16 @@ var KalturaLiveStreamService = {
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		return new KalturaRequestBuilder("livestream", "regenerateStreamToken", kparams);
+	},
+	
+	/**
+	 * Mark that the conference has actually started.
+	 * @param	entryId	string		 (optional)
+	 **/
+	registerConf: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("livestream", "registerConf", kparams);
 	},
 	
 	/**
@@ -8647,6 +8685,53 @@ var KalturaQuizService = {
 }
 
 /**
+ *Class definition for the Kaltura service: rating.
+ **/
+var KalturaRatingService = {
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	checkRating: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("rating_rating", "checkRating", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaRatingCountFilter		 (optional)
+	 **/
+	getRatingCounts: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("rating_rating", "getRatingCounts", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 * @param	rank	int		 (optional)
+	 **/
+	rate: function(entryId, rank){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.rank = rank;
+		return new KalturaRequestBuilder("rating_rating", "rate", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	removeRating: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("rating_rating", "removeRating", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: vendorCatalogItem.
  **/
 var KalturaVendorCatalogItemService = {
@@ -9438,6 +9523,135 @@ var KalturaShortLinkService = {
 }
 
 /**
+ *Class definition for the Kaltura service: pexip.
+ **/
+var KalturaPexipService = {
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 * @param	regenerate	bool		 (optional, default: false)
+	 **/
+	generateSipUrl: function(entryId, regenerate){
+		if(!regenerate)
+			regenerate = false;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.regenerate = regenerate;
+		return new KalturaRequestBuilder("sip_pexip", "generateSipUrl", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
+	handleIncomingCall: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("sip_pexip", "handleIncomingCall", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	offset	int		 (optional)
+	 * @param	pageSize	int		 (optional, default: 500)
+	 * @param	activeOnly	bool		 (optional, default: false)
+	 **/
+	listRooms: function(offset, pageSize, activeOnly){
+		if(!offset)
+			offset = 0;
+		if(!pageSize)
+			pageSize = 500;
+		if(!activeOnly)
+			activeOnly = false;
+		var kparams = new Object();
+		kparams.offset = offset;
+		kparams.pageSize = pageSize;
+		kparams.activeOnly = activeOnly;
+		return new KalturaRequestBuilder("sip_pexip", "listRooms", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: sso.
+ **/
+var KalturaSsoService = {
+	/**
+	 * Adds a new sso configuration..
+	 * @param	sso	KalturaSso		a new sso configuration (optional)
+	 **/
+	add: function(sso){
+		var kparams = new Object();
+		kparams.sso = sso;
+		return new KalturaRequestBuilder("sso_sso", "add", kparams);
+	},
+	
+	/**
+	 * Delete sso by ID.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 **/
+	deleteAction: function(ssoId){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		return new KalturaRequestBuilder("sso_sso", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieves sso object.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 **/
+	get: function(ssoId){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		return new KalturaRequestBuilder("sso_sso", "get", kparams);
+	},
+	
+	/**
+	 * Lists sso objects that are associated with an account..
+	 * @param	filter	KalturaSsoFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		A limit for the number of records to display on a page (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("sso_sso", "list", kparams);
+	},
+	
+	/**
+	 * Login with SSO, getting redirect url according to application type and partner Id
+ *		 or according to application type and domain.
+	 * @param	userId	string		 (optional)
+	 * @param	applicationType	string		 (optional)
+	 * @param	partnerId	int		 (optional, default: null)
+	 **/
+	login: function(userId, applicationType, partnerId){
+		if(!partnerId)
+			partnerId = null;
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.applicationType = applicationType;
+		kparams.partnerId = partnerId;
+		return new KalturaRequestBuilder("sso_sso", "login", kparams);
+	},
+	
+	/**
+	 * Update sso by ID.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 * @param	sso	KalturaSso		Id The unique identifier in the sso's object (optional)
+	 **/
+	update: function(ssoId, sso){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		kparams.sso = sso;
+		return new KalturaRequestBuilder("sso_sso", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: tag.
  **/
 var KalturaTagService = {
@@ -9476,6 +9690,21 @@ var KalturaTagService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("tagsearch_tag", "search", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: thumbnail.
+ **/
+var KalturaThumbnailService = {
+	/**
+	 * Retrieves a thumbnail according to the required transformation.
+	 * @param	transformString	string		 (optional)
+	 **/
+	transform: function(transformString){
+		var kparams = new Object();
+		kparams.transformString = transformString;
+		return new KalturaRequestBuilder("thumbnail_thumbnail", "transform", kparams);
 	}
 }
 
@@ -9531,6 +9760,59 @@ var KalturaVarConsoleService = {
 		kparams.id = id;
 		kparams.status = status;
 		return new KalturaRequestBuilder("varconsole_varconsole", "updateStatus", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: zoomVendor.
+ **/
+var KalturaZoomVendorService = {
+	/**
+	 * .
+	 **/
+	deAuthorization: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("vendor_zoomvendor", "deAuthorization", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	tokensData	string		 (optional)
+	 * @param	iv	string		 (optional)
+	 **/
+	fetchRegistrationPage: function(tokensData, iv){
+		var kparams = new Object();
+		kparams.tokensData = tokensData;
+		kparams.iv = iv;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "fetchRegistrationPage", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
+	oauthValidation: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("vendor_zoomvendor", "oauthValidation", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
+	recordingComplete: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("vendor_zoomvendor", "recordingComplete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	accountId	string		 (optional)
+	 * @param	integrationSetting	KalturaZoomIntegrationSetting		 (optional)
+	 **/
+	submitRegistration: function(accountId, integrationSetting){
+		var kparams = new Object();
+		kparams.accountId = accountId;
+		kparams.integrationSetting = integrationSetting;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "submitRegistration", kparams);
 	}
 }
 
@@ -10230,7 +10512,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-04-22');
+	this.setClientTag('ajax:20-04-23');
 	this.setApiVersion('16.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
