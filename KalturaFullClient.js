@@ -4596,6 +4596,26 @@ var KalturaStorageProfileService = {
 	},
 	
 	/**
+	 * storage profile lockPendingFileSyncs action locks file syncs for export by the file sync periodic worker.
+	 * @param	filter	KalturaFileSyncFilter		 (optional)
+	 * @param	workerId	int		The id of the file sync import worker (optional)
+	 * @param	storageProfileId	int		The id of the storage profile (optional)
+	 * @param	maxCount	int		The maximum number of file syncs that should be returned (optional)
+	 * @param	maxSize	int		The maximum total size of file syncs that should be returned, this limit may be exceeded by one file sync (optional, default: null)
+	 **/
+	lockPendingFileSyncs: function(filter, workerId, storageProfileId, maxCount, maxSize){
+		if(!maxSize)
+			maxSize = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		kparams.workerId = workerId;
+		kparams.storageProfileId = storageProfileId;
+		kparams.maxCount = maxCount;
+		kparams.maxSize = maxSize;
+		return new KalturaRequestBuilder("storageprofile", "lockPendingFileSyncs", kparams);
+	},
+	
+	/**
 	 * Update storage profile by id.
 	 * @param	storageProfileId	int		 (optional)
 	 * @param	storageProfile	KalturaStorageProfile		Id (optional)
@@ -6296,6 +6316,18 @@ var KalturaCaptionAssetService = {
 		var kparams = new Object();
 		kparams.captionAssetId = captionAssetId;
 		return new KalturaRequestBuilder("caption_captionasset", "delete", kparams);
+	},
+	
+	/**
+	 * manually export an asset.
+	 * @param	assetId	string		 (optional)
+	 * @param	storageProfileId	int		 (optional)
+	 **/
+	exportAction: function(assetId, storageProfileId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.storageProfileId = storageProfileId;
+		return new KalturaRequestBuilder("caption_captionasset", "export", kparams);
 	},
 	
 	/**
@@ -8096,6 +8128,108 @@ var KalturaIntegrationService = {
 }
 
 /**
+ *Class definition for the Kaltura service: interactivity.
+ **/
+var KalturaInteractivityService = {
+	/**
+	 * Add a interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
+	 **/
+	add: function(entryId, kalturaInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.kalturaInteractivity = kalturaInteractivity;
+		return new KalturaRequestBuilder("interactivity_interactivity", "add", kparams);
+	},
+	
+	/**
+	 * Delete a interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	deleteAction: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_interactivity", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	get: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_interactivity", "get", kparams);
+	},
+	
+	/**
+	 * Update an existing interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	version	int		 (optional)
+	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
+	 **/
+	update: function(entryId, version, kalturaInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.version = version;
+		kparams.kalturaInteractivity = kalturaInteractivity;
+		return new KalturaRequestBuilder("interactivity_interactivity", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: volatileInteractivity.
+ **/
+var KalturaVolatileInteractivityService = {
+	/**
+	 * add a volatile interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
+	 **/
+	add: function(entryId, kalturaVolatileInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "add", kparams);
+	},
+	
+	/**
+	 * Delete a volatile interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	deleteAction: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a volatile interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	get: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "get", kparams);
+	},
+	
+	/**
+	 * Update a volatile interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	version	int		 (optional)
+	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
+	 **/
+	update: function(entryId, version, kalturaVolatileInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.version = version;
+		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: like.
  **/
 var KalturaLikeService = {
@@ -8746,6 +8880,27 @@ var KalturaVendorCatalogItemService = {
 	},
 	
 	/**
+	 * .
+	 * @param	fileData	HTMLElement		 (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadJobData		 (optional, default: null)
+	 * @param	bulkUploadVendorCatalogItemData	KalturaBulkUploadVendorCatalogItemData		 (optional, default: null)
+	 **/
+	addFromBulkUpload: function(fileData, bulkUploadData, bulkUploadVendorCatalogItemData){
+		if(!bulkUploadData)
+			bulkUploadData = null;
+		if(!bulkUploadVendorCatalogItemData)
+			bulkUploadVendorCatalogItemData = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		if (bulkUploadData != null)
+			kparams.bulkUploadData = bulkUploadData;
+		if (bulkUploadVendorCatalogItemData != null)
+			kparams.bulkUploadVendorCatalogItemData = bulkUploadVendorCatalogItemData;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
 	 * Delete vedor catalog item object.
 	 * @param	id	int		 (optional)
 	 **/
@@ -8763,6 +8918,18 @@ var KalturaVendorCatalogItemService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("reach_vendorcatalogitem", "get", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	vendorPartnerId	int		 (optional, default: null)
+	 **/
+	getServeUrl: function(vendorPartnerId){
+		if(!vendorPartnerId)
+			vendorPartnerId = null;
+		var kparams = new Object();
+		kparams.vendorPartnerId = vendorPartnerId;
+		return new KalturaRequestBuilder("reach_vendorcatalogitem", "getServeUrl", kparams);
 	},
 	
 	/**
@@ -10512,8 +10679,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-05-15');
-	this.setApiVersion('16.0.0');
+	this.setClientTag('ajax:20-05-16');
+	this.setApiVersion('16.2.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

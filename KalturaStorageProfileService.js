@@ -42,6 +42,26 @@ var KalturaStorageProfileService = {
 	},
 	
 	/**
+	 * storage profile lockPendingFileSyncs action locks file syncs for export by the file sync periodic worker.
+	 * @param	filter	KalturaFileSyncFilter		 (optional)
+	 * @param	workerId	int		The id of the file sync import worker (optional)
+	 * @param	storageProfileId	int		The id of the storage profile (optional)
+	 * @param	maxCount	int		The maximum number of file syncs that should be returned (optional)
+	 * @param	maxSize	int		The maximum total size of file syncs that should be returned, this limit may be exceeded by one file sync (optional, default: null)
+	 **/
+	lockPendingFileSyncs: function(filter, workerId, storageProfileId, maxCount, maxSize){
+		if(!maxSize)
+			maxSize = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		kparams.workerId = workerId;
+		kparams.storageProfileId = storageProfileId;
+		kparams.maxCount = maxCount;
+		kparams.maxSize = maxSize;
+		return new KalturaRequestBuilder("storageprofile", "lockPendingFileSyncs", kparams);
+	},
+	
+	/**
 	 * Update storage profile by id.
 	 * @param	storageProfileId	int		 (optional)
 	 * @param	storageProfile	KalturaStorageProfile		Id (optional)

@@ -26,6 +26,18 @@ var KalturaCaptionAssetService = {
 	},
 	
 	/**
+	 * manually export an asset.
+	 * @param	assetId	string		 (optional)
+	 * @param	storageProfileId	int		 (optional)
+	 **/
+	exportAction: function(assetId, storageProfileId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.storageProfileId = storageProfileId;
+		return new KalturaRequestBuilder("caption_captionasset", "export", kparams);
+	},
+	
+	/**
 	 * .
 	 * @param	captionAssetId	string		 (optional)
 	 **/
