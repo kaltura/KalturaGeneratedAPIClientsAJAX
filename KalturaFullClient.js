@@ -4601,11 +4601,11 @@ var KalturaStorageProfileService = {
 	 * @param	workerId	int		The id of the file sync import worker (optional)
 	 * @param	storageProfileId	int		The id of the storage profile (optional)
 	 * @param	maxCount	int		The maximum number of file syncs that should be returned (optional)
-	 * @param	maxSize	int		The maximum total size of file syncs that should be returned, this limit may be exceeded by one file sync (optional, default: null)
+	 * @param	maxSize	int		The maximum total size of file syncs that should be returned, this limit may be exceeded by one file sync (optional, default: 9223372036854775807)
 	 **/
 	lockPendingFileSyncs: function(filter, workerId, storageProfileId, maxCount, maxSize){
 		if(!maxSize)
-			maxSize = null;
+			maxSize = 9223372036854775807;
 		var kparams = new Object();
 		kparams.filter = filter;
 		kparams.workerId = workerId;
@@ -10679,8 +10679,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-05-19');
-	this.setApiVersion('16.2.0');
+	this.setClientTag('ajax:20-05-25');
+	this.setApiVersion('16.3.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
