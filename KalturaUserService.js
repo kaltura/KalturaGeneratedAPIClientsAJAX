@@ -321,5 +321,15 @@ var KalturaUserService = {
 		kparams.newLastName = newLastName;
 		kparams.otp = otp;
 		return new KalturaRequestBuilder("user", "updateLoginData", kparams);
+	},
+	
+	/**
+	 * Validate hash key.
+	 * @param	hashKey	string		The hash key used to identify the user (retrieved by email) (optional)
+	 **/
+	validateHashKey: function(hashKey){
+		var kparams = new Object();
+		kparams.hashKey = hashKey;
+		return new KalturaRequestBuilder("user", "validateHashKey", kparams);
 	}
 }

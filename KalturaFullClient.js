@@ -5784,6 +5784,16 @@ var KalturaUserService = {
 		kparams.newLastName = newLastName;
 		kparams.otp = otp;
 		return new KalturaRequestBuilder("user", "updateLoginData", kparams);
+	},
+	
+	/**
+	 * Validate hash key.
+	 * @param	hashKey	string		The hash key used to identify the user (retrieved by email) (optional)
+	 **/
+	validateHashKey: function(hashKey){
+		var kparams = new Object();
+		kparams.hashKey = hashKey;
+		return new KalturaRequestBuilder("user", "validateHashKey", kparams);
 	}
 }
 
@@ -10680,7 +10690,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-06-09');
-	this.setApiVersion('16.3.0');
+	this.setApiVersion('16.4.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
