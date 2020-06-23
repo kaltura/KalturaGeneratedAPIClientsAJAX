@@ -8166,10 +8166,15 @@ var KalturaInteractivityService = {
 	/**
 	 * Retrieve a interactivity object by entry id.
 	 * @param	entryId	string		 (optional)
+	 * @param	dataFilter	KalturaInteractivityDataFilter		 (optional, default: null)
 	 **/
-	get: function(entryId){
+	get: function(entryId, dataFilter){
+		if(!dataFilter)
+			dataFilter = null;
 		var kparams = new Object();
 		kparams.entryId = entryId;
+		if (dataFilter != null)
+			kparams.dataFilter = dataFilter;
 		return new KalturaRequestBuilder("interactivity_interactivity", "get", kparams);
 	},
 	
@@ -10689,7 +10694,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-06-21');
+	this.setClientTag('ajax:20-06-22');
 	this.setApiVersion('16.5.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);

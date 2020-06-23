@@ -28,10 +28,15 @@ var KalturaInteractivityService = {
 	/**
 	 * Retrieve a interactivity object by entry id.
 	 * @param	entryId	string		 (optional)
+	 * @param	dataFilter	KalturaInteractivityDataFilter		 (optional, default: null)
 	 **/
-	get: function(entryId){
+	get: function(entryId, dataFilter){
+		if(!dataFilter)
+			dataFilter = null;
 		var kparams = new Object();
 		kparams.entryId = entryId;
+		if (dataFilter != null)
+			kparams.dataFilter = dataFilter;
 		return new KalturaRequestBuilder("interactivity_interactivity", "get", kparams);
 	},
 	
