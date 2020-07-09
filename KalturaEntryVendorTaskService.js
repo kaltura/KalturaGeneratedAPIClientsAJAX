@@ -86,6 +86,30 @@ var KalturaEntryVendorTaskService = {
 	},
 	
 	/**
+	 * .
+	 * @param	filterType	string		 (optional, default: null)
+	 * @param	filterInput	int		 (optional, default: null)
+	 * @param	status	int		 (optional, default: null)
+	 * @param	dueDate	string		 (optional, default: null)
+	 **/
+	getServeUrl: function(filterType, filterInput, status, dueDate){
+		if(!filterType)
+			filterType = null;
+		if(!filterInput)
+			filterInput = null;
+		if(!status)
+			status = null;
+		if(!dueDate)
+			dueDate = null;
+		var kparams = new Object();
+		kparams.filterType = filterType;
+		kparams.filterInput = filterInput;
+		kparams.status = status;
+		kparams.dueDate = dueDate;
+		return new KalturaRequestBuilder("reach_entryvendortask", "getServeUrl", kparams);
+	},
+	
+	/**
 	 * List KalturaEntryVendorTask objects.
 	 * @param	filter	KalturaEntryVendorTaskFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
