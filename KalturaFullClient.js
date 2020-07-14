@@ -9736,13 +9736,17 @@ var KalturaPexipService = {
 	 * .
 	 * @param	entryId	string		 (optional)
 	 * @param	regenerate	bool		 (optional, default: false)
+	 * @param	sourceType	int		 (optional, default: 1)
 	 **/
-	generateSipUrl: function(entryId, regenerate){
+	generateSipUrl: function(entryId, regenerate, sourceType){
 		if(!regenerate)
 			regenerate = false;
+		if(!sourceType)
+			sourceType = 1;
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		kparams.regenerate = regenerate;
+		kparams.sourceType = sourceType;
 		return new KalturaRequestBuilder("sip_pexip", "generateSipUrl", kparams);
 	},
 	
@@ -10718,8 +10722,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-07-13');
-	this.setApiVersion('16.6.0');
+	this.setClientTag('ajax:20-07-14');
+	this.setApiVersion('16.7.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

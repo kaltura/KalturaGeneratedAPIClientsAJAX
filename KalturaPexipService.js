@@ -7,13 +7,17 @@ var KalturaPexipService = {
 	 * .
 	 * @param	entryId	string		 (optional)
 	 * @param	regenerate	bool		 (optional, default: false)
+	 * @param	sourceType	int		 (optional, default: 1)
 	 **/
-	generateSipUrl: function(entryId, regenerate){
+	generateSipUrl: function(entryId, regenerate, sourceType){
 		if(!regenerate)
 			regenerate = false;
+		if(!sourceType)
+			sourceType = 1;
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		kparams.regenerate = regenerate;
+		kparams.sourceType = sourceType;
 		return new KalturaRequestBuilder("sip_pexip", "generateSipUrl", kparams);
 	},
 	
