@@ -7,7 +7,7 @@ var KalturaPexipService = {
 	 * .
 	 * @param	entryId	string		 (optional)
 	 * @param	regenerate	bool		 (optional, default: false)
-	 * @param	sourceType	int		 (optional, default: 1)
+	 * @param	sourceType	int		 (optional, enum: KalturaSipSourceType, default: 1)
 	 **/
 	generateSipUrl: function(entryId, regenerate, sourceType){
 		if(!regenerate)

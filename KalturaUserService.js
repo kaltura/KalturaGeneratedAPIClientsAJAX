@@ -249,10 +249,14 @@ var KalturaUserService = {
 	/**
 	 * Reset user's password and send the user an email to generate a new one..
 	 * @param	email	string		The user's email address (login email) (optional)
+	 * @param	linkType	string		kmc or kms (optional, enum: KalturaResetPassLinkType, default: null)
 	 **/
-	resetPassword: function(email){
+	resetPassword: function(email, linkType){
+		if(!linkType)
+			linkType = null;
 		var kparams = new Object();
 		kparams.email = email;
+		kparams.linkType = linkType;
 		return new KalturaRequestBuilder("user", "resetPassword", kparams);
 	},
 	

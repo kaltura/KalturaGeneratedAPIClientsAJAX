@@ -5712,10 +5712,14 @@ var KalturaUserService = {
 	/**
 	 * Reset user's password and send the user an email to generate a new one..
 	 * @param	email	string		The user's email address (login email) (optional)
+	 * @param	linkType	string		kmc or kms (optional, enum: KalturaResetPassLinkType, default: null)
 	 **/
-	resetPassword: function(email){
+	resetPassword: function(email, linkType){
+		if(!linkType)
+			linkType = null;
 		var kparams = new Object();
 		kparams.email = email;
+		kparams.linkType = linkType;
 		return new KalturaRequestBuilder("user", "resetPassword", kparams);
 	},
 	
@@ -7626,6 +7630,30 @@ var KalturaDropFolderService = {
 		kparams.dropFolderId = dropFolderId;
 		kparams.dropFolder = dropFolder;
 		return new KalturaRequestBuilder("dropfolder_dropfolder", "update", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	dropFolderId	int		 (optional)
+	 * @param	dropFolder	KalturaBasicFieldsDropFolder		Id (optional)
+	 **/
+	updateBasicFields: function(dropFolderId, dropFolder){
+		var kparams = new Object();
+		kparams.dropFolderId = dropFolderId;
+		kparams.dropFolder = dropFolder;
+		return new KalturaRequestBuilder("dropfolder_dropfolder", "updateBasicFields", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	dropFolderId	int		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaDropFolderStatus)
+	 **/
+	updateStatus: function(dropFolderId, status){
+		var kparams = new Object();
+		kparams.dropFolderId = dropFolderId;
+		kparams.status = status;
+		return new KalturaRequestBuilder("dropfolder_dropfolder", "updateStatus", kparams);
 	}
 }
 
@@ -9736,7 +9764,7 @@ var KalturaPexipService = {
 	 * .
 	 * @param	entryId	string		 (optional)
 	 * @param	regenerate	bool		 (optional, default: false)
-	 * @param	sourceType	int		 (optional, default: 1)
+	 * @param	sourceType	int		 (optional, enum: KalturaSipSourceType, default: 1)
 	 **/
 	generateSipUrl: function(entryId, regenerate, sourceType){
 		if(!regenerate)
@@ -10722,8 +10750,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-08-10');
-	this.setApiVersion('16.7.0');
+	this.setClientTag('ajax:20-08-11');
+	this.setApiVersion('16.8.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

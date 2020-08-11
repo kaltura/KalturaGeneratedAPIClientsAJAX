@@ -91,5 +91,29 @@ var KalturaDropFolderService = {
 		kparams.dropFolderId = dropFolderId;
 		kparams.dropFolder = dropFolder;
 		return new KalturaRequestBuilder("dropfolder_dropfolder", "update", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	dropFolderId	int		 (optional)
+	 * @param	dropFolder	KalturaBasicFieldsDropFolder		Id (optional)
+	 **/
+	updateBasicFields: function(dropFolderId, dropFolder){
+		var kparams = new Object();
+		kparams.dropFolderId = dropFolderId;
+		kparams.dropFolder = dropFolder;
+		return new KalturaRequestBuilder("dropfolder_dropfolder", "updateBasicFields", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	dropFolderId	int		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaDropFolderStatus)
+	 **/
+	updateStatus: function(dropFolderId, status){
+		var kparams = new Object();
+		kparams.dropFolderId = dropFolderId;
+		kparams.status = status;
+		return new KalturaRequestBuilder("dropfolder_dropfolder", "updateStatus", kparams);
 	}
 }
