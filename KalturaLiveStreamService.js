@@ -190,9 +190,11 @@ var KalturaLiveStreamService = {
 	/**
 	 * Delivering the status of a live stream (on-air/offline) if it is possible.
 	 * @param	id	string		ID of the live stream (optional)
-	 * @param	protocol	string		protocol of the stream to test. (optional, enum: KalturaPlaybackProtocol)
+	 * @param	protocol	string		protocol of the stream to test. (optional, enum: KalturaPlaybackProtocol, default: null)
 	 **/
 	isLive: function(id, protocol){
+		if(!protocol)
+			protocol = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.protocol = protocol;

@@ -2561,9 +2561,11 @@ var KalturaLiveStreamService = {
 	/**
 	 * Delivering the status of a live stream (on-air/offline) if it is possible.
 	 * @param	id	string		ID of the live stream (optional)
-	 * @param	protocol	string		protocol of the stream to test. (optional, enum: KalturaPlaybackProtocol)
+	 * @param	protocol	string		protocol of the stream to test. (optional, enum: KalturaPlaybackProtocol, default: null)
 	 **/
 	isLive: function(id, protocol){
+		if(!protocol)
+			protocol = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.protocol = protocol;
@@ -10750,8 +10752,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-10-13');
-	this.setApiVersion('16.8.0');
+	this.setClientTag('ajax:20-10-14');
+	this.setApiVersion('16.9.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
