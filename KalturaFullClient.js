@@ -10028,6 +10028,16 @@ var KalturaZoomVendorService = {
 	},
 	
 	/**
+	 * Retrieve zoom integration setting object by partner id.
+	 * @param	partnerId	int		 (optional)
+	 **/
+	get: function(partnerId){
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "get", kparams);
+	},
+	
+	/**
 	 * .
 	 **/
 	oauthValidation: function(){
@@ -10752,8 +10762,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-12-20');
-	this.setApiVersion('16.12.0');
+	this.setClientTag('ajax:20-12-21');
+	this.setApiVersion('16.13.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

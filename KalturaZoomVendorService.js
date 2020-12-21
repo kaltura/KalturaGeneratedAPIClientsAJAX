@@ -24,6 +24,16 @@ var KalturaZoomVendorService = {
 	},
 	
 	/**
+	 * Retrieve zoom integration setting object by partner id.
+	 * @param	partnerId	int		 (optional)
+	 **/
+	get: function(partnerId){
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "get", kparams);
+	},
+	
+	/**
 	 * .
 	 **/
 	oauthValidation: function(){
