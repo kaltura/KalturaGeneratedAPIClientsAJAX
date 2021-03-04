@@ -46,11 +46,13 @@ var KalturaGroupUserService = {
 	/**
 	 * sync by userId and groupIds.
 	 * @param	userId	string		 (optional)
-	 * @param	groupIds	string		 (optional)
+	 * @param	groupIds	string		 (optional, default: null)
 	 * @param	removeFromExistingGroups	bool		 (optional, default: true)
 	 * @param	createNewGroups	bool		 (optional, default: true)
 	 **/
 	sync: function(userId, groupIds, removeFromExistingGroups, createNewGroups){
+		if(!groupIds)
+			groupIds = null;
 		if(!removeFromExistingGroups)
 			removeFromExistingGroups = true;
 		if(!createNewGroups)

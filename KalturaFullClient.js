@@ -2007,11 +2007,13 @@ var KalturaGroupUserService = {
 	/**
 	 * sync by userId and groupIds.
 	 * @param	userId	string		 (optional)
-	 * @param	groupIds	string		 (optional)
+	 * @param	groupIds	string		 (optional, default: null)
 	 * @param	removeFromExistingGroups	bool		 (optional, default: true)
 	 * @param	createNewGroups	bool		 (optional, default: true)
 	 **/
 	sync: function(userId, groupIds, removeFromExistingGroups, createNewGroups){
+		if(!groupIds)
+			groupIds = null;
 		if(!removeFromExistingGroups)
 			removeFromExistingGroups = true;
 		if(!createNewGroups)
@@ -10762,8 +10764,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-03-02');
-	this.setApiVersion('16.16.0');
+	this.setClientTag('ajax:21-03-03');
+	this.setApiVersion('16.18.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
