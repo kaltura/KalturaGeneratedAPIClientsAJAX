@@ -5560,19 +5560,23 @@ var KalturaUserService = {
 	 * @param	filter	KalturaUserFilter		A filter used to exclude specific types of users (optional, default: null)
 	 * @param	metadataProfileId	int		 (optional, default: null)
 	 * @param	additionalFields	array		 (optional, default: null)
+	 * @param	mappedFields	array		mapping between field (optional, default: null)
 	 **/
-	exportToCsv: function(filter, metadataProfileId, additionalFields){
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
 		if(!filter)
 			filter = null;
 		if(!metadataProfileId)
 			metadataProfileId = null;
 		if(!additionalFields)
 			additionalFields = null;
+		if(!mappedFields)
+			mappedFields = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		kparams.metadataProfileId = metadataProfileId;
 		kparams.additionalFields = additionalFields;
+		kparams.mappedFields = mappedFields;
 		return new KalturaRequestBuilder("user", "exportToCsv", kparams);
 	},
 	
@@ -10764,8 +10768,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-03-16');
-	this.setApiVersion('16.18.0');
+	this.setClientTag('ajax:21-03-17');
+	this.setApiVersion('16.19.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

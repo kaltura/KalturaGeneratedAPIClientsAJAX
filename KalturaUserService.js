@@ -93,19 +93,23 @@ var KalturaUserService = {
 	 * @param	filter	KalturaUserFilter		A filter used to exclude specific types of users (optional, default: null)
 	 * @param	metadataProfileId	int		 (optional, default: null)
 	 * @param	additionalFields	array		 (optional, default: null)
+	 * @param	mappedFields	array		mapping between field (optional, default: null)
 	 **/
-	exportToCsv: function(filter, metadataProfileId, additionalFields){
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
 		if(!filter)
 			filter = null;
 		if(!metadataProfileId)
 			metadataProfileId = null;
 		if(!additionalFields)
 			additionalFields = null;
+		if(!mappedFields)
+			mappedFields = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		kparams.metadataProfileId = metadataProfileId;
 		kparams.additionalFields = additionalFields;
+		kparams.mappedFields = mappedFields;
 		return new KalturaRequestBuilder("user", "exportToCsv", kparams);
 	},
 	
