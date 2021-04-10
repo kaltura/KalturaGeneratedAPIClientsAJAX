@@ -40,6 +40,20 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * Allocates a conference room or returns ones that has already been allocated.
+	 * @param	entryId	string		 (optional)
+	 * @param	env	string		 (optional)
+	 **/
+	allocateConferenceRoom: function(entryId, env){
+		if(!env)
+			env = "";
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.env = env;
+		return new KalturaRequestBuilder("livestream", "allocateConferenceRoom", kparams);
+	},
+	
+	/**
 	 * Append recorded video to live entry.
 	 * @param	entryId	string		Live entry id (optional)
 	 * @param	assetId	string		Live asset id (optional)
@@ -136,6 +150,20 @@ var KalturaLiveStreamService = {
 	},
 	
 	/**
+	 * When the conf is finished this API should be called..
+	 * @param	entryId	string		 (optional)
+	 * @param	serverNodeId	int		 (optional, default: null)
+	 **/
+	finishConf: function(entryId, serverNodeId){
+		if(!serverNodeId)
+			serverNodeId = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.serverNodeId = serverNodeId;
+		return new KalturaRequestBuilder("livestream", "finishConf", kparams);
+	},
+	
+	/**
 	 * Get live stream entry by ID..
 	 * @param	entryId	string		Live stream entry id (optional)
 	 * @param	version	int		Desired version of the data (optional, default: -1)
@@ -199,6 +227,16 @@ var KalturaLiveStreamService = {
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		return new KalturaRequestBuilder("livestream", "regenerateStreamToken", kparams);
+	},
+	
+	/**
+	 * Mark that the conference has actually started.
+	 * @param	entryId	string		 (optional)
+	 **/
+	registerConf: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("livestream", "registerConf", kparams);
 	},
 	
 	/**
