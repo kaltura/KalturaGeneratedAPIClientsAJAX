@@ -427,6 +427,31 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * add batch job that sends an email with a link to download an updated CSV that contains list of entries.
+	 * @param	filter	KalturaBaseEntryFilter		A filter used to exclude specific entries (optional, default: null)
+	 * @param	metadataProfileId	int		 (optional, default: null)
+	 * @param	additionalFields	array		 (optional, default: null)
+	 * @param	mappedFields	array		mapping between field headline and its mapped value (optional, default: null)
+	 **/
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
+		if(!filter)
+			filter = null;
+		if(!metadataProfileId)
+			metadataProfileId = null;
+		if(!additionalFields)
+			additionalFields = null;
+		if(!mappedFields)
+			mappedFields = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.additionalFields = additionalFields;
+		kparams.mappedFields = mappedFields;
+		return new KalturaRequestBuilder("baseentry", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * Flag inappropriate entry for moderation..
 	 * @param	moderationFlag	KalturaModerationFlag		 (optional)
 	 **/
@@ -10044,11 +10069,43 @@ var KalturaZoomVendorService = {
 	},
 	
 	/**
+	 * List KalturaZoomIntegrationSetting objects.
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	jwt	string		 (optional)
+	 **/
+	localRegistrationPage: function(jwt){
+		var kparams = new Object();
+		kparams.jwt = jwt;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "localRegistrationPage", kparams);
+	},
+	
+	/**
 	 * .
 	 **/
 	oauthValidation: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("vendor_zoomvendor", "oauthValidation", kparams);
+	},
+	
+	/**
+	 * load html page the that will ask the user for its KMC URL, derive the region of the user from it,
+ *		 and redirect to the registration page in the correct region, while forwarding the necessary code for registration.
+	 **/
+	preOauthValidation: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("vendor_zoomvendor", "preOauthValidation", kparams);
 	},
 	
 	/**
@@ -10768,8 +10825,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-04-25');
-	this.setApiVersion('16.19.0');
+	this.setClientTag('ajax:21-05-06');
+	this.setApiVersion('17.1.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

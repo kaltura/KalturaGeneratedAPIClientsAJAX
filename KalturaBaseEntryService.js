@@ -117,6 +117,31 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * add batch job that sends an email with a link to download an updated CSV that contains list of entries.
+	 * @param	filter	KalturaBaseEntryFilter		A filter used to exclude specific entries (optional, default: null)
+	 * @param	metadataProfileId	int		 (optional, default: null)
+	 * @param	additionalFields	array		 (optional, default: null)
+	 * @param	mappedFields	array		mapping between field headline and its mapped value (optional, default: null)
+	 **/
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
+		if(!filter)
+			filter = null;
+		if(!metadataProfileId)
+			metadataProfileId = null;
+		if(!additionalFields)
+			additionalFields = null;
+		if(!mappedFields)
+			mappedFields = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.additionalFields = additionalFields;
+		kparams.mappedFields = mappedFields;
+		return new KalturaRequestBuilder("baseentry", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * Flag inappropriate entry for moderation..
 	 * @param	moderationFlag	KalturaModerationFlag		 (optional)
 	 **/

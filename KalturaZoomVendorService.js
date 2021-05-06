@@ -34,11 +34,43 @@ var KalturaZoomVendorService = {
 	},
 	
 	/**
+	 * List KalturaZoomIntegrationSetting objects.
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	jwt	string		 (optional)
+	 **/
+	localRegistrationPage: function(jwt){
+		var kparams = new Object();
+		kparams.jwt = jwt;
+		return new KalturaRequestBuilder("vendor_zoomvendor", "localRegistrationPage", kparams);
+	},
+	
+	/**
 	 * .
 	 **/
 	oauthValidation: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("vendor_zoomvendor", "oauthValidation", kparams);
+	},
+	
+	/**
+	 * load html page the that will ask the user for its KMC URL, derive the region of the user from it,
+ *		 and redirect to the registration page in the correct region, while forwarding the necessary code for registration.
+	 **/
+	preOauthValidation: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("vendor_zoomvendor", "preOauthValidation", kparams);
 	},
 	
 	/**
