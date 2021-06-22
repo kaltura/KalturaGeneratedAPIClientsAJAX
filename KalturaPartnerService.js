@@ -168,6 +168,28 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Create a new Partner object.
+	 * @param	partner	KalturaPartner		 (optional)
+	 * @param	cmsPassword	string		 (optional)
+	 * @param	templatePartnerId	int		 (optional, default: null)
+	 * @param	silent	bool		 (optional, default: false)
+	 **/
+	registrationValidation: function(partner, cmsPassword, templatePartnerId, silent){
+		if(!cmsPassword)
+			cmsPassword = "";
+		if(!templatePartnerId)
+			templatePartnerId = null;
+		if(!silent)
+			silent = false;
+		var kparams = new Object();
+		kparams.partner = partner;
+		kparams.cmsPassword = cmsPassword;
+		kparams.templatePartnerId = templatePartnerId;
+		kparams.silent = silent;
+		return new KalturaRequestBuilder("partner", "registrationValidation", kparams);
+	},
+	
+	/**
 	 * Update details and settings of an existing partner.
 	 * @param	partner	KalturaPartner		 (optional)
 	 * @param	allowEmpty	bool		 (optional, default: false)

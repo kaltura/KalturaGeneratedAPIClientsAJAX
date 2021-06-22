@@ -3568,6 +3568,28 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Create a new Partner object.
+	 * @param	partner	KalturaPartner		 (optional)
+	 * @param	cmsPassword	string		 (optional)
+	 * @param	templatePartnerId	int		 (optional, default: null)
+	 * @param	silent	bool		 (optional, default: false)
+	 **/
+	registrationValidation: function(partner, cmsPassword, templatePartnerId, silent){
+		if(!cmsPassword)
+			cmsPassword = "";
+		if(!templatePartnerId)
+			templatePartnerId = null;
+		if(!silent)
+			silent = false;
+		var kparams = new Object();
+		kparams.partner = partner;
+		kparams.cmsPassword = cmsPassword;
+		kparams.templatePartnerId = templatePartnerId;
+		kparams.silent = silent;
+		return new KalturaRequestBuilder("partner", "registrationValidation", kparams);
+	},
+	
+	/**
 	 * Update details and settings of an existing partner.
 	 * @param	partner	KalturaPartner		 (optional)
 	 * @param	allowEmpty	bool		 (optional, default: false)
@@ -10825,8 +10847,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-13');
-	this.setApiVersion('17.2.0');
+	this.setClientTag('ajax:21-06-22');
+	this.setApiVersion('17.3.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
