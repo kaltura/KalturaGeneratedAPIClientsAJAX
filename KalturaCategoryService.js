@@ -35,6 +35,22 @@ var KalturaCategoryService = {
 	},
 	
 	/**
+	 * Clone Category.
+	 * @param	categoryId	int		 (optional)
+	 * @param	fromPartnerId	int		 (optional)
+	 * @param	parentCategoryId	int		 (optional, default: null)
+	 **/
+	cloneAction: function(categoryId, fromPartnerId, parentCategoryId){
+		if(!parentCategoryId)
+			parentCategoryId = null;
+		var kparams = new Object();
+		kparams.categoryId = categoryId;
+		kparams.fromPartnerId = fromPartnerId;
+		kparams.parentCategoryId = parentCategoryId;
+		return new KalturaRequestBuilder("category", "clone", kparams);
+	},
+	
+	/**
 	 * Delete a Category.
 	 * @param	id	int		 (optional)
 	 * @param	moveEntriesToParentCategory	int		 (optional, enum: KalturaNullableBoolean, default: 1)

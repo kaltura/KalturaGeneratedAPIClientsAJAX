@@ -52,7 +52,7 @@ var KalturaReachProfileService = {
 	},
 	
 	/**
-	 * sync vednor profile credit.
+	 * sync vendor profile credit.
 	 * @param	reachProfileId	int		 (optional)
 	 **/
 	syncCredit: function(reachProfileId){

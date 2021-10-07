@@ -909,6 +909,22 @@ var KalturaCategoryService = {
 	},
 	
 	/**
+	 * Clone Category.
+	 * @param	categoryId	int		 (optional)
+	 * @param	fromPartnerId	int		 (optional)
+	 * @param	parentCategoryId	int		 (optional, default: null)
+	 **/
+	cloneAction: function(categoryId, fromPartnerId, parentCategoryId){
+		if(!parentCategoryId)
+			parentCategoryId = null;
+		var kparams = new Object();
+		kparams.categoryId = categoryId;
+		kparams.fromPartnerId = fromPartnerId;
+		kparams.parentCategoryId = parentCategoryId;
+		return new KalturaRequestBuilder("category", "clone", kparams);
+	},
+	
+	/**
 	 * Delete a Category.
 	 * @param	id	int		 (optional)
 	 * @param	moveEntriesToParentCategory	int		 (optional, enum: KalturaNullableBoolean, default: 1)
@@ -9126,7 +9142,7 @@ var KalturaReachProfileService = {
 	},
 	
 	/**
-	 * sync vednor profile credit.
+	 * sync vendor profile credit.
 	 * @param	reachProfileId	int		 (optional)
 	 **/
 	syncCredit: function(reachProfileId){
@@ -10152,6 +10168,67 @@ var KalturaZoomVendorService = {
 }
 
 /**
+ *Class definition for the Kaltura service: vendorIntegration.
+ **/
+var KalturaVendorIntegrationService = {
+	/**
+	 * Add new integration setting object.
+	 * @param	integration	KalturaIntegrationSetting		 (optional)
+	 * @param	remoteId	string		 (optional)
+	 **/
+	add: function(integration, remoteId){
+		var kparams = new Object();
+		kparams.integration = integration;
+		kparams.remoteId = remoteId;
+		return new KalturaRequestBuilder("vendor_vendorintegration", "add", kparams);
+	},
+	
+	/**
+	 * Delete integration object by ID.
+	 * @param	integrationId	int		 (optional)
+	 **/
+	deleteAction: function(integrationId){
+		var kparams = new Object();
+		kparams.integrationId = integrationId;
+		return new KalturaRequestBuilder("vendor_vendorintegration", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve integration setting object by ID.
+	 * @param	integrationId	int		 (optional)
+	 **/
+	get: function(integrationId){
+		var kparams = new Object();
+		kparams.integrationId = integrationId;
+		return new KalturaRequestBuilder("vendor_vendorintegration", "get", kparams);
+	},
+	
+	/**
+	 * Update an existing vedor catalog item object.
+	 * @param	id	int		 (optional)
+	 * @param	integrationSetting	KalturaIntegrationSetting		 (optional)
+	 **/
+	update: function(id, integrationSetting){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.integrationSetting = integrationSetting;
+		return new KalturaRequestBuilder("vendor_vendorintegration", "update", kparams);
+	},
+	
+	/**
+	 * Update vendor catalog item status by id.
+	 * @param	id	int		 (optional)
+	 * @param	status	KalturaIntegrationSetting		 (optional)
+	 **/
+	updateStatus: function(id, status){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.status = status;
+		return new KalturaRequestBuilder("vendor_vendorintegration", "updateStatus", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: virusScanProfile.
  **/
 var KalturaVirusScanProfileService = {
@@ -10847,8 +10924,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-09-05');
-	this.setApiVersion('17.5.0');
+	this.setClientTag('ajax:21-10-07');
+	this.setApiVersion('17.11.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
