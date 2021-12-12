@@ -50,7 +50,7 @@ var KalturaVendorIntegrationService = {
 	/**
 	 * Update vendor catalog item status by id.
 	 * @param	id	int		 (optional)
-	 * @param	status	KalturaIntegrationSetting		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaVendorIntegrationStatus)
 	 **/
 	updateStatus: function(id, status){
 		var kparams = new Object();

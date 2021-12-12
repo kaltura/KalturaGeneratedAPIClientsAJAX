@@ -10218,7 +10218,7 @@ var KalturaVendorIntegrationService = {
 	/**
 	 * Update vendor catalog item status by id.
 	 * @param	id	int		 (optional)
-	 * @param	status	KalturaIntegrationSetting		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaVendorIntegrationStatus)
 	 **/
 	updateStatus: function(id, status){
 		var kparams = new Object();
@@ -10924,8 +10924,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-12-10');
-	this.setApiVersion('17.14.0');
+	this.setClientTag('ajax:21-12-11');
+	this.setApiVersion('17.16.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
