@@ -5771,6 +5771,18 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * Resets user login password.
+	 * @param	loginDataId	string		The user's current email address that identified the user for login (optional)
+	 * @param	newPassword	string		The user's new password (optional)
+	 **/
+	loginDataResetPassword: function(loginDataId, newPassword){
+		var kparams = new Object();
+		kparams.loginDataId = loginDataId;
+		kparams.newPassword = newPassword;
+		return new KalturaRequestBuilder("user", "loginDataResetPassword", kparams);
+	},
+	
+	/**
 	 * Notifies that a user is banned from an account..
 	 * @param	userId	string		The user's unique identifier in the partner's system (optional)
 	 **/
@@ -10925,7 +10937,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:22-01-10');
-	this.setApiVersion('17.17.0');
+	this.setApiVersion('17.18.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
