@@ -8,7 +8,6 @@ script:
 notifications:
   email:
     recipients:
-      - Jonathan.Kanarek@kaltura.com
       - jess.portnoy@kaltura.com
     on_success: change
     on_failure: always
