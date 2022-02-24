@@ -12,7 +12,7 @@ before_script:
     - sleep 3
 script: 
     - sed -e "s#@YOUR_PARTNER_ID@#$PARTNER_ID#g" -e "s#@YOUR_ADMIN_SECRET@#$ADMIN_SECRET#g" -e "s#@SERVICE_URL@#https://www.kaltura.com#g" test/config.template.js > test/config.js
-    - cd test && npm install && ./node_modules/.bin/karma start --browsers PhantomJS --single-run
+    - cd test && npm install && ./node_modules/.bin/karma start --browsers Chrome --single-run
 notifications:
   email:
     recipients:
