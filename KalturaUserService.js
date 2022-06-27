@@ -94,8 +94,9 @@ var KalturaUserService = {
 	 * @param	metadataProfileId	int		 (optional, default: null)
 	 * @param	additionalFields	array		 (optional, default: null)
 	 * @param	mappedFields	array		mapping between field (optional, default: null)
+	 * @param	options	KalturaExportToCsvOptions		 (optional, default: null)
 	 **/
-	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields, options){
 		if(!filter)
 			filter = null;
 		if(!metadataProfileId)
@@ -104,12 +105,16 @@ var KalturaUserService = {
 			additionalFields = null;
 		if(!mappedFields)
 			mappedFields = null;
+		if(!options)
+			options = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		kparams.metadataProfileId = metadataProfileId;
 		kparams.additionalFields = additionalFields;
 		kparams.mappedFields = mappedFields;
+		if (options != null)
+			kparams.options = options;
 		return new KalturaRequestBuilder("user", "exportToCsv", kparams);
 	},
 	

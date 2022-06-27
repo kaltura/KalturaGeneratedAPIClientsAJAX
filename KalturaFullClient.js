@@ -432,8 +432,9 @@ var KalturaBaseEntryService = {
 	 * @param	metadataProfileId	int		 (optional, default: null)
 	 * @param	additionalFields	array		 (optional, default: null)
 	 * @param	mappedFields	array		mapping between field headline and its mapped value (optional, default: null)
+	 * @param	options	KalturaExportToCsvOptions		 (optional, default: null)
 	 **/
-	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields, options){
 		if(!filter)
 			filter = null;
 		if(!metadataProfileId)
@@ -442,12 +443,16 @@ var KalturaBaseEntryService = {
 			additionalFields = null;
 		if(!mappedFields)
 			mappedFields = null;
+		if(!options)
+			options = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		kparams.metadataProfileId = metadataProfileId;
 		kparams.additionalFields = additionalFields;
 		kparams.mappedFields = mappedFields;
+		if (options != null)
+			kparams.options = options;
 		return new KalturaRequestBuilder("baseentry", "exportToCsv", kparams);
 	},
 	
@@ -5624,8 +5629,9 @@ var KalturaUserService = {
 	 * @param	metadataProfileId	int		 (optional, default: null)
 	 * @param	additionalFields	array		 (optional, default: null)
 	 * @param	mappedFields	array		mapping between field (optional, default: null)
+	 * @param	options	KalturaExportToCsvOptions		 (optional, default: null)
 	 **/
-	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields){
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields, options){
 		if(!filter)
 			filter = null;
 		if(!metadataProfileId)
@@ -5634,12 +5640,16 @@ var KalturaUserService = {
 			additionalFields = null;
 		if(!mappedFields)
 			mappedFields = null;
+		if(!options)
+			options = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
 		kparams.metadataProfileId = metadataProfileId;
 		kparams.additionalFields = additionalFields;
 		kparams.mappedFields = mappedFields;
+		if (options != null)
+			kparams.options = options;
 		return new KalturaRequestBuilder("user", "exportToCsv", kparams);
 	},
 	
@@ -10936,8 +10946,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-06-26');
-	this.setApiVersion('18.7.0');
+	this.setClientTag('ajax:22-06-27');
+	this.setApiVersion('18.8.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
