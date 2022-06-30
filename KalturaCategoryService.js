@@ -65,6 +65,36 @@ var KalturaCategoryService = {
 	},
 	
 	/**
+	 * Creates a batch job that sends an email with a link to download a CSV containing a list of categories.
+	 * @param	filter	KalturaCategoryFilter		A filter used to exclude specific categories (optional, default: null)
+	 * @param	metadataProfileId	int		 (optional, default: null)
+	 * @param	additionalFields	array		 (optional, default: null)
+	 * @param	mappedFields	array		mapping between field headline and its mapped value (optional, default: null)
+	 * @param	options	KalturaExportToCsvOptions		 (optional, default: null)
+	 **/
+	exportToCsv: function(filter, metadataProfileId, additionalFields, mappedFields, options){
+		if(!filter)
+			filter = null;
+		if(!metadataProfileId)
+			metadataProfileId = null;
+		if(!additionalFields)
+			additionalFields = null;
+		if(!mappedFields)
+			mappedFields = null;
+		if(!options)
+			options = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.additionalFields = additionalFields;
+		kparams.mappedFields = mappedFields;
+		if (options != null)
+			kparams.options = options;
+		return new KalturaRequestBuilder("category", "exportToCsv", kparams);
+	},
+	
+	/**
 	 * Get Category by id.
 	 * @param	id	int		 (optional)
 	 **/
