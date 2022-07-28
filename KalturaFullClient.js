@@ -9538,6 +9538,20 @@ var KalturaScheduleEventService = {
 		kparams.scheduleEventId = scheduleEventId;
 		kparams.scheduleEvent = scheduleEvent;
 		return new KalturaRequestBuilder("schedule_scheduleevent", "update", kparams);
+	},
+	
+	/**
+	 * Add feature to live event.
+	 * @param	scheduledEventId	int		 (optional)
+	 * @param	featureName	string		 (optional)
+	 * @param	liveFeature	KalturaLiveFeature		 (optional)
+	 **/
+	updateLiveFeature: function(scheduledEventId, featureName, liveFeature){
+		var kparams = new Object();
+		kparams.scheduledEventId = scheduledEventId;
+		kparams.featureName = featureName;
+		kparams.liveFeature = liveFeature;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "updateLiveFeature", kparams);
 	}
 }
 
@@ -10977,7 +10991,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:22-07-27');
-	this.setApiVersion('18.10.0');
+	this.setApiVersion('18.11.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
