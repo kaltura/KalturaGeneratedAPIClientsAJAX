@@ -10990,8 +10990,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-09-20');
-	this.setApiVersion('18.14.0');
+	this.setClientTag('ajax:22-09-21');
+	this.setApiVersion('18.15.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -11086,6 +11086,24 @@ KalturaClient.prototype.getSessionId = function(){
 };
 
 /**
+ * language
+ * 
+ * @param string $language
+ */
+KalturaClient.prototype.setLanguage = function(language){
+	this.requestData.language = language;
+};
+
+/**
+ * language
+ * 
+ * @return string
+ */
+KalturaClient.prototype.getLanguage = function(){
+	return this.requestData.language;
+};
+
+/**
  * @param string $clientTag
  */
 KalturaRequestBuilder.prototype.setClientTag = function(clientTag){
@@ -11165,6 +11183,24 @@ KalturaRequestBuilder.prototype.setSessionId = function(sessionId){
  */
 KalturaRequestBuilder.prototype.getSessionId = function(){
 	return this.requestData.ks;
+};
+
+/**
+ * language
+ * 
+ * @param string $language
+ */
+KalturaRequestBuilder.prototype.setLanguage = function(language){
+	this.requestData.language = language;
+};
+
+/**
+ * language
+ * 
+ * @return string
+ */
+KalturaRequestBuilder.prototype.getLanguage = function(){
+	return this.requestData.language;
 };
 
 /**
