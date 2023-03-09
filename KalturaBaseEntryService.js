@@ -277,6 +277,16 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * Move the entry to the recycle bin.
+	 * @param	entryId	string		 (optional)
+	 **/
+	recycle: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("baseentry", "recycle", kparams);
+	},
+	
+	/**
 	 * Reject the entry and mark the pending flags (if any) as moderated (this will make the entry non-playable)..
 	 * @param	entryId	string		 (optional)
 	 **/
@@ -284,6 +294,16 @@ var KalturaBaseEntryService = {
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		return new KalturaRequestBuilder("baseentry", "reject", kparams);
+	},
+	
+	/**
+	 * Restore the entry from the recycle bin.
+	 * @param	entryId	string		 (optional)
+	 **/
+	restoreRecycled: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("baseentry", "restoreRecycled", kparams);
 	},
 	
 	/**

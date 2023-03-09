@@ -587,6 +587,16 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * Move the entry to the recycle bin.
+	 * @param	entryId	string		 (optional)
+	 **/
+	recycle: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("baseentry", "recycle", kparams);
+	},
+	
+	/**
 	 * Reject the entry and mark the pending flags (if any) as moderated (this will make the entry non-playable)..
 	 * @param	entryId	string		 (optional)
 	 **/
@@ -594,6 +604,16 @@ var KalturaBaseEntryService = {
 		var kparams = new Object();
 		kparams.entryId = entryId;
 		return new KalturaRequestBuilder("baseentry", "reject", kparams);
+	},
+	
+	/**
+	 * Restore the entry from the recycle bin.
+	 * @param	entryId	string		 (optional)
+	 **/
+	restoreRecycled: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("baseentry", "restoreRecycled", kparams);
 	},
 	
 	/**
@@ -10990,8 +11010,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-02-27');
-	this.setApiVersion('19.3.0');
+	this.setClientTag('ajax:23-03-09');
+	this.setApiVersion('19.4.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
