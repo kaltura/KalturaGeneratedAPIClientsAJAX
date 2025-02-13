@@ -4,6 +4,22 @@
  **/
 var KalturaDocumentsService = {
 	/**
+	 * Add content to document entry which is not yet associated with content (therefore is in status NO_CONTENT).
+ *		 If the requirement is to replace the entry's associated content, use action updateContent..
+	 * @param	entryId	string		 (optional)
+	 * @param	resource	KalturaResource		 (optional, default: null)
+	 **/
+	addContent: function(entryId, resource){
+		if(!resource)
+			resource = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		if (resource != null)
+			kparams.resource = resource;
+		return new KalturaRequestBuilder("document_documents", "addContent", kparams);
+	},
+	
+	/**
 	 * Copy entry into new entry.
 	 * @param	sourceEntryId	string		Document entry id to copy from (optional)
 	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional, default: null)

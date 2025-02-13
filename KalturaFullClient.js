@@ -378,6 +378,16 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * .
+	 * @param	filter	KalturaBaseEntryFilter		 (optional)
+	 **/
+	bulkDelete: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("baseentry", "bulkDelete", kparams);
+	},
+	
+	/**
 	 * Clone an entry with optional attributes to apply to the clone.
 	 * @param	entryId	string		Id of entry to clone (optional)
 	 * @param	cloneOptions	array		 (optional, default: null)
@@ -2654,6 +2664,16 @@ var KalturaLiveStreamService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("livestream", "getDetails", kparams);
+	},
+	
+	/**
+	 * Deliver information about the livestream.
+	 * @param	entryId	string		Id of the live stream entry (optional)
+	 **/
+	getLiveStreamStats: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("livestream", "getLiveStreamStats", kparams);
 	},
 	
 	/**
@@ -5423,6 +5443,77 @@ var KalturaUploadTokenService = {
 }
 
 /**
+ *Class definition for the Kaltura service: userAppRole.
+ **/
+var KalturaUserAppRoleService = {
+	/**
+	 * Assign an application role for a user.
+	 * @param	userAppRole	KalturaUserAppRole		 (optional)
+	 **/
+	add: function(userAppRole){
+		var kparams = new Object();
+		kparams.userAppRole = userAppRole;
+		return new KalturaRequestBuilder("userapprole", "add", kparams);
+	},
+	
+	/**
+	 * Delete an application role for a user and app guid.
+	 * @param	userId	string		the user id (optional)
+	 * @param	appGuid	string		the app-registry id (optional)
+	 **/
+	deleteAction: function(userId, appGuid){
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.appGuid = appGuid;
+		return new KalturaRequestBuilder("userapprole", "delete", kparams);
+	},
+	
+	/**
+	 * Get an application role for a user and app guid.
+	 * @param	userId	string		the user id (optional)
+	 * @param	appGuid	string		the app-registry id (optional)
+	 **/
+	get: function(userId, appGuid){
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.appGuid = appGuid;
+		return new KalturaRequestBuilder("userapprole", "get", kparams);
+	},
+	
+	/**
+	 * List an application roles by filter and pager.
+	 * @param	filter	KalturaUserAppRoleFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("userapprole", "list", kparams);
+	},
+	
+	/**
+	 * Update an application role for a user.
+	 * @param	userId	string		 (optional)
+	 * @param	appGuid	string		 (optional)
+	 * @param	userAppRole	KalturaUserAppRole		 (optional)
+	 **/
+	update: function(userId, appGuid, userAppRole){
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.appGuid = appGuid;
+		kparams.userAppRole = userAppRole;
+		return new KalturaRequestBuilder("userapprole", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: userEntry.
  **/
 var KalturaUserEntryService = {
@@ -5853,6 +5944,23 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * Replace a user's existing login data to a new or an existing login data
+ *		 to only be used when admin impersonates a partner.
+	 * @param	userId	string		The user's unique identifier in the partner's system (optional)
+	 * @param	newLoginId	string		The new user's email address that identifies the user for login (optional)
+	 * @param	existingLoginId	string		The user's email address that identifies the user for login (optional, default: null)
+	 **/
+	replaceUserLoginData: function(userId, newLoginId, existingLoginId){
+		if(!existingLoginId)
+			existingLoginId = null;
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.newLoginId = newLoginId;
+		kparams.existingLoginId = existingLoginId;
+		return new KalturaRequestBuilder("user", "replaceUserLoginData", kparams);
+	},
+	
+	/**
 	 * Reset user's password and send the user an email to generate a new one..
 	 * @param	email	string		The user's email address (login email) (optional)
 	 * @param	linkType	string		kmc or kms (optional, enum: KalturaResetPassLinkType, default: null)
@@ -6012,6 +6120,542 @@ var KalturaWidgetService = {
 }
 
 /**
+ *Class definition for the Kaltura service: metadata.
+ **/
+var KalturaMetadataService = {
+	/**
+	 * Allows you to add a metadata object and metadata content associated with Kaltura object.
+	 * @param	metadataProfileId	int		 (optional)
+	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	xmlData	string		XML metadata (optional)
+	 **/
+	add: function(metadataProfileId, objectType, objectId, xmlData){
+		var kparams = new Object();
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kparams.xmlData = xmlData;
+		return new KalturaRequestBuilder("metadata_metadata", "add", kparams);
+	},
+	
+	/**
+	 * Allows you to add a metadata XML data from remote URL.
+ *		 Enables different permissions than addFromUrl action..
+	 * @param	metadataProfileId	int		 (optional)
+	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
+	 **/
+	addFromBulk: function(metadataProfileId, objectType, objectId, url){
+		var kparams = new Object();
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kparams.url = url;
+		return new KalturaRequestBuilder("metadata_metadata", "addFromBulk", kparams);
+	},
+	
+	/**
+	 * Allows you to add a metadata object and metadata file associated with Kaltura object.
+	 * @param	metadataProfileId	int		 (optional)
+	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	xmlFile	HTMLElement		XML metadata (optional)
+	 **/
+	addFromFile: function(metadataProfileId, objectType, objectId, xmlFile){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kfiles.xmlFile = xmlFile;
+		return new KalturaRequestBuilder("metadata_metadata", "addFromFile", kparams, kfiles);
+	},
+	
+	/**
+	 * Allows you to add a metadata XML data from remote URL.
+	 * @param	metadataProfileId	int		 (optional)
+	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	url	string		XML metadata remote URL (optional)
+	 **/
+	addFromUrl: function(metadataProfileId, objectType, objectId, url){
+		var kparams = new Object();
+		kparams.metadataProfileId = metadataProfileId;
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kparams.url = url;
+		return new KalturaRequestBuilder("metadata_metadata", "addFromUrl", kparams);
+	},
+	
+	/**
+	 * Delete an existing metadata.
+	 * @param	id	int		 (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("metadata_metadata", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a metadata object by id.
+	 * @param	id	int		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("metadata_metadata", "get", kparams);
+	},
+	
+	/**
+	 * Index metadata by id, will also index the related object.
+	 * @param	id	string		 (optional)
+	 * @param	shouldUpdate	bool		 (optional)
+	 **/
+	index: function(id, shouldUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.shouldUpdate = shouldUpdate;
+		return new KalturaRequestBuilder("metadata_metadata", "index", kparams);
+	},
+	
+	/**
+	 * Mark existing metadata as invalid
+ *		 Used by batch metadata transform.
+	 * @param	id	int		 (optional)
+	 * @param	version	int		Enable update only if the metadata object version did not change by other process (optional, default: null)
+	 **/
+	invalidate: function(id, version){
+		if(!version)
+			version = null;
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.version = version;
+		return new KalturaRequestBuilder("metadata_metadata", "invalidate", kparams);
+	},
+	
+	/**
+	 * List metadata objects by filter and pager.
+	 * @param	filter	KalturaMetadataFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("metadata_metadata", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing metadata object with new XML content.
+	 * @param	id	int		 (optional)
+	 * @param	xmlData	string		XML metadata (optional, default: null)
+	 * @param	version	int		Enable update only if the metadata object version did not change by other process (optional, default: null)
+	 **/
+	update: function(id, xmlData, version){
+		if(!xmlData)
+			xmlData = null;
+		if(!version)
+			version = null;
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.xmlData = xmlData;
+		kparams.version = version;
+		return new KalturaRequestBuilder("metadata_metadata", "update", kparams);
+	},
+	
+	/**
+	 * Update an existing metadata object with new XML file.
+	 * @param	id	int		 (optional)
+	 * @param	xmlFile	HTMLElement		XML metadata (optional, default: null)
+	 **/
+	updateFromFile: function(id, xmlFile){
+		if(!xmlFile)
+			xmlFile = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.id = id;
+		kfiles.xmlFile = xmlFile;
+		return new KalturaRequestBuilder("metadata_metadata", "updateFromFile", kparams, kfiles);
+	},
+	
+	/**
+	 * Action transforms current metadata object XML using a provided XSL..
+	 * @param	id	int		 (optional)
+	 * @param	xslFile	HTMLElement		 (optional)
+	 **/
+	updateFromXSL: function(id, xslFile){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.id = id;
+		kfiles.xslFile = xslFile;
+		return new KalturaRequestBuilder("metadata_metadata", "updateFromXSL", kparams, kfiles);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: metadataProfile.
+ **/
+var KalturaMetadataProfileService = {
+	/**
+	 * Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type.
+	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
+	 * @param	xsdData	string		XSD metadata definition (optional)
+	 * @param	viewsData	string		UI views definition (optional, default: null)
+	 **/
+	add: function(metadataProfile, xsdData, viewsData){
+		if(!viewsData)
+			viewsData = null;
+		var kparams = new Object();
+		kparams.metadataProfile = metadataProfile;
+		kparams.xsdData = xsdData;
+		kparams.viewsData = viewsData;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "add", kparams);
+	},
+	
+	/**
+	 * Allows you to add a metadata profile object and metadata profile file associated with Kaltura object type.
+	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
+	 * @param	xsdFile	HTMLElement		XSD metadata definition (optional)
+	 * @param	viewsFile	HTMLElement		UI views definition (optional, default: null)
+	 **/
+	addFromFile: function(metadataProfile, xsdFile, viewsFile){
+		if(!viewsFile)
+			viewsFile = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.metadataProfile = metadataProfile;
+		kfiles.xsdFile = xsdFile;
+		kfiles.viewsFile = viewsFile;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "addFromFile", kparams, kfiles);
+	},
+	
+	/**
+	 * Delete an existing metadata profile.
+	 * @param	id	int		 (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a metadata profile object by id.
+	 * @param	id	int		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "get", kparams);
+	},
+	
+	/**
+	 * List metadata profile objects by filter and pager.
+	 * @param	filter	KalturaMetadataProfileFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "list", kparams);
+	},
+	
+	/**
+	 * List metadata profile fields by metadata profile id.
+	 * @param	metadataProfileId	int		 (optional)
+	 **/
+	listFields: function(metadataProfileId){
+		var kparams = new Object();
+		kparams.metadataProfileId = metadataProfileId;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "listFields", kparams);
+	},
+	
+	/**
+	 * Update an existing metadata object definition file.
+	 * @param	id	int		 (optional)
+	 * @param	toVersion	int		 (optional)
+	 **/
+	revert: function(id, toVersion){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.toVersion = toVersion;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "revert", kparams);
+	},
+	
+	/**
+	 * Update an existing metadata object.
+	 * @param	id	int		 (optional)
+	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
+	 * @param	xsdData	string		XSD metadata definition (optional, default: null)
+	 * @param	viewsData	string		UI views definition (optional, default: null)
+	 **/
+	update: function(id, metadataProfile, xsdData, viewsData){
+		if(!xsdData)
+			xsdData = null;
+		if(!viewsData)
+			viewsData = null;
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.metadataProfile = metadataProfile;
+		kparams.xsdData = xsdData;
+		kparams.viewsData = viewsData;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "update", kparams);
+	},
+	
+	/**
+	 * Update an existing metadata object definition file.
+	 * @param	id	int		 (optional)
+	 * @param	xsdFile	HTMLElement		XSD metadata definition (optional)
+	 **/
+	updateDefinitionFromFile: function(id, xsdFile){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.id = id;
+		kfiles.xsdFile = xsdFile;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "updateDefinitionFromFile", kparams, kfiles);
+	},
+	
+	/**
+	 * Update an existing metadata object XSLT file.
+	 * @param	id	int		 (optional)
+	 * @param	xsltFile	HTMLElement		XSLT file, will be executed on every metadata add/update (optional)
+	 **/
+	updateTransformationFromFile: function(id, xsltFile){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.id = id;
+		kfiles.xsltFile = xsltFile;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "updateTransformationFromFile", kparams, kfiles);
+	},
+	
+	/**
+	 * Update an existing metadata object views file.
+	 * @param	id	int		 (optional)
+	 * @param	viewsFile	HTMLElement		UI views file (optional)
+	 **/
+	updateViewsFromFile: function(id, viewsFile){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.id = id;
+		kfiles.viewsFile = viewsFile;
+		return new KalturaRequestBuilder("metadata_metadataprofile", "updateViewsFromFile", kparams, kfiles);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: documents.
+ **/
+var KalturaDocumentsService = {
+	/**
+	 * Add content to document entry which is not yet associated with content (therefore is in status NO_CONTENT).
+ *		 If the requirement is to replace the entry's associated content, use action updateContent..
+	 * @param	entryId	string		 (optional)
+	 * @param	resource	KalturaResource		 (optional, default: null)
+	 **/
+	addContent: function(entryId, resource){
+		if(!resource)
+			resource = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		if (resource != null)
+			kparams.resource = resource;
+		return new KalturaRequestBuilder("document_documents", "addContent", kparams);
+	},
+	
+	/**
+	 * Copy entry into new entry.
+	 * @param	sourceEntryId	string		Document entry id to copy from (optional)
+	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional, default: null)
+	 * @param	sourceFlavorParamsId	int		The flavor to be used as the new entry source, source flavor will be used if not specified (optional, default: null)
+	 **/
+	addFromEntry: function(sourceEntryId, documentEntry, sourceFlavorParamsId){
+		if(!documentEntry)
+			documentEntry = null;
+		if(!sourceFlavorParamsId)
+			sourceFlavorParamsId = null;
+		var kparams = new Object();
+		kparams.sourceEntryId = sourceEntryId;
+		if (documentEntry != null)
+			kparams.documentEntry = documentEntry;
+		kparams.sourceFlavorParamsId = sourceFlavorParamsId;
+		return new KalturaRequestBuilder("document_documents", "addFromEntry", kparams);
+	},
+	
+	/**
+	 * Copy flavor asset into new entry.
+	 * @param	sourceFlavorAssetId	string		Flavor asset id to be used as the new entry source (optional)
+	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional, default: null)
+	 **/
+	addFromFlavorAsset: function(sourceFlavorAssetId, documentEntry){
+		if(!documentEntry)
+			documentEntry = null;
+		var kparams = new Object();
+		kparams.sourceFlavorAssetId = sourceFlavorAssetId;
+		if (documentEntry != null)
+			kparams.documentEntry = documentEntry;
+		return new KalturaRequestBuilder("document_documents", "addFromFlavorAsset", kparams);
+	},
+	
+	/**
+	 * Add new document entry after the specific document file was uploaded and the upload token id exists.
+	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional)
+	 * @param	uploadTokenId	string		Upload token id (optional)
+	 **/
+	addFromUploadedFile: function(documentEntry, uploadTokenId){
+		var kparams = new Object();
+		kparams.documentEntry = documentEntry;
+		kparams.uploadTokenId = uploadTokenId;
+		return new KalturaRequestBuilder("document_documents", "addFromUploadedFile", kparams);
+	},
+	
+	/**
+	 * Approves document replacement.
+	 * @param	entryId	string		document entry id to replace (optional)
+	 **/
+	approveReplace: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("document_documents", "approveReplace", kparams);
+	},
+	
+	/**
+	 * Cancels document replacement.
+	 * @param	entryId	string		Document entry id to cancel (optional)
+	 **/
+	cancelReplace: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("document_documents", "cancelReplace", kparams);
+	},
+	
+	/**
+	 * Convert entry.
+	 * @param	entryId	string		Document entry id (optional)
+	 * @param	conversionProfileId	int		 (optional, default: null)
+	 * @param	dynamicConversionAttributes	array		 (optional, default: null)
+	 **/
+	convert: function(entryId, conversionProfileId, dynamicConversionAttributes){
+		if(!conversionProfileId)
+			conversionProfileId = null;
+		if(!dynamicConversionAttributes)
+			dynamicConversionAttributes = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.conversionProfileId = conversionProfileId;
+		kparams.dynamicConversionAttributes = dynamicConversionAttributes;
+		return new KalturaRequestBuilder("document_documents", "convert", kparams);
+	},
+	
+	/**
+	 * This will queue a batch job for converting the document file to swf
+ *		 Returns the URL where the new swf will be available.
+	 * @param	entryId	string		 (optional)
+	 **/
+	convertPptToSwf: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("document_documents", "convertPptToSwf", kparams);
+	},
+	
+	/**
+	 * Delete a document entry..
+	 * @param	entryId	string		Document entry id to delete (optional)
+	 **/
+	deleteAction: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("document_documents", "delete", kparams);
+	},
+	
+	/**
+	 * Get document entry by ID..
+	 * @param	entryId	string		Document entry id (optional)
+	 * @param	version	int		Desired version of the data (optional, default: -1)
+	 **/
+	get: function(entryId, version){
+		if(!version)
+			version = -1;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.version = version;
+		return new KalturaRequestBuilder("document_documents", "get", kparams);
+	},
+	
+	/**
+	 * List document entries by filter with paging support..
+	 * @param	filter	KalturaDocumentEntryFilter		Document entry filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("document_documents", "list", kparams);
+	},
+	
+	/**
+	 * Update document entry. Only the properties that were set will be updated..
+	 * @param	entryId	string		Document entry id to update (optional)
+	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata to update (optional)
+	 **/
+	update: function(entryId, documentEntry){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.documentEntry = documentEntry;
+		return new KalturaRequestBuilder("document_documents", "update", kparams);
+	},
+	
+	/**
+	 * Replace content associated with the given document entry..
+	 * @param	entryId	string		document entry id to update (optional)
+	 * @param	resource	KalturaResource		Resource to be used to replace entry doc content (optional)
+	 * @param	conversionProfileId	int		The conversion profile id to be used on the entry (optional, default: null)
+	 **/
+	updateContent: function(entryId, resource, conversionProfileId){
+		if(!conversionProfileId)
+			conversionProfileId = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.resource = resource;
+		kparams.conversionProfileId = conversionProfileId;
+		return new KalturaRequestBuilder("document_documents", "updateContent", kparams);
+	},
+	
+	/**
+	 * Upload a document file to Kaltura, then the file can be used to create a document entry..
+	 * @param	fileData	HTMLElement		The file data (optional)
+	 **/
+	upload: function(fileData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		return new KalturaRequestBuilder("document_documents", "upload", kparams, kfiles);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: annotation.
  **/
 var KalturaAnnotationService = {
@@ -6157,6 +6801,13 @@ var KalturaAsperaService = {
 		kparams.flavorAssetId = flavorAssetId;
 		return new KalturaRequestBuilder("aspera_aspera", "getFaspUrl", kparams);
 	}
+}
+
+/**
+ *Class definition for the Kaltura service: attUverse.
+ **/
+var KalturaAttUverseService = {
+
 }
 
 /**
@@ -6306,76 +6957,6 @@ var KalturaAuditTrailService = {
 }
 
 /**
- *Class definition for the Kaltura service: beacon.
- **/
-var KalturaBeaconService = {
-	/**
-	 * .
-	 * @param	beacon	KalturaBeacon		 (optional)
-	 * @param	shouldLog	int		 (optional, enum: KalturaNullableBoolean)
-	 **/
-	add: function(beacon, shouldLog){
-		if(!shouldLog)
-			shouldLog = 0;
-		var kparams = new Object();
-		kparams.beacon = beacon;
-		kparams.shouldLog = shouldLog;
-		return new KalturaRequestBuilder("beacon_beacon", "add", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaBeaconEnhanceFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	enhanceSearch: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("beacon_beacon", "enhanceSearch", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaBeaconFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("beacon_beacon", "list", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	searchParams	KalturaBeaconSearchParams		 (optional)
-	 * @param	pager	KalturaPager		 (optional, default: null)
-	 **/
-	searchScheduledResource: function(searchParams, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.searchParams = searchParams;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("beacon_beacon", "searchScheduledResource", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: bulk.
  **/
 var KalturaBulkService = {
@@ -6419,33 +7000,51 @@ var KalturaBulkService = {
 }
 
 /**
- *Class definition for the Kaltura service: businessProcessCase.
+ *Class definition for the Kaltura service: bumper.
  **/
-var KalturaBusinessProcessCaseService = {
+var KalturaBumperService = {
 	/**
-	 * Abort business-process case.
-	 * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType)
-	 * @param	objectId	string		 (optional)
-	 * @param	businessProcessStartNotificationTemplateId	int		 (optional)
+	 * Adds a bumper to an entry.
+	 * @param	entryId	string		 (optional)
+	 * @param	bumper	KalturaBumper		 (optional)
 	 **/
-	abort: function(objectType, objectId, businessProcessStartNotificationTemplateId){
+	add: function(entryId, bumper){
 		var kparams = new Object();
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		kparams.businessProcessStartNotificationTemplateId = businessProcessStartNotificationTemplateId;
-		return new KalturaRequestBuilder("businessprocessnotification_businessprocesscase", "abort", kparams);
+		kparams.entryId = entryId;
+		kparams.bumper = bumper;
+		return new KalturaRequestBuilder("bumper_bumper", "add", kparams);
 	},
 	
 	/**
-	 * list business-process cases.
-	 * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType)
-	 * @param	objectId	string		 (optional)
+	 * Delete bumper by EntryId.
+	 * @param	entryId	string		 (optional)
 	 **/
-	listAction: function(objectType, objectId){
+	deleteAction: function(entryId){
 		var kparams = new Object();
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		return new KalturaRequestBuilder("businessprocessnotification_businessprocesscase", "list", kparams);
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("bumper_bumper", "delete", kparams);
+	},
+	
+	/**
+	 * Allows to get the bumper.
+	 * @param	entryId	string		 (optional)
+	 **/
+	get: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("bumper_bumper", "get", kparams);
+	},
+	
+	/**
+	 * Allows to update a bumper.
+	 * @param	entryId	string		 (optional)
+	 * @param	bumper	KalturaBumper		 (optional)
+	 **/
+	update: function(entryId, bumper){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.bumper = bumper;
+		return new KalturaRequestBuilder("bumper_bumper", "update", kparams);
 	}
 }
 
@@ -7340,348 +7939,6 @@ var KalturaCuePointService = {
 }
 
 /**
- *Class definition for the Kaltura service: documents.
- **/
-var KalturaDocumentsService = {
-	/**
-	 * Copy entry into new entry.
-	 * @param	sourceEntryId	string		Document entry id to copy from (optional)
-	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional, default: null)
-	 * @param	sourceFlavorParamsId	int		The flavor to be used as the new entry source, source flavor will be used if not specified (optional, default: null)
-	 **/
-	addFromEntry: function(sourceEntryId, documentEntry, sourceFlavorParamsId){
-		if(!documentEntry)
-			documentEntry = null;
-		if(!sourceFlavorParamsId)
-			sourceFlavorParamsId = null;
-		var kparams = new Object();
-		kparams.sourceEntryId = sourceEntryId;
-		if (documentEntry != null)
-			kparams.documentEntry = documentEntry;
-		kparams.sourceFlavorParamsId = sourceFlavorParamsId;
-		return new KalturaRequestBuilder("document_documents", "addFromEntry", kparams);
-	},
-	
-	/**
-	 * Copy flavor asset into new entry.
-	 * @param	sourceFlavorAssetId	string		Flavor asset id to be used as the new entry source (optional)
-	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional, default: null)
-	 **/
-	addFromFlavorAsset: function(sourceFlavorAssetId, documentEntry){
-		if(!documentEntry)
-			documentEntry = null;
-		var kparams = new Object();
-		kparams.sourceFlavorAssetId = sourceFlavorAssetId;
-		if (documentEntry != null)
-			kparams.documentEntry = documentEntry;
-		return new KalturaRequestBuilder("document_documents", "addFromFlavorAsset", kparams);
-	},
-	
-	/**
-	 * Add new document entry after the specific document file was uploaded and the upload token id exists.
-	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata (optional)
-	 * @param	uploadTokenId	string		Upload token id (optional)
-	 **/
-	addFromUploadedFile: function(documentEntry, uploadTokenId){
-		var kparams = new Object();
-		kparams.documentEntry = documentEntry;
-		kparams.uploadTokenId = uploadTokenId;
-		return new KalturaRequestBuilder("document_documents", "addFromUploadedFile", kparams);
-	},
-	
-	/**
-	 * Approves document replacement.
-	 * @param	entryId	string		document entry id to replace (optional)
-	 **/
-	approveReplace: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("document_documents", "approveReplace", kparams);
-	},
-	
-	/**
-	 * Cancels document replacement.
-	 * @param	entryId	string		Document entry id to cancel (optional)
-	 **/
-	cancelReplace: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("document_documents", "cancelReplace", kparams);
-	},
-	
-	/**
-	 * Convert entry.
-	 * @param	entryId	string		Document entry id (optional)
-	 * @param	conversionProfileId	int		 (optional, default: null)
-	 * @param	dynamicConversionAttributes	array		 (optional, default: null)
-	 **/
-	convert: function(entryId, conversionProfileId, dynamicConversionAttributes){
-		if(!conversionProfileId)
-			conversionProfileId = null;
-		if(!dynamicConversionAttributes)
-			dynamicConversionAttributes = null;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.conversionProfileId = conversionProfileId;
-		kparams.dynamicConversionAttributes = dynamicConversionAttributes;
-		return new KalturaRequestBuilder("document_documents", "convert", kparams);
-	},
-	
-	/**
-	 * This will queue a batch job for converting the document file to swf
- *		 Returns the URL where the new swf will be available.
-	 * @param	entryId	string		 (optional)
-	 **/
-	convertPptToSwf: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("document_documents", "convertPptToSwf", kparams);
-	},
-	
-	/**
-	 * Delete a document entry..
-	 * @param	entryId	string		Document entry id to delete (optional)
-	 **/
-	deleteAction: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("document_documents", "delete", kparams);
-	},
-	
-	/**
-	 * Get document entry by ID..
-	 * @param	entryId	string		Document entry id (optional)
-	 * @param	version	int		Desired version of the data (optional, default: -1)
-	 **/
-	get: function(entryId, version){
-		if(!version)
-			version = -1;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.version = version;
-		return new KalturaRequestBuilder("document_documents", "get", kparams);
-	},
-	
-	/**
-	 * List document entries by filter with paging support..
-	 * @param	filter	KalturaDocumentEntryFilter		Document entry filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("document_documents", "list", kparams);
-	},
-	
-	/**
-	 * Update document entry. Only the properties that were set will be updated..
-	 * @param	entryId	string		Document entry id to update (optional)
-	 * @param	documentEntry	KalturaDocumentEntry		Document entry metadata to update (optional)
-	 **/
-	update: function(entryId, documentEntry){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.documentEntry = documentEntry;
-		return new KalturaRequestBuilder("document_documents", "update", kparams);
-	},
-	
-	/**
-	 * Replace content associated with the given document entry..
-	 * @param	entryId	string		document entry id to update (optional)
-	 * @param	resource	KalturaResource		Resource to be used to replace entry doc content (optional)
-	 * @param	conversionProfileId	int		The conversion profile id to be used on the entry (optional, default: null)
-	 **/
-	updateContent: function(entryId, resource, conversionProfileId){
-		if(!conversionProfileId)
-			conversionProfileId = null;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.resource = resource;
-		kparams.conversionProfileId = conversionProfileId;
-		return new KalturaRequestBuilder("document_documents", "updateContent", kparams);
-	},
-	
-	/**
-	 * Upload a document file to Kaltura, then the file can be used to create a document entry..
-	 * @param	fileData	HTMLElement		The file data (optional)
-	 **/
-	upload: function(fileData){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kfiles.fileData = fileData;
-		return new KalturaRequestBuilder("document_documents", "upload", kparams, kfiles);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: drmPolicy.
- **/
-var KalturaDrmPolicyService = {
-	/**
-	 * Allows you to add a new DrmPolicy object.
-	 * @param	drmPolicy	KalturaDrmPolicy		 (optional)
-	 **/
-	add: function(drmPolicy){
-		var kparams = new Object();
-		kparams.drmPolicy = drmPolicy;
-		return new KalturaRequestBuilder("drm_drmpolicy", "add", kparams);
-	},
-	
-	/**
-	 * Mark the KalturaDrmPolicy object as deleted.
-	 * @param	drmPolicyId	int		 (optional)
-	 **/
-	deleteAction: function(drmPolicyId){
-		var kparams = new Object();
-		kparams.drmPolicyId = drmPolicyId;
-		return new KalturaRequestBuilder("drm_drmpolicy", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaDrmPolicy object by ID.
-	 * @param	drmPolicyId	int		 (optional)
-	 **/
-	get: function(drmPolicyId){
-		var kparams = new Object();
-		kparams.drmPolicyId = drmPolicyId;
-		return new KalturaRequestBuilder("drm_drmpolicy", "get", kparams);
-	},
-	
-	/**
-	 * List KalturaDrmPolicy objects.
-	 * @param	filter	KalturaDrmPolicyFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("drm_drmpolicy", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing KalturaDrmPolicy object.
-	 * @param	drmPolicyId	int		 (optional)
-	 * @param	drmPolicy	KalturaDrmPolicy		Id (optional)
-	 **/
-	update: function(drmPolicyId, drmPolicy){
-		var kparams = new Object();
-		kparams.drmPolicyId = drmPolicyId;
-		kparams.drmPolicy = drmPolicy;
-		return new KalturaRequestBuilder("drm_drmpolicy", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: drmProfile.
- **/
-var KalturaDrmProfileService = {
-	/**
-	 * Allows you to add a new DrmProfile object.
-	 * @param	drmProfile	KalturaDrmProfile		 (optional)
-	 **/
-	add: function(drmProfile){
-		var kparams = new Object();
-		kparams.drmProfile = drmProfile;
-		return new KalturaRequestBuilder("drm_drmprofile", "add", kparams);
-	},
-	
-	/**
-	 * Mark the KalturaDrmProfile object as deleted.
-	 * @param	drmProfileId	int		 (optional)
-	 **/
-	deleteAction: function(drmProfileId){
-		var kparams = new Object();
-		kparams.drmProfileId = drmProfileId;
-		return new KalturaRequestBuilder("drm_drmprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaDrmProfile object by ID.
-	 * @param	drmProfileId	int		 (optional)
-	 **/
-	get: function(drmProfileId){
-		var kparams = new Object();
-		kparams.drmProfileId = drmProfileId;
-		return new KalturaRequestBuilder("drm_drmprofile", "get", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaDrmProfile object by provider, if no specific profile defined return default profile.
-	 * @param	provider	string		 (optional, enum: KalturaDrmProviderType)
-	 **/
-	getByProvider: function(provider){
-		var kparams = new Object();
-		kparams.provider = provider;
-		return new KalturaRequestBuilder("drm_drmprofile", "getByProvider", kparams);
-	},
-	
-	/**
-	 * List KalturaDrmProfile objects.
-	 * @param	filter	KalturaDrmProfileFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("drm_drmprofile", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing KalturaDrmProfile object.
-	 * @param	drmProfileId	int		 (optional)
-	 * @param	drmProfile	KalturaDrmProfile		Id (optional)
-	 **/
-	update: function(drmProfileId, drmProfile){
-		var kparams = new Object();
-		kparams.drmProfileId = drmProfileId;
-		kparams.drmProfile = drmProfile;
-		return new KalturaRequestBuilder("drm_drmprofile", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: drmLicenseAccess.
- **/
-var KalturaDrmLicenseAccessService = {
-	/**
-	 * getAccessAction
- *	     input: flavor ids, drmProvider
- *	     Get Access Action.
-	 * @param	entryId	string		 (optional)
-	 * @param	flavorIds	string		 (optional)
-	 * @param	referrer	string		 (optional)
-	 **/
-	getAccess: function(entryId, flavorIds, referrer){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.flavorIds = flavorIds;
-		kparams.referrer = referrer;
-		return new KalturaRequestBuilder("drm_drmlicenseaccess", "getAccess", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: dropFolder.
  **/
 var KalturaDropFolderService = {
@@ -7888,71 +8145,6 @@ var KalturaDropFolderFileService = {
 }
 
 /**
- *Class definition for the Kaltura service: eSearch.
- **/
-var KalturaESearchService = {
-	/**
-	 * .
-	 * @param	searchParams	KalturaESearchCategoryParams		 (optional)
-	 * @param	pager	KalturaPager		 (optional, default: null)
-	 **/
-	searchCategory: function(searchParams, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.searchParams = searchParams;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("elasticsearch_esearch", "searchCategory", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	searchParams	KalturaESearchEntryParams		 (optional)
-	 * @param	pager	KalturaPager		 (optional, default: null)
-	 **/
-	searchEntry: function(searchParams, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.searchParams = searchParams;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("elasticsearch_esearch", "searchEntry", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	searchParams	KalturaESearchGroupParams		 (optional)
-	 * @param	pager	KalturaPager		 (optional, default: null)
-	 **/
-	searchGroup: function(searchParams, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.searchParams = searchParams;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("elasticsearch_esearch", "searchGroup", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	searchParams	KalturaESearchUserParams		 (optional)
-	 * @param	pager	KalturaPager		 (optional, default: null)
-	 **/
-	searchUser: function(searchParams, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.searchParams = searchParams;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("elasticsearch_esearch", "searchUser", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: eventNotificationTemplate.
  **/
 var KalturaEventNotificationTemplateService = {
@@ -8119,6 +8311,351 @@ var KalturaEventNotificationTemplateService = {
 }
 
 /**
+ *Class definition for the Kaltura service: sharepointExtension.
+ **/
+var KalturaSharepointExtensionService = {
+	/**
+	 * Is this Kaltura-Sharepoint-Server-Plugin supports minimum version of $major.$minor.$build (which is required by the extension).
+	 * @param	serverMajor	int		 (optional)
+	 * @param	serverMinor	int		 (optional)
+	 * @param	serverBuild	int		 (optional)
+	 **/
+	isVersionSupported: function(serverMajor, serverMinor, serverBuild){
+		var kparams = new Object();
+		kparams.serverMajor = serverMajor;
+		kparams.serverMinor = serverMinor;
+		kparams.serverBuild = serverBuild;
+		return new KalturaRequestBuilder("kalturasharepointextension_sharepointextension", "isVersionSupported", kparams);
+	},
+	
+	/**
+	 * list uiconfs for sharepoint extension.
+	 **/
+	listUiconfs: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("kalturasharepointextension_sharepointextension", "listUiconfs", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: like.
+ **/
+var KalturaLikeService = {
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 * @param	userId	string		 (optional, default: null)
+	 **/
+	checkLikeExists: function(entryId, userId){
+		if(!userId)
+			userId = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.userId = userId;
+		return new KalturaRequestBuilder("like_like", "checkLikeExists", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	like: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("like_like", "like", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaLikeFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("like_like", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	unlike: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("like_like", "unlike", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: ndn.
+ **/
+var KalturaNdnService = {
+
+}
+
+/**
+ *Class definition for the Kaltura service: shortLink.
+ **/
+var KalturaShortLinkService = {
+	/**
+	 * Allows you to add a short link object.
+	 * @param	shortLink	KalturaShortLink		 (optional)
+	 **/
+	add: function(shortLink){
+		var kparams = new Object();
+		kparams.shortLink = shortLink;
+		return new KalturaRequestBuilder("shortlink_shortlink", "add", kparams);
+	},
+	
+	/**
+	 * Mark the short link as deleted.
+	 * @param	id	string		 (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("shortlink_shortlink", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve an short link object by id.
+	 * @param	id	string		 (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("shortlink_shortlink", "get", kparams);
+	},
+	
+	/**
+	 * List short link objects by filter and pager.
+	 * @param	filter	KalturaShortLinkFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("shortlink_shortlink", "list", kparams);
+	},
+	
+	/**
+	 * Update existing short link.
+	 * @param	id	string		 (optional)
+	 * @param	shortLink	KalturaShortLink		 (optional)
+	 **/
+	update: function(id, shortLink){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.shortLink = shortLink;
+		return new KalturaRequestBuilder("shortlink_shortlink", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: synacorHbo.
+ **/
+var KalturaSynacorHboService = {
+
+}
+
+/**
+ *Class definition for the Kaltura service: tag.
+ **/
+var KalturaTagService = {
+	/**
+	 * Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags..
+	 **/
+	deletePending: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("tagsearch_tag", "deletePending", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	categoryId	int		 (optional)
+	 * @param	pcToDecrement	string		 (optional)
+	 * @param	pcToIncrement	string		 (optional)
+	 **/
+	indexCategoryEntryTags: function(categoryId, pcToDecrement, pcToIncrement){
+		var kparams = new Object();
+		kparams.categoryId = categoryId;
+		kparams.pcToDecrement = pcToDecrement;
+		kparams.pcToIncrement = pcToIncrement;
+		return new KalturaRequestBuilder("tagsearch_tag", "indexCategoryEntryTags", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	tagFilter	KalturaTagFilter		 (optional)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	search: function(tagFilter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.tagFilter = tagFilter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("tagsearch_tag", "search", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: timeWarner.
+ **/
+var KalturaTimeWarnerService = {
+
+}
+
+/**
+ *Class definition for the Kaltura service: uverseClickToOrder.
+ **/
+var KalturaUverseClickToOrderService = {
+
+}
+
+/**
+ *Class definition for the Kaltura service: uverse.
+ **/
+var KalturaUverseService = {
+
+}
+
+/**
+ *Class definition for the Kaltura service: varConsole.
+ **/
+var KalturaVarConsoleService = {
+	/**
+	 * Function which calulates partner usage of a group of a VAR's sub-publishers.
+	 * @param	partnerFilter	KalturaPartnerFilter		 (optional, default: null)
+	 * @param	usageFilter	KalturaReportInputFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	getPartnerUsage: function(partnerFilter, usageFilter, pager){
+		if(!partnerFilter)
+			partnerFilter = null;
+		if(!usageFilter)
+			usageFilter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (partnerFilter != null)
+			kparams.partnerFilter = partnerFilter;
+		if (usageFilter != null)
+			kparams.usageFilter = usageFilter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("varconsole_varconsole", "getPartnerUsage", kparams);
+	},
+	
+	/**
+	 * Function to change a sub-publisher's status.
+	 * @param	id	int		 (optional)
+	 * @param	status	int		 (optional, enum: KalturaPartnerStatus)
+	 **/
+	updateStatus: function(id, status){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.status = status;
+		return new KalturaRequestBuilder("varconsole_varconsole", "updateStatus", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: virusScanProfile.
+ **/
+var KalturaVirusScanProfileService = {
+	/**
+	 * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object.
+	 * @param	virusScanProfile	KalturaVirusScanProfile		 (optional)
+	 **/
+	add: function(virusScanProfile){
+		var kparams = new Object();
+		kparams.virusScanProfile = virusScanProfile;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "add", kparams);
+	},
+	
+	/**
+	 * Mark the virus scan profile as deleted.
+	 * @param	virusScanProfileId	int		 (optional)
+	 **/
+	deleteAction: function(virusScanProfileId){
+		var kparams = new Object();
+		kparams.virusScanProfileId = virusScanProfileId;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve an virus scan profile object by id.
+	 * @param	virusScanProfileId	int		 (optional)
+	 **/
+	get: function(virusScanProfileId){
+		var kparams = new Object();
+		kparams.virusScanProfileId = virusScanProfileId;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "get", kparams);
+	},
+	
+	/**
+	 * List virus scan profile objects by filter and pager.
+	 * @param	filter	KalturaVirusScanProfileFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "list", kparams);
+	},
+	
+	/**
+	 * Scan flavor asset according to virus scan profile.
+	 * @param	flavorAssetId	string		 (optional)
+	 * @param	virusScanProfileId	int		 (optional, default: null)
+	 **/
+	scan: function(flavorAssetId, virusScanProfileId){
+		if(!virusScanProfileId)
+			virusScanProfileId = null;
+		var kparams = new Object();
+		kparams.flavorAssetId = flavorAssetId;
+		kparams.virusScanProfileId = virusScanProfileId;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "scan", kparams);
+	},
+	
+	/**
+	 * Update existing virus scan profile, it is possible to update the virus scan profile id too.
+	 * @param	virusScanProfileId	int		 (optional)
+	 * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional)
+	 **/
+	update: function(virusScanProfileId, virusScanProfile){
+		var kparams = new Object();
+		kparams.virusScanProfileId = virusScanProfileId;
+		kparams.virusScanProfile = virusScanProfile;
+		return new KalturaRequestBuilder("virusscan_virusscanprofile", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: externalMedia.
  **/
 var KalturaExternalMediaService = {
@@ -8197,255 +8734,42 @@ var KalturaExternalMediaService = {
 }
 
 /**
- *Class definition for the Kaltura service: group.
+ *Class definition for the Kaltura service: drmPolicy.
  **/
-var KalturaGroupService = {
+var KalturaDrmPolicyService = {
 	/**
-	 * Adds a new group (user of type group)..
-	 * @param	group	KalturaGroup		a new group (optional)
+	 * Allows you to add a new DrmPolicy object.
+	 * @param	drmPolicy	KalturaDrmPolicy		 (optional)
 	 **/
-	add: function(group){
+	add: function(drmPolicy){
 		var kparams = new Object();
-		kparams.group = group;
-		return new KalturaRequestBuilder("group_group", "add", kparams);
+		kparams.drmPolicy = drmPolicy;
+		return new KalturaRequestBuilder("drm_drmpolicy", "add", kparams);
 	},
 	
 	/**
-	 * clone the group (groupId), and set group id with the neeGroupName..
-	 * @param	originalGroupId	string		The unique identifier in the partner's system (optional)
-	 * @param	newGroupId	string		The unique identifier in the partner's system (optional)
-	 * @param	newGroupName	string		The name of the new cloned group (optional, default: null)
+	 * Mark the KalturaDrmPolicy object as deleted.
+	 * @param	drmPolicyId	int		 (optional)
 	 **/
-	cloneAction: function(originalGroupId, newGroupId, newGroupName){
-		if(!newGroupName)
-			newGroupName = null;
+	deleteAction: function(drmPolicyId){
 		var kparams = new Object();
-		kparams.originalGroupId = originalGroupId;
-		kparams.newGroupId = newGroupId;
-		kparams.newGroupName = newGroupName;
-		return new KalturaRequestBuilder("group_group", "clone", kparams);
+		kparams.drmPolicyId = drmPolicyId;
+		return new KalturaRequestBuilder("drm_drmpolicy", "delete", kparams);
 	},
 	
 	/**
-	 * Delete group by ID.
-	 * @param	groupId	string		The unique identifier in the partner's system (optional)
+	 * Retrieve a KalturaDrmPolicy object by ID.
+	 * @param	drmPolicyId	int		 (optional)
 	 **/
-	deleteAction: function(groupId){
+	get: function(drmPolicyId){
 		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("group_group", "delete", kparams);
+		kparams.drmPolicyId = drmPolicyId;
+		return new KalturaRequestBuilder("drm_drmpolicy", "get", kparams);
 	},
 	
 	/**
-	 * Retrieves a group object for a specified group ID..
-	 * @param	groupId	string		The unique identifier in the partner's system (optional)
-	 **/
-	get: function(groupId){
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("group_group", "get", kparams);
-	},
-	
-	/**
-	 * Lists group  objects that are associated with an account.
- *		 Blocked users are listed unless you use a filter to exclude them.
- *		 Deleted users are not listed unless you use a filter to include them..
-	 * @param	filter	KalturaGroupFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		A limit for the number of records to display on a page (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("group_group", "list", kparams);
-	},
-	
-	/**
-	 * Update group by ID.
-	 * @param	groupId	string		The unique identifier in the partner's system (optional)
-	 * @param	group	KalturaGroup		Id The unique identifier in the partner's system (optional)
-	 **/
-	update: function(groupId, group){
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		kparams.group = group;
-		return new KalturaRequestBuilder("group_group", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: integration.
- **/
-var KalturaIntegrationService = {
-	/**
-	 * Dispatch integration task.
-	 * @param	data	KalturaIntegrationJobData		 (optional)
-	 * @param	objectType	string		 (optional, enum: KalturaBatchJobObjectType)
-	 * @param	objectId	string		 (optional)
-	 **/
-	dispatch: function(data, objectType, objectId){
-		var kparams = new Object();
-		kparams.data = data;
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		return new KalturaRequestBuilder("integration_integration", "dispatch", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	id	int		integration job id (optional)
-	 **/
-	notify: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("integration_integration", "notify", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: interactivity.
- **/
-var KalturaInteractivityService = {
-	/**
-	 * Add a interactivity object.
-	 * @param	entryId	string		 (optional)
-	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
-	 **/
-	add: function(entryId, kalturaInteractivity){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.kalturaInteractivity = kalturaInteractivity;
-		return new KalturaRequestBuilder("interactivity_interactivity", "add", kparams);
-	},
-	
-	/**
-	 * Delete a interactivity object by entry id.
-	 * @param	entryId	string		 (optional)
-	 **/
-	deleteAction: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("interactivity_interactivity", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a interactivity object by entry id.
-	 * @param	entryId	string		 (optional)
-	 * @param	dataFilter	KalturaInteractivityDataFilter		 (optional, default: null)
-	 **/
-	get: function(entryId, dataFilter){
-		if(!dataFilter)
-			dataFilter = null;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		if (dataFilter != null)
-			kparams.dataFilter = dataFilter;
-		return new KalturaRequestBuilder("interactivity_interactivity", "get", kparams);
-	},
-	
-	/**
-	 * Update an existing interactivity object.
-	 * @param	entryId	string		 (optional)
-	 * @param	version	int		 (optional)
-	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
-	 **/
-	update: function(entryId, version, kalturaInteractivity){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.version = version;
-		kparams.kalturaInteractivity = kalturaInteractivity;
-		return new KalturaRequestBuilder("interactivity_interactivity", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: volatileInteractivity.
- **/
-var KalturaVolatileInteractivityService = {
-	/**
-	 * add a volatile interactivity object.
-	 * @param	entryId	string		 (optional)
-	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
-	 **/
-	add: function(entryId, kalturaVolatileInteractivity){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
-		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "add", kparams);
-	},
-	
-	/**
-	 * Delete a volatile interactivity object by entry id.
-	 * @param	entryId	string		 (optional)
-	 **/
-	deleteAction: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a volatile interactivity object by entry id.
-	 * @param	entryId	string		 (optional)
-	 **/
-	get: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "get", kparams);
-	},
-	
-	/**
-	 * Update a volatile interactivity object.
-	 * @param	entryId	string		 (optional)
-	 * @param	version	int		 (optional)
-	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
-	 **/
-	update: function(entryId, version, kalturaVolatileInteractivity){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.version = version;
-		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
-		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: like.
- **/
-var KalturaLikeService = {
-	/**
-	 * .
-	 * @param	entryId	string		 (optional)
-	 * @param	userId	string		 (optional, default: null)
-	 **/
-	checkLikeExists: function(entryId, userId){
-		if(!userId)
-			userId = null;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.userId = userId;
-		return new KalturaRequestBuilder("like_like", "checkLikeExists", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	entryId	string		 (optional)
-	 **/
-	like: function(entryId){
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("like_like", "like", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaLikeFilter		 (optional, default: null)
+	 * List KalturaDrmPolicy objects.
+	 * @param	filter	KalturaDrmPolicyFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -8458,140 +8782,184 @@ var KalturaLikeService = {
 			kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
-		return new KalturaRequestBuilder("like_like", "list", kparams);
+		return new KalturaRequestBuilder("drm_drmpolicy", "list", kparams);
 	},
 	
 	/**
-	 * .
-	 * @param	entryId	string		 (optional)
+	 * Update an existing KalturaDrmPolicy object.
+	 * @param	drmPolicyId	int		 (optional)
+	 * @param	drmPolicy	KalturaDrmPolicy		Id (optional)
 	 **/
-	unlike: function(entryId){
+	update: function(drmPolicyId, drmPolicy){
 		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("like_like", "unlike", kparams);
+		kparams.drmPolicyId = drmPolicyId;
+		kparams.drmPolicy = drmPolicy;
+		return new KalturaRequestBuilder("drm_drmpolicy", "update", kparams);
 	}
 }
 
 /**
- *Class definition for the Kaltura service: metadata.
+ *Class definition for the Kaltura service: drmProfile.
  **/
-var KalturaMetadataService = {
+var KalturaDrmProfileService = {
 	/**
-	 * Allows you to add a metadata object and metadata content associated with Kaltura object.
-	 * @param	metadataProfileId	int		 (optional)
-	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
-	 * @param	objectId	string		 (optional)
-	 * @param	xmlData	string		XML metadata (optional)
+	 * Allows you to add a new DrmProfile object.
+	 * @param	drmProfile	KalturaDrmProfile		 (optional)
 	 **/
-	add: function(metadataProfileId, objectType, objectId, xmlData){
+	add: function(drmProfile){
 		var kparams = new Object();
-		kparams.metadataProfileId = metadataProfileId;
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		kparams.xmlData = xmlData;
-		return new KalturaRequestBuilder("metadata_metadata", "add", kparams);
+		kparams.drmProfile = drmProfile;
+		return new KalturaRequestBuilder("drm_drmprofile", "add", kparams);
 	},
 	
 	/**
-	 * Allows you to add a metadata XML data from remote URL.
- *		 Enables different permissions than addFromUrl action..
-	 * @param	metadataProfileId	int		 (optional)
-	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
-	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote URL (optional)
+	 * Mark the KalturaDrmProfile object as deleted.
+	 * @param	drmProfileId	int		 (optional)
 	 **/
-	addFromBulk: function(metadataProfileId, objectType, objectId, url){
+	deleteAction: function(drmProfileId){
 		var kparams = new Object();
-		kparams.metadataProfileId = metadataProfileId;
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		kparams.url = url;
-		return new KalturaRequestBuilder("metadata_metadata", "addFromBulk", kparams);
+		kparams.drmProfileId = drmProfileId;
+		return new KalturaRequestBuilder("drm_drmprofile", "delete", kparams);
 	},
 	
 	/**
-	 * Allows you to add a metadata object and metadata file associated with Kaltura object.
-	 * @param	metadataProfileId	int		 (optional)
-	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
-	 * @param	objectId	string		 (optional)
-	 * @param	xmlFile	HTMLElement		XML metadata (optional)
+	 * Retrieve a KalturaDrmProfile object by ID.
+	 * @param	drmProfileId	int		 (optional)
 	 **/
-	addFromFile: function(metadataProfileId, objectType, objectId, xmlFile){
+	get: function(drmProfileId){
 		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.metadataProfileId = metadataProfileId;
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		kfiles.xmlFile = xmlFile;
-		return new KalturaRequestBuilder("metadata_metadata", "addFromFile", kparams, kfiles);
+		kparams.drmProfileId = drmProfileId;
+		return new KalturaRequestBuilder("drm_drmprofile", "get", kparams);
 	},
 	
 	/**
-	 * Allows you to add a metadata XML data from remote URL.
-	 * @param	metadataProfileId	int		 (optional)
-	 * @param	objectType	string		 (optional, enum: KalturaMetadataObjectType)
-	 * @param	objectId	string		 (optional)
-	 * @param	url	string		XML metadata remote URL (optional)
+	 * Retrieve a KalturaDrmProfile object by provider, if no specific profile defined return default profile.
+	 * @param	provider	string		 (optional, enum: KalturaDrmProviderType)
 	 **/
-	addFromUrl: function(metadataProfileId, objectType, objectId, url){
+	getByProvider: function(provider){
 		var kparams = new Object();
-		kparams.metadataProfileId = metadataProfileId;
-		kparams.objectType = objectType;
-		kparams.objectId = objectId;
-		kparams.url = url;
-		return new KalturaRequestBuilder("metadata_metadata", "addFromUrl", kparams);
+		kparams.provider = provider;
+		return new KalturaRequestBuilder("drm_drmprofile", "getByProvider", kparams);
 	},
 	
 	/**
-	 * Delete an existing metadata.
+	 * List KalturaDrmProfile objects.
+	 * @param	filter	KalturaDrmProfileFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("drm_drmprofile", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing KalturaDrmProfile object.
+	 * @param	drmProfileId	int		 (optional)
+	 * @param	drmProfile	KalturaDrmProfile		Id (optional)
+	 **/
+	update: function(drmProfileId, drmProfile){
+		var kparams = new Object();
+		kparams.drmProfileId = drmProfileId;
+		kparams.drmProfile = drmProfile;
+		return new KalturaRequestBuilder("drm_drmprofile", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: drmLicenseAccess.
+ **/
+var KalturaDrmLicenseAccessService = {
+	/**
+	 * getAccessAction
+ *	     input: flavor ids, drmProvider
+ *	     Get Access Action.
+	 * @param	entryId	string		 (optional)
+	 * @param	flavorIds	string		 (optional)
+	 * @param	referrer	string		 (optional)
+	 **/
+	getAccess: function(entryId, flavorIds, referrer){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.flavorIds = flavorIds;
+		kparams.referrer = referrer;
+		return new KalturaRequestBuilder("drm_drmlicenseaccess", "getAccess", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: widevineDrm.
+ **/
+var KalturaWidevineDrmService = {
+	/**
+	 * Get license for encrypted content playback.
+	 * @param	flavorAssetId	string		 (optional)
+	 * @param	referrer	string		64base encoded (optional, default: null)
+	 **/
+	getLicense: function(flavorAssetId, referrer){
+		if(!referrer)
+			referrer = null;
+		var kparams = new Object();
+		kparams.flavorAssetId = flavorAssetId;
+		kparams.referrer = referrer;
+		return new KalturaRequestBuilder("widevine_widevinedrm", "getLicense", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: scheduledTaskProfile.
+ **/
+var KalturaScheduledTaskProfileService = {
+	/**
+	 * Add a new scheduled task profile.
+	 * @param	scheduledTaskProfile	KalturaScheduledTaskProfile		 (optional)
+	 **/
+	add: function(scheduledTaskProfile){
+		var kparams = new Object();
+		kparams.scheduledTaskProfile = scheduledTaskProfile;
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete a scheduled task profile.
 	 * @param	id	int		 (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
 		kparams.id = id;
-		return new KalturaRequestBuilder("metadata_metadata", "delete", kparams);
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "delete", kparams);
 	},
 	
 	/**
-	 * Retrieve a metadata object by id.
+	 * Retrieve a scheduled task profile by id.
 	 * @param	id	int		 (optional)
 	 **/
 	get: function(id){
 		var kparams = new Object();
 		kparams.id = id;
-		return new KalturaRequestBuilder("metadata_metadata", "get", kparams);
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "get", kparams);
 	},
 	
 	/**
-	 * Index metadata by id, will also index the related object.
-	 * @param	id	string		 (optional)
-	 * @param	shouldUpdate	bool		 (optional)
+	 * .
+	 * @param	requestId	int		 (optional)
 	 **/
-	index: function(id, shouldUpdate){
+	getDryRunResults: function(requestId){
 		var kparams = new Object();
-		kparams.id = id;
-		kparams.shouldUpdate = shouldUpdate;
-		return new KalturaRequestBuilder("metadata_metadata", "index", kparams);
+		kparams.requestId = requestId;
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "getDryRunResults", kparams);
 	},
 	
 	/**
-	 * Mark existing metadata as invalid
- *		 Used by batch metadata transform.
-	 * @param	id	int		 (optional)
-	 * @param	version	int		Enable update only if the metadata object version did not change by other process (optional, default: null)
-	 **/
-	invalidate: function(id, version){
-		if(!version)
-			version = null;
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.version = version;
-		return new KalturaRequestBuilder("metadata_metadata", "invalidate", kparams);
-	},
-	
-	/**
-	 * List metadata objects by filter and pager.
-	 * @param	filter	KalturaMetadataFilter		 (optional, default: null)
+	 * List scheduled task profiles.
+	 * @param	filter	KalturaScheduledTaskProfileFilter		 (optional, default: null)
 	 * @param	pager	KalturaFilterPager		 (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -8604,210 +8972,33 @@ var KalturaMetadataService = {
 			kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
-		return new KalturaRequestBuilder("metadata_metadata", "list", kparams);
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "list", kparams);
 	},
 	
 	/**
-	 * Update an existing metadata object with new XML content.
-	 * @param	id	int		 (optional)
-	 * @param	xmlData	string		XML metadata (optional, default: null)
-	 * @param	version	int		Enable update only if the metadata object version did not change by other process (optional, default: null)
+	 * .
+	 * @param	scheduledTaskProfileId	int		 (optional)
+	 * @param	maxResults	int		 (optional, default: 500)
 	 **/
-	update: function(id, xmlData, version){
-		if(!xmlData)
-			xmlData = null;
-		if(!version)
-			version = null;
+	requestDryRun: function(scheduledTaskProfileId, maxResults){
+		if(!maxResults)
+			maxResults = 500;
+		var kparams = new Object();
+		kparams.scheduledTaskProfileId = scheduledTaskProfileId;
+		kparams.maxResults = maxResults;
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "requestDryRun", kparams);
+	},
+	
+	/**
+	 * Update an existing scheduled task profile.
+	 * @param	id	int		 (optional)
+	 * @param	scheduledTaskProfile	KalturaScheduledTaskProfile		 (optional)
+	 **/
+	update: function(id, scheduledTaskProfile){
 		var kparams = new Object();
 		kparams.id = id;
-		kparams.xmlData = xmlData;
-		kparams.version = version;
-		return new KalturaRequestBuilder("metadata_metadata", "update", kparams);
-	},
-	
-	/**
-	 * Update an existing metadata object with new XML file.
-	 * @param	id	int		 (optional)
-	 * @param	xmlFile	HTMLElement		XML metadata (optional, default: null)
-	 **/
-	updateFromFile: function(id, xmlFile){
-		if(!xmlFile)
-			xmlFile = null;
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.id = id;
-		kfiles.xmlFile = xmlFile;
-		return new KalturaRequestBuilder("metadata_metadata", "updateFromFile", kparams, kfiles);
-	},
-	
-	/**
-	 * Action transforms current metadata object XML using a provided XSL..
-	 * @param	id	int		 (optional)
-	 * @param	xslFile	HTMLElement		 (optional)
-	 **/
-	updateFromXSL: function(id, xslFile){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.id = id;
-		kfiles.xslFile = xslFile;
-		return new KalturaRequestBuilder("metadata_metadata", "updateFromXSL", kparams, kfiles);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: metadataProfile.
- **/
-var KalturaMetadataProfileService = {
-	/**
-	 * Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type.
-	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
-	 * @param	xsdData	string		XSD metadata definition (optional)
-	 * @param	viewsData	string		UI views definition (optional, default: null)
-	 **/
-	add: function(metadataProfile, xsdData, viewsData){
-		if(!viewsData)
-			viewsData = null;
-		var kparams = new Object();
-		kparams.metadataProfile = metadataProfile;
-		kparams.xsdData = xsdData;
-		kparams.viewsData = viewsData;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "add", kparams);
-	},
-	
-	/**
-	 * Allows you to add a metadata profile object and metadata profile file associated with Kaltura object type.
-	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
-	 * @param	xsdFile	HTMLElement		XSD metadata definition (optional)
-	 * @param	viewsFile	HTMLElement		UI views definition (optional, default: null)
-	 **/
-	addFromFile: function(metadataProfile, xsdFile, viewsFile){
-		if(!viewsFile)
-			viewsFile = null;
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.metadataProfile = metadataProfile;
-		kfiles.xsdFile = xsdFile;
-		kfiles.viewsFile = viewsFile;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "addFromFile", kparams, kfiles);
-	},
-	
-	/**
-	 * Delete an existing metadata profile.
-	 * @param	id	int		 (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a metadata profile object by id.
-	 * @param	id	int		 (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "get", kparams);
-	},
-	
-	/**
-	 * List metadata profile objects by filter and pager.
-	 * @param	filter	KalturaMetadataProfileFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "list", kparams);
-	},
-	
-	/**
-	 * List metadata profile fields by metadata profile id.
-	 * @param	metadataProfileId	int		 (optional)
-	 **/
-	listFields: function(metadataProfileId){
-		var kparams = new Object();
-		kparams.metadataProfileId = metadataProfileId;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "listFields", kparams);
-	},
-	
-	/**
-	 * Update an existing metadata object definition file.
-	 * @param	id	int		 (optional)
-	 * @param	toVersion	int		 (optional)
-	 **/
-	revert: function(id, toVersion){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.toVersion = toVersion;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "revert", kparams);
-	},
-	
-	/**
-	 * Update an existing metadata object.
-	 * @param	id	int		 (optional)
-	 * @param	metadataProfile	KalturaMetadataProfile		 (optional)
-	 * @param	xsdData	string		XSD metadata definition (optional, default: null)
-	 * @param	viewsData	string		UI views definition (optional, default: null)
-	 **/
-	update: function(id, metadataProfile, xsdData, viewsData){
-		if(!xsdData)
-			xsdData = null;
-		if(!viewsData)
-			viewsData = null;
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.metadataProfile = metadataProfile;
-		kparams.xsdData = xsdData;
-		kparams.viewsData = viewsData;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "update", kparams);
-	},
-	
-	/**
-	 * Update an existing metadata object definition file.
-	 * @param	id	int		 (optional)
-	 * @param	xsdFile	HTMLElement		XSD metadata definition (optional)
-	 **/
-	updateDefinitionFromFile: function(id, xsdFile){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.id = id;
-		kfiles.xsdFile = xsdFile;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "updateDefinitionFromFile", kparams, kfiles);
-	},
-	
-	/**
-	 * Update an existing metadata object XSLT file.
-	 * @param	id	int		 (optional)
-	 * @param	xsltFile	HTMLElement		XSLT file, will be executed on every metadata add/update (optional)
-	 **/
-	updateTransformationFromFile: function(id, xsltFile){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.id = id;
-		kfiles.xsltFile = xsltFile;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "updateTransformationFromFile", kparams, kfiles);
-	},
-	
-	/**
-	 * Update an existing metadata object views file.
-	 * @param	id	int		 (optional)
-	 * @param	viewsFile	HTMLElement		UI views file (optional)
-	 **/
-	updateViewsFromFile: function(id, viewsFile){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.id = id;
-		kfiles.viewsFile = viewsFile;
-		return new KalturaRequestBuilder("metadata_metadataprofile", "updateViewsFromFile", kparams, kfiles);
+		kparams.scheduledTaskProfile = scheduledTaskProfile;
+		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "update", kparams);
 	}
 }
 
@@ -8871,67 +9062,77 @@ var KalturaPlayReadyDrmService = {
 }
 
 /**
- *Class definition for the Kaltura service: poll.
+ *Class definition for the Kaltura service: unicorn.
  **/
-var KalturaPollService = {
+var KalturaUnicornService = {
 	/**
-	 * Add Action.
-	 * @param	pollType	string		 (optional, default: SINGLE_ANONYMOUS)
+	 * .
+	 * @param	id	int		distribution job id (optional)
 	 **/
-	add: function(pollType){
-		if(!pollType)
-			pollType = "SINGLE_ANONYMOUS";
+	notify: function(id){
 		var kparams = new Object();
-		kparams.pollType = pollType;
-		return new KalturaRequestBuilder("poll_poll", "add", kparams);
+		kparams.id = id;
+		return new KalturaRequestBuilder("unicorndistribution_unicorn", "notify", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: integration.
+ **/
+var KalturaIntegrationService = {
+	/**
+	 * Dispatch integration task.
+	 * @param	data	KalturaIntegrationJobData		 (optional)
+	 * @param	objectType	string		 (optional, enum: KalturaBatchJobObjectType)
+	 * @param	objectId	string		 (optional)
+	 **/
+	dispatch: function(data, objectType, objectId){
+		var kparams = new Object();
+		kparams.data = data;
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		return new KalturaRequestBuilder("integration_integration", "dispatch", kparams);
 	},
 	
 	/**
-	 * Vote Action.
-	 * @param	pollId	string		 (optional)
-	 * @param	userId	string		 (optional)
+	 * .
+	 * @param	id	int		integration job id (optional)
 	 **/
-	getVote: function(pollId, userId){
+	notify: function(id){
 		var kparams = new Object();
-		kparams.pollId = pollId;
-		kparams.userId = userId;
-		return new KalturaRequestBuilder("poll_poll", "getVote", kparams);
+		kparams.id = id;
+		return new KalturaRequestBuilder("integration_integration", "notify", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: businessProcessCase.
+ **/
+var KalturaBusinessProcessCaseService = {
+	/**
+	 * Abort business-process case.
+	 * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	businessProcessStartNotificationTemplateId	int		 (optional)
+	 **/
+	abort: function(objectType, objectId, businessProcessStartNotificationTemplateId){
+		var kparams = new Object();
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kparams.businessProcessStartNotificationTemplateId = businessProcessStartNotificationTemplateId;
+		return new KalturaRequestBuilder("businessprocessnotification_businessprocesscase", "abort", kparams);
 	},
 	
 	/**
-	 * Get Votes Action.
-	 * @param	pollId	string		 (optional)
-	 * @param	answerIds	string		 (optional)
+	 * list business-process cases.
+	 * @param	objectType	string		 (optional, enum: KalturaEventNotificationEventObjectType)
+	 * @param	objectId	string		 (optional)
 	 **/
-	getVotes: function(pollId, answerIds){
+	listAction: function(objectType, objectId){
 		var kparams = new Object();
-		kparams.pollId = pollId;
-		kparams.answerIds = answerIds;
-		return new KalturaRequestBuilder("poll_poll", "getVotes", kparams);
-	},
-	
-	/**
-	 * Get resetVotes Action.
-	 * @param	pollId	string		 (optional)
-	 **/
-	resetVotes: function(pollId){
-		var kparams = new Object();
-		kparams.pollId = pollId;
-		return new KalturaRequestBuilder("poll_poll", "resetVotes", kparams);
-	},
-	
-	/**
-	 * Vote Action.
-	 * @param	pollId	string		 (optional)
-	 * @param	userId	string		 (optional)
-	 * @param	answerIds	string		 (optional)
-	 **/
-	vote: function(pollId, userId, answerIds){
-		var kparams = new Object();
-		kparams.pollId = pollId;
-		kparams.userId = userId;
-		kparams.answerIds = answerIds;
-		return new KalturaRequestBuilder("poll_poll", "vote", kparams);
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		return new KalturaRequestBuilder("businessprocessnotification_businessprocesscase", "list", kparams);
 	}
 }
 
@@ -9005,49 +9206,483 @@ var KalturaQuizService = {
 }
 
 /**
- *Class definition for the Kaltura service: rating.
+ *Class definition for the Kaltura service: scheduleEvent.
  **/
-var KalturaRatingService = {
+var KalturaScheduleEventService = {
+	/**
+	 * Allows you to add a new KalturaScheduleEvent object.
+	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
+	 **/
+	add: function(scheduleEvent){
+		var kparams = new Object();
+		kparams.scheduleEvent = scheduleEvent;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "add", kparams);
+	},
+	
+	/**
+	 * Add new bulk upload batch job.
+	 * @param	fileData	HTMLElement		 (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadScheduleEventJobData		 (optional, default: null)
+	 **/
+	addFromBulkUpload: function(fileData, bulkUploadData){
+		if(!bulkUploadData)
+			bulkUploadData = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		if (bulkUploadData != null)
+			kparams.bulkUploadData = bulkUploadData;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
+	 * Mark the KalturaScheduleEvent object as cancelled.
+	 * @param	scheduleEventId	int		 (optional)
+	 **/
+	cancel: function(scheduleEventId){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "cancel", kparams);
+	},
+	
+	/**
+	 * Mark the KalturaScheduleEvent object as deleted.
+	 * @param	scheduleEventId	int		 (optional)
+	 **/
+	deleteAction: function(scheduleEventId){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a KalturaScheduleEvent object by ID.
+	 * @param	scheduleEventId	int		 (optional)
+	 **/
+	get: function(scheduleEventId){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "get", kparams);
+	},
+	
+	/**
+	 * List conflicting events for resourcesIds by event's dates.
+	 * @param	resourceIds	string		comma separated (optional)
+	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
+	 * @param	scheduleEventIdToIgnore	string		 (optional, default: null)
+	 * @param	scheduleEventConflictType	int		 (optional, enum: KalturaScheduleEventConflictType, default: 1)
+	 **/
+	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore, scheduleEventConflictType){
+		if(!scheduleEventIdToIgnore)
+			scheduleEventIdToIgnore = null;
+		if(!scheduleEventConflictType)
+			scheduleEventConflictType = 1;
+		var kparams = new Object();
+		kparams.resourceIds = resourceIds;
+		kparams.scheduleEvent = scheduleEvent;
+		kparams.scheduleEventIdToIgnore = scheduleEventIdToIgnore;
+		kparams.scheduleEventConflictType = scheduleEventConflictType;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "getConflicts", kparams);
+	},
+	
+	/**
+	 * List KalturaScheduleEvent objects.
+	 * @param	filter	KalturaScheduleEventFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing KalturaScheduleEvent object.
+	 * @param	scheduleEventId	int		 (optional)
+	 * @param	scheduleEvent	KalturaScheduleEvent		Id (optional)
+	 **/
+	update: function(scheduleEventId, scheduleEvent){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		kparams.scheduleEvent = scheduleEvent;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "update", kparams);
+	},
+	
+	/**
+	 * Add feature to live event.
+	 * @param	scheduledEventId	int		 (optional)
+	 * @param	featureName	string		 (optional)
+	 * @param	liveFeature	KalturaLiveFeature		 (optional)
+	 **/
+	updateLiveFeature: function(scheduledEventId, featureName, liveFeature){
+		var kparams = new Object();
+		kparams.scheduledEventId = scheduledEventId;
+		kparams.featureName = featureName;
+		kparams.liveFeature = liveFeature;
+		return new KalturaRequestBuilder("schedule_scheduleevent", "updateLiveFeature", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: scheduleResource.
+ **/
+var KalturaScheduleResourceService = {
+	/**
+	 * Allows you to add a new KalturaScheduleResource object.
+	 * @param	scheduleResource	KalturaScheduleResource		 (optional)
+	 **/
+	add: function(scheduleResource){
+		var kparams = new Object();
+		kparams.scheduleResource = scheduleResource;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "add", kparams);
+	},
+	
+	/**
+	 * Add new bulk upload batch job.
+	 * @param	fileData	HTMLElement		 (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadCsvJobData		 (optional, default: null)
+	 **/
+	addFromBulkUpload: function(fileData, bulkUploadData){
+		if(!bulkUploadData)
+			bulkUploadData = null;
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		if (bulkUploadData != null)
+			kparams.bulkUploadData = bulkUploadData;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
+	 * Mark the KalturaScheduleResource object as deleted.
+	 * @param	scheduleResourceId	int		 (optional)
+	 **/
+	deleteAction: function(scheduleResourceId){
+		var kparams = new Object();
+		kparams.scheduleResourceId = scheduleResourceId;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a KalturaScheduleResource object by ID.
+	 * @param	scheduleResourceId	int		 (optional)
+	 **/
+	get: function(scheduleResourceId){
+		var kparams = new Object();
+		kparams.scheduleResourceId = scheduleResourceId;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "get", kparams);
+	},
+	
+	/**
+	 * List KalturaScheduleResource objects.
+	 * @param	filter	KalturaScheduleResourceFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing KalturaScheduleResource object.
+	 * @param	scheduleResourceId	int		 (optional)
+	 * @param	scheduleResource	KalturaScheduleResource		Id (optional)
+	 **/
+	update: function(scheduleResourceId, scheduleResource){
+		var kparams = new Object();
+		kparams.scheduleResourceId = scheduleResourceId;
+		kparams.scheduleResource = scheduleResource;
+		return new KalturaRequestBuilder("schedule_scheduleresource", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: scheduleEventResource.
+ **/
+var KalturaScheduleEventResourceService = {
+	/**
+	 * Allows you to add a new KalturaScheduleEventResource object.
+	 * @param	scheduleEventResource	KalturaScheduleEventResource		 (optional)
+	 **/
+	add: function(scheduleEventResource){
+		var kparams = new Object();
+		kparams.scheduleEventResource = scheduleEventResource;
+		return new KalturaRequestBuilder("schedule_scheduleeventresource", "add", kparams);
+	},
+	
+	/**
+	 * Mark the KalturaScheduleEventResource object as deleted.
+	 * @param	scheduleEventId	int		 (optional)
+	 * @param	scheduleResourceId	int		 (optional)
+	 **/
+	deleteAction: function(scheduleEventId, scheduleResourceId){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		kparams.scheduleResourceId = scheduleResourceId;
+		return new KalturaRequestBuilder("schedule_scheduleeventresource", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a KalturaScheduleEventResource object by ID.
+	 * @param	scheduleEventId	int		 (optional)
+	 * @param	scheduleResourceId	int		 (optional)
+	 **/
+	get: function(scheduleEventId, scheduleResourceId){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		kparams.scheduleResourceId = scheduleResourceId;
+		return new KalturaRequestBuilder("schedule_scheduleeventresource", "get", kparams);
+	},
+	
+	/**
+	 * List KalturaScheduleEventResource objects.
+	 * @param	filter	KalturaScheduleEventResourceFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 * @param	filterBlackoutConflicts	bool		 (optional, default: true)
+	 **/
+	listAction: function(filter, pager, filterBlackoutConflicts){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		if(!filterBlackoutConflicts)
+			filterBlackoutConflicts = true;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		kparams.filterBlackoutConflicts = filterBlackoutConflicts;
+		return new KalturaRequestBuilder("schedule_scheduleeventresource", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing KalturaScheduleEventResource object.
+	 * @param	scheduleEventId	int		 (optional)
+	 * @param	scheduleResourceId	int		 (optional)
+	 * @param	scheduleEventResource	KalturaScheduleEventResource		 (optional)
+	 **/
+	update: function(scheduleEventId, scheduleResourceId, scheduleEventResource){
+		var kparams = new Object();
+		kparams.scheduleEventId = scheduleEventId;
+		kparams.scheduleResourceId = scheduleResourceId;
+		kparams.scheduleEventResource = scheduleEventResource;
+		return new KalturaRequestBuilder("schedule_scheduleeventresource", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: poll.
+ **/
+var KalturaPollService = {
+	/**
+	 * Add Action.
+	 * @param	pollType	string		 (optional, default: SINGLE_ANONYMOUS)
+	 **/
+	add: function(pollType){
+		if(!pollType)
+			pollType = "SINGLE_ANONYMOUS";
+		var kparams = new Object();
+		kparams.pollType = pollType;
+		return new KalturaRequestBuilder("poll_poll", "add", kparams);
+	},
+	
+	/**
+	 * Vote Action.
+	 * @param	pollId	string		 (optional)
+	 * @param	userId	string		 (optional)
+	 **/
+	getVote: function(pollId, userId){
+		var kparams = new Object();
+		kparams.pollId = pollId;
+		kparams.userId = userId;
+		return new KalturaRequestBuilder("poll_poll", "getVote", kparams);
+	},
+	
+	/**
+	 * Get Votes Action.
+	 * @param	pollId	string		 (optional)
+	 * @param	answerIds	string		 (optional)
+	 **/
+	getVotes: function(pollId, answerIds){
+		var kparams = new Object();
+		kparams.pollId = pollId;
+		kparams.answerIds = answerIds;
+		return new KalturaRequestBuilder("poll_poll", "getVotes", kparams);
+	},
+	
+	/**
+	 * Get resetVotes Action.
+	 * @param	pollId	string		 (optional)
+	 **/
+	resetVotes: function(pollId){
+		var kparams = new Object();
+		kparams.pollId = pollId;
+		return new KalturaRequestBuilder("poll_poll", "resetVotes", kparams);
+	},
+	
+	/**
+	 * Vote Action.
+	 * @param	pollId	string		 (optional)
+	 * @param	userId	string		 (optional)
+	 * @param	answerIds	string		 (optional)
+	 **/
+	vote: function(pollId, userId, answerIds){
+		var kparams = new Object();
+		kparams.pollId = pollId;
+		kparams.userId = userId;
+		kparams.answerIds = answerIds;
+		return new KalturaRequestBuilder("poll_poll", "vote", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: eSearch.
+ **/
+var KalturaESearchService = {
 	/**
 	 * .
-	 * @param	entryId	string		 (optional)
+	 * @param	searchParams	KalturaESearchCategoryParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/
-	checkRating: function(entryId){
+	searchCategory: function(searchParams, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("rating_rating", "checkRating", kparams);
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchCategory", kparams);
 	},
 	
 	/**
 	 * .
-	 * @param	filter	KalturaRatingCountFilter		 (optional)
+	 * @param	searchParams	KalturaESearchEntryParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/
-	getRatingCounts: function(filter){
+	searchEntry: function(searchParams, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("rating_rating", "getRatingCounts", kparams);
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchEntry", kparams);
 	},
 	
 	/**
 	 * .
-	 * @param	entryId	string		 (optional)
-	 * @param	rank	int		 (optional)
+	 * @param	searchParams	KalturaESearchGroupParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/
-	rate: function(entryId, rank){
+	searchGroup: function(searchParams, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.rank = rank;
-		return new KalturaRequestBuilder("rating_rating", "rate", kparams);
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchGroup", kparams);
 	},
 	
 	/**
 	 * .
-	 * @param	entryId	string		 (optional)
+	 * @param	searchParams	KalturaESearchUserParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
 	 **/
-	removeRating: function(entryId){
+	searchUser: function(searchParams, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		kparams.entryId = entryId;
-		return new KalturaRequestBuilder("rating_rating", "removeRating", kparams);
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("elasticsearch_esearch", "searchUser", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: beacon.
+ **/
+var KalturaBeaconService = {
+	/**
+	 * .
+	 * @param	beacon	KalturaBeacon		 (optional)
+	 * @param	shouldLog	int		 (optional, enum: KalturaNullableBoolean)
+	 **/
+	add: function(beacon, shouldLog){
+		if(!shouldLog)
+			shouldLog = 0;
+		var kparams = new Object();
+		kparams.beacon = beacon;
+		kparams.shouldLog = shouldLog;
+		return new KalturaRequestBuilder("beacon_beacon", "add", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaBeaconEnhanceFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	enhanceSearch: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "enhanceSearch", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaBeaconFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	searchParams	KalturaBeaconSearchParams		 (optional)
+	 * @param	pager	KalturaPager		 (optional, default: null)
+	 **/
+	searchScheduledResource: function(searchParams, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.searchParams = searchParams;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("beacon_beacon", "searchScheduledResource", kparams);
 	}
 }
 
@@ -9451,376 +10086,6 @@ var KalturaPartnerCatalogItemService = {
 }
 
 /**
- *Class definition for the Kaltura service: scheduleEvent.
- **/
-var KalturaScheduleEventService = {
-	/**
-	 * Allows you to add a new KalturaScheduleEvent object.
-	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
-	 **/
-	add: function(scheduleEvent){
-		var kparams = new Object();
-		kparams.scheduleEvent = scheduleEvent;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "add", kparams);
-	},
-	
-	/**
-	 * Add new bulk upload batch job.
-	 * @param	fileData	HTMLElement		 (optional)
-	 * @param	bulkUploadData	KalturaBulkUploadScheduleEventJobData		 (optional, default: null)
-	 **/
-	addFromBulkUpload: function(fileData, bulkUploadData){
-		if(!bulkUploadData)
-			bulkUploadData = null;
-		var kparams = new Object();
-		var kfiles = new Object();
-		kfiles.fileData = fileData;
-		if (bulkUploadData != null)
-			kparams.bulkUploadData = bulkUploadData;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "addFromBulkUpload", kparams, kfiles);
-	},
-	
-	/**
-	 * Mark the KalturaScheduleEvent object as cancelled.
-	 * @param	scheduleEventId	int		 (optional)
-	 **/
-	cancel: function(scheduleEventId){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "cancel", kparams);
-	},
-	
-	/**
-	 * Mark the KalturaScheduleEvent object as deleted.
-	 * @param	scheduleEventId	int		 (optional)
-	 **/
-	deleteAction: function(scheduleEventId){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaScheduleEvent object by ID.
-	 * @param	scheduleEventId	int		 (optional)
-	 **/
-	get: function(scheduleEventId){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "get", kparams);
-	},
-	
-	/**
-	 * List conflicting events for resourcesIds by event's dates.
-	 * @param	resourceIds	string		comma separated (optional)
-	 * @param	scheduleEvent	KalturaScheduleEvent		 (optional)
-	 * @param	scheduleEventIdToIgnore	string		 (optional, default: null)
-	 * @param	scheduleEventConflictType	int		 (optional, enum: KalturaScheduleEventConflictType, default: 1)
-	 **/
-	getConflicts: function(resourceIds, scheduleEvent, scheduleEventIdToIgnore, scheduleEventConflictType){
-		if(!scheduleEventIdToIgnore)
-			scheduleEventIdToIgnore = null;
-		if(!scheduleEventConflictType)
-			scheduleEventConflictType = 1;
-		var kparams = new Object();
-		kparams.resourceIds = resourceIds;
-		kparams.scheduleEvent = scheduleEvent;
-		kparams.scheduleEventIdToIgnore = scheduleEventIdToIgnore;
-		kparams.scheduleEventConflictType = scheduleEventConflictType;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "getConflicts", kparams);
-	},
-	
-	/**
-	 * List KalturaScheduleEvent objects.
-	 * @param	filter	KalturaScheduleEventFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing KalturaScheduleEvent object.
-	 * @param	scheduleEventId	int		 (optional)
-	 * @param	scheduleEvent	KalturaScheduleEvent		Id (optional)
-	 **/
-	update: function(scheduleEventId, scheduleEvent){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		kparams.scheduleEvent = scheduleEvent;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "update", kparams);
-	},
-	
-	/**
-	 * Add feature to live event.
-	 * @param	scheduledEventId	int		 (optional)
-	 * @param	featureName	string		 (optional)
-	 * @param	liveFeature	KalturaLiveFeature		 (optional)
-	 **/
-	updateLiveFeature: function(scheduledEventId, featureName, liveFeature){
-		var kparams = new Object();
-		kparams.scheduledEventId = scheduledEventId;
-		kparams.featureName = featureName;
-		kparams.liveFeature = liveFeature;
-		return new KalturaRequestBuilder("schedule_scheduleevent", "updateLiveFeature", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: scheduleResource.
- **/
-var KalturaScheduleResourceService = {
-	/**
-	 * Allows you to add a new KalturaScheduleResource object.
-	 * @param	scheduleResource	KalturaScheduleResource		 (optional)
-	 **/
-	add: function(scheduleResource){
-		var kparams = new Object();
-		kparams.scheduleResource = scheduleResource;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "add", kparams);
-	},
-	
-	/**
-	 * Add new bulk upload batch job.
-	 * @param	fileData	HTMLElement		 (optional)
-	 * @param	bulkUploadData	KalturaBulkUploadCsvJobData		 (optional, default: null)
-	 **/
-	addFromBulkUpload: function(fileData, bulkUploadData){
-		if(!bulkUploadData)
-			bulkUploadData = null;
-		var kparams = new Object();
-		var kfiles = new Object();
-		kfiles.fileData = fileData;
-		if (bulkUploadData != null)
-			kparams.bulkUploadData = bulkUploadData;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "addFromBulkUpload", kparams, kfiles);
-	},
-	
-	/**
-	 * Mark the KalturaScheduleResource object as deleted.
-	 * @param	scheduleResourceId	int		 (optional)
-	 **/
-	deleteAction: function(scheduleResourceId){
-		var kparams = new Object();
-		kparams.scheduleResourceId = scheduleResourceId;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaScheduleResource object by ID.
-	 * @param	scheduleResourceId	int		 (optional)
-	 **/
-	get: function(scheduleResourceId){
-		var kparams = new Object();
-		kparams.scheduleResourceId = scheduleResourceId;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "get", kparams);
-	},
-	
-	/**
-	 * List KalturaScheduleResource objects.
-	 * @param	filter	KalturaScheduleResourceFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing KalturaScheduleResource object.
-	 * @param	scheduleResourceId	int		 (optional)
-	 * @param	scheduleResource	KalturaScheduleResource		Id (optional)
-	 **/
-	update: function(scheduleResourceId, scheduleResource){
-		var kparams = new Object();
-		kparams.scheduleResourceId = scheduleResourceId;
-		kparams.scheduleResource = scheduleResource;
-		return new KalturaRequestBuilder("schedule_scheduleresource", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: scheduleEventResource.
- **/
-var KalturaScheduleEventResourceService = {
-	/**
-	 * Allows you to add a new KalturaScheduleEventResource object.
-	 * @param	scheduleEventResource	KalturaScheduleEventResource		 (optional)
-	 **/
-	add: function(scheduleEventResource){
-		var kparams = new Object();
-		kparams.scheduleEventResource = scheduleEventResource;
-		return new KalturaRequestBuilder("schedule_scheduleeventresource", "add", kparams);
-	},
-	
-	/**
-	 * Mark the KalturaScheduleEventResource object as deleted.
-	 * @param	scheduleEventId	int		 (optional)
-	 * @param	scheduleResourceId	int		 (optional)
-	 **/
-	deleteAction: function(scheduleEventId, scheduleResourceId){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		kparams.scheduleResourceId = scheduleResourceId;
-		return new KalturaRequestBuilder("schedule_scheduleeventresource", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a KalturaScheduleEventResource object by ID.
-	 * @param	scheduleEventId	int		 (optional)
-	 * @param	scheduleResourceId	int		 (optional)
-	 **/
-	get: function(scheduleEventId, scheduleResourceId){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		kparams.scheduleResourceId = scheduleResourceId;
-		return new KalturaRequestBuilder("schedule_scheduleeventresource", "get", kparams);
-	},
-	
-	/**
-	 * List KalturaScheduleEventResource objects.
-	 * @param	filter	KalturaScheduleEventResourceFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 * @param	filterBlackoutConflicts	bool		 (optional, default: true)
-	 **/
-	listAction: function(filter, pager, filterBlackoutConflicts){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		if(!filterBlackoutConflicts)
-			filterBlackoutConflicts = true;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		kparams.filterBlackoutConflicts = filterBlackoutConflicts;
-		return new KalturaRequestBuilder("schedule_scheduleeventresource", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing KalturaScheduleEventResource object.
-	 * @param	scheduleEventId	int		 (optional)
-	 * @param	scheduleResourceId	int		 (optional)
-	 * @param	scheduleEventResource	KalturaScheduleEventResource		 (optional)
-	 **/
-	update: function(scheduleEventId, scheduleResourceId, scheduleEventResource){
-		var kparams = new Object();
-		kparams.scheduleEventId = scheduleEventId;
-		kparams.scheduleResourceId = scheduleResourceId;
-		kparams.scheduleEventResource = scheduleEventResource;
-		return new KalturaRequestBuilder("schedule_scheduleeventresource", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: scheduledTaskProfile.
- **/
-var KalturaScheduledTaskProfileService = {
-	/**
-	 * Add a new scheduled task profile.
-	 * @param	scheduledTaskProfile	KalturaScheduledTaskProfile		 (optional)
-	 **/
-	add: function(scheduledTaskProfile){
-		var kparams = new Object();
-		kparams.scheduledTaskProfile = scheduledTaskProfile;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "add", kparams);
-	},
-	
-	/**
-	 * Delete a scheduled task profile.
-	 * @param	id	int		 (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve a scheduled task profile by id.
-	 * @param	id	int		 (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "get", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	requestId	int		 (optional)
-	 **/
-	getDryRunResults: function(requestId){
-		var kparams = new Object();
-		kparams.requestId = requestId;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "getDryRunResults", kparams);
-	},
-	
-	/**
-	 * List scheduled task profiles.
-	 * @param	filter	KalturaScheduledTaskProfileFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "list", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	scheduledTaskProfileId	int		 (optional)
-	 * @param	maxResults	int		 (optional, default: 500)
-	 **/
-	requestDryRun: function(scheduledTaskProfileId, maxResults){
-		if(!maxResults)
-			maxResults = 500;
-		var kparams = new Object();
-		kparams.scheduledTaskProfileId = scheduledTaskProfileId;
-		kparams.maxResults = maxResults;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "requestDryRun", kparams);
-	},
-	
-	/**
-	 * Update an existing scheduled task profile.
-	 * @param	id	int		 (optional)
-	 * @param	scheduledTaskProfile	KalturaScheduledTaskProfile		 (optional)
-	 **/
-	update: function(id, scheduledTaskProfile){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.scheduledTaskProfile = scheduledTaskProfile;
-		return new KalturaRequestBuilder("scheduledtask_scheduledtaskprofile", "update", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: searchHistory.
  **/
 var KalturaSearchHistoryService = {
@@ -9836,6 +10101,16 @@ var KalturaSearchHistoryService = {
 	
 	/**
 	 * .
+	 * @param	filter	KalturaESearchHistoryFilter		A filter used to aggregate the search terms (optional)
+	 **/
+	exportToCsv: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("searchhistory_searchhistory", "exportToCsv", kparams);
+	},
+	
+	/**
+	 * .
 	 * @param	filter	KalturaESearchHistoryFilter		 (optional, default: null)
 	 **/
 	listAction: function(filter){
@@ -9845,316 +10120,6 @@ var KalturaSearchHistoryService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("searchhistory_searchhistory", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: shortLink.
- **/
-var KalturaShortLinkService = {
-	/**
-	 * Allows you to add a short link object.
-	 * @param	shortLink	KalturaShortLink		 (optional)
-	 **/
-	add: function(shortLink){
-		var kparams = new Object();
-		kparams.shortLink = shortLink;
-		return new KalturaRequestBuilder("shortlink_shortlink", "add", kparams);
-	},
-	
-	/**
-	 * Mark the short link as deleted.
-	 * @param	id	string		 (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("shortlink_shortlink", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieve an short link object by id.
-	 * @param	id	string		 (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("shortlink_shortlink", "get", kparams);
-	},
-	
-	/**
-	 * List short link objects by filter and pager.
-	 * @param	filter	KalturaShortLinkFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("shortlink_shortlink", "list", kparams);
-	},
-	
-	/**
-	 * Update existing short link.
-	 * @param	id	string		 (optional)
-	 * @param	shortLink	KalturaShortLink		 (optional)
-	 **/
-	update: function(id, shortLink){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.shortLink = shortLink;
-		return new KalturaRequestBuilder("shortlink_shortlink", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: pexip.
- **/
-var KalturaPexipService = {
-	/**
-	 * .
-	 * @param	entryId	string		 (optional)
-	 * @param	regenerate	bool		 (optional, default: false)
-	 * @param	sourceType	int		 (optional, enum: KalturaSipSourceType, default: 1)
-	 **/
-	generateSipUrl: function(entryId, regenerate, sourceType){
-		if(!regenerate)
-			regenerate = false;
-		if(!sourceType)
-			sourceType = 1;
-		var kparams = new Object();
-		kparams.entryId = entryId;
-		kparams.regenerate = regenerate;
-		kparams.sourceType = sourceType;
-		return new KalturaRequestBuilder("sip_pexip", "generateSipUrl", kparams);
-	},
-	
-	/**
-	 * .
-	 **/
-	handleIncomingCall: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("sip_pexip", "handleIncomingCall", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	offset	int		 (optional)
-	 * @param	pageSize	int		 (optional, default: 500)
-	 * @param	activeOnly	bool		 (optional, default: false)
-	 **/
-	listRooms: function(offset, pageSize, activeOnly){
-		if(!offset)
-			offset = 0;
-		if(!pageSize)
-			pageSize = 500;
-		if(!activeOnly)
-			activeOnly = false;
-		var kparams = new Object();
-		kparams.offset = offset;
-		kparams.pageSize = pageSize;
-		kparams.activeOnly = activeOnly;
-		return new KalturaRequestBuilder("sip_pexip", "listRooms", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: sso.
- **/
-var KalturaSsoService = {
-	/**
-	 * Adds a new sso configuration..
-	 * @param	sso	KalturaSso		a new sso configuration (optional)
-	 **/
-	add: function(sso){
-		var kparams = new Object();
-		kparams.sso = sso;
-		return new KalturaRequestBuilder("sso_sso", "add", kparams);
-	},
-	
-	/**
-	 * Delete sso by ID.
-	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
-	 **/
-	deleteAction: function(ssoId){
-		var kparams = new Object();
-		kparams.ssoId = ssoId;
-		return new KalturaRequestBuilder("sso_sso", "delete", kparams);
-	},
-	
-	/**
-	 * Retrieves sso object.
-	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
-	 **/
-	get: function(ssoId){
-		var kparams = new Object();
-		kparams.ssoId = ssoId;
-		return new KalturaRequestBuilder("sso_sso", "get", kparams);
-	},
-	
-	/**
-	 * Lists sso objects that are associated with an account..
-	 * @param	filter	KalturaSsoFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		A limit for the number of records to display on a page (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("sso_sso", "list", kparams);
-	},
-	
-	/**
-	 * Login with SSO, getting redirect url according to application type and partner Id
- *		 or according to application type and domain.
-	 * @param	userId	string		 (optional)
-	 * @param	applicationType	string		 (optional)
-	 * @param	partnerId	int		 (optional, default: null)
-	 **/
-	login: function(userId, applicationType, partnerId){
-		if(!partnerId)
-			partnerId = null;
-		var kparams = new Object();
-		kparams.userId = userId;
-		kparams.applicationType = applicationType;
-		kparams.partnerId = partnerId;
-		return new KalturaRequestBuilder("sso_sso", "login", kparams);
-	},
-	
-	/**
-	 * Update sso by ID.
-	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
-	 * @param	sso	KalturaSso		Id The unique identifier in the sso's object (optional)
-	 **/
-	update: function(ssoId, sso){
-		var kparams = new Object();
-		kparams.ssoId = ssoId;
-		kparams.sso = sso;
-		return new KalturaRequestBuilder("sso_sso", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: tag.
- **/
-var KalturaTagService = {
-	/**
-	 * Action goes over all tags with instanceCount==0 and checks whether they need to be removed from the DB. Returns number of removed tags..
-	 **/
-	deletePending: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("tagsearch_tag", "deletePending", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	categoryId	int		 (optional)
-	 * @param	pcToDecrement	string		 (optional)
-	 * @param	pcToIncrement	string		 (optional)
-	 **/
-	indexCategoryEntryTags: function(categoryId, pcToDecrement, pcToIncrement){
-		var kparams = new Object();
-		kparams.categoryId = categoryId;
-		kparams.pcToDecrement = pcToDecrement;
-		kparams.pcToIncrement = pcToIncrement;
-		return new KalturaRequestBuilder("tagsearch_tag", "indexCategoryEntryTags", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	tagFilter	KalturaTagFilter		 (optional)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	search: function(tagFilter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.tagFilter = tagFilter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("tagsearch_tag", "search", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: thumbnail.
- **/
-var KalturaThumbnailService = {
-	/**
-	 * Retrieves a thumbnail according to the required transformation.
-	 * @param	transformString	string		 (optional)
-	 **/
-	transform: function(transformString){
-		var kparams = new Object();
-		kparams.transformString = transformString;
-		return new KalturaRequestBuilder("thumbnail_thumbnail", "transform", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: unicorn.
- **/
-var KalturaUnicornService = {
-	/**
-	 * .
-	 * @param	id	int		distribution job id (optional)
-	 **/
-	notify: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("unicorndistribution_unicorn", "notify", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: varConsole.
- **/
-var KalturaVarConsoleService = {
-	/**
-	 * Function which calulates partner usage of a group of a VAR's sub-publishers.
-	 * @param	partnerFilter	KalturaPartnerFilter		 (optional, default: null)
-	 * @param	usageFilter	KalturaReportInputFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
-	 **/
-	getPartnerUsage: function(partnerFilter, usageFilter, pager){
-		if(!partnerFilter)
-			partnerFilter = null;
-		if(!usageFilter)
-			usageFilter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (partnerFilter != null)
-			kparams.partnerFilter = partnerFilter;
-		if (usageFilter != null)
-			kparams.usageFilter = usageFilter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("varconsole_varconsole", "getPartnerUsage", kparams);
-	},
-	
-	/**
-	 * Function to change a sub-publisher's status.
-	 * @param	id	int		 (optional)
-	 * @param	status	int		 (optional, enum: KalturaPartnerStatus)
-	 **/
-	updateStatus: function(id, status){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.status = status;
-		return new KalturaRequestBuilder("varconsole_varconsole", "updateStatus", kparams);
 	}
 }
 
@@ -10207,11 +10172,11 @@ var KalturaZoomVendorService = {
 	
 	/**
 	 * .
-	 * @param	jwt	string		 (optional)
+	 * @param	zoomAccountId	string		 (optional)
 	 **/
-	localRegistrationPage: function(jwt){
+	localRegistrationPage: function(zoomAccountId){
 		var kparams = new Object();
-		kparams.jwt = jwt;
+		kparams.zoomAccountId = zoomAccountId;
 		return new KalturaRequestBuilder("vendor_zoomvendor", "localRegistrationPage", kparams);
 	},
 	
@@ -10315,43 +10280,61 @@ var KalturaVendorIntegrationService = {
 }
 
 /**
- *Class definition for the Kaltura service: virusScanProfile.
+ *Class definition for the Kaltura service: group.
  **/
-var KalturaVirusScanProfileService = {
+var KalturaGroupService = {
 	/**
-	 * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object.
-	 * @param	virusScanProfile	KalturaVirusScanProfile		 (optional)
+	 * Adds a new group (user of type group)..
+	 * @param	group	KalturaGroup		a new group (optional)
 	 **/
-	add: function(virusScanProfile){
+	add: function(group){
 		var kparams = new Object();
-		kparams.virusScanProfile = virusScanProfile;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "add", kparams);
+		kparams.group = group;
+		return new KalturaRequestBuilder("group_group", "add", kparams);
 	},
 	
 	/**
-	 * Mark the virus scan profile as deleted.
-	 * @param	virusScanProfileId	int		 (optional)
+	 * clone the group (groupId), and set group id with the neeGroupName..
+	 * @param	originalGroupId	string		The unique identifier in the partner's system (optional)
+	 * @param	newGroupId	string		The unique identifier in the partner's system (optional)
+	 * @param	newGroupName	string		The name of the new cloned group (optional, default: null)
 	 **/
-	deleteAction: function(virusScanProfileId){
+	cloneAction: function(originalGroupId, newGroupId, newGroupName){
+		if(!newGroupName)
+			newGroupName = null;
 		var kparams = new Object();
-		kparams.virusScanProfileId = virusScanProfileId;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "delete", kparams);
+		kparams.originalGroupId = originalGroupId;
+		kparams.newGroupId = newGroupId;
+		kparams.newGroupName = newGroupName;
+		return new KalturaRequestBuilder("group_group", "clone", kparams);
 	},
 	
 	/**
-	 * Retrieve an virus scan profile object by id.
-	 * @param	virusScanProfileId	int		 (optional)
+	 * Delete group by ID.
+	 * @param	groupId	string		The unique identifier in the partner's system (optional)
 	 **/
-	get: function(virusScanProfileId){
+	deleteAction: function(groupId){
 		var kparams = new Object();
-		kparams.virusScanProfileId = virusScanProfileId;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "get", kparams);
+		kparams.groupId = groupId;
+		return new KalturaRequestBuilder("group_group", "delete", kparams);
 	},
 	
 	/**
-	 * List virus scan profile objects by filter and pager.
-	 * @param	filter	KalturaVirusScanProfileFilter		 (optional, default: null)
-	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 * Retrieves a group object for a specified group ID..
+	 * @param	groupId	string		The unique identifier in the partner's system (optional)
+	 **/
+	get: function(groupId){
+		var kparams = new Object();
+		kparams.groupId = groupId;
+		return new KalturaRequestBuilder("group_group", "get", kparams);
+	},
+	
+	/**
+	 * Lists group  objects that are associated with an account.
+ *		 Blocked users are listed unless you use a filter to exclude them.
+ *		 Deleted users are not listed unless you use a filter to include them..
+	 * @param	filter	KalturaGroupFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		A limit for the number of records to display on a page (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!filter)
@@ -10363,33 +10346,321 @@ var KalturaVirusScanProfileService = {
 			kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "list", kparams);
+		return new KalturaRequestBuilder("group_group", "list", kparams);
 	},
 	
 	/**
-	 * Scan flavor asset according to virus scan profile.
-	 * @param	flavorAssetId	string		 (optional)
-	 * @param	virusScanProfileId	int		 (optional, default: null)
+	 * Update group by ID.
+	 * @param	groupId	string		The unique identifier in the partner's system (optional)
+	 * @param	group	KalturaGroup		Id The unique identifier in the partner's system (optional)
 	 **/
-	scan: function(flavorAssetId, virusScanProfileId){
-		if(!virusScanProfileId)
-			virusScanProfileId = null;
+	update: function(groupId, group){
 		var kparams = new Object();
-		kparams.flavorAssetId = flavorAssetId;
-		kparams.virusScanProfileId = virusScanProfileId;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "scan", kparams);
+		kparams.groupId = groupId;
+		kparams.group = group;
+		return new KalturaRequestBuilder("group_group", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: pexip.
+ **/
+var KalturaPexipService = {
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 * @param	regenerate	bool		 (optional, default: false)
+	 * @param	sourceType	int		 (optional, enum: KalturaSipSourceType, default: 1)
+	 **/
+	generateSipUrl: function(entryId, regenerate, sourceType){
+		if(!regenerate)
+			regenerate = false;
+		if(!sourceType)
+			sourceType = 1;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.regenerate = regenerate;
+		kparams.sourceType = sourceType;
+		return new KalturaRequestBuilder("sip_pexip", "generateSipUrl", kparams);
 	},
 	
 	/**
-	 * Update existing virus scan profile, it is possible to update the virus scan profile id too.
-	 * @param	virusScanProfileId	int		 (optional)
-	 * @param	virusScanProfile	KalturaVirusScanProfile		Id (optional)
+	 * .
 	 **/
-	update: function(virusScanProfileId, virusScanProfile){
+	handleIncomingCall: function(){
 		var kparams = new Object();
-		kparams.virusScanProfileId = virusScanProfileId;
-		kparams.virusScanProfile = virusScanProfile;
-		return new KalturaRequestBuilder("virusscan_virusscanprofile", "update", kparams);
+		return new KalturaRequestBuilder("sip_pexip", "handleIncomingCall", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	offset	int		 (optional)
+	 * @param	pageSize	int		 (optional, default: 500)
+	 * @param	activeOnly	bool		 (optional, default: false)
+	 **/
+	listRooms: function(offset, pageSize, activeOnly){
+		if(!offset)
+			offset = 0;
+		if(!pageSize)
+			pageSize = 500;
+		if(!activeOnly)
+			activeOnly = false;
+		var kparams = new Object();
+		kparams.offset = offset;
+		kparams.pageSize = pageSize;
+		kparams.activeOnly = activeOnly;
+		return new KalturaRequestBuilder("sip_pexip", "listRooms", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: thumbnail.
+ **/
+var KalturaThumbnailService = {
+	/**
+	 * Retrieves a thumbnail according to the required transformation.
+	 * @param	transformString	string		 (optional)
+	 **/
+	transform: function(transformString){
+		var kparams = new Object();
+		kparams.transformString = transformString;
+		return new KalturaRequestBuilder("thumbnail_thumbnail", "transform", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: sso.
+ **/
+var KalturaSsoService = {
+	/**
+	 * Adds a new sso configuration..
+	 * @param	sso	KalturaSso		a new sso configuration (optional)
+	 **/
+	add: function(sso){
+		var kparams = new Object();
+		kparams.sso = sso;
+		return new KalturaRequestBuilder("sso_sso", "add", kparams);
+	},
+	
+	/**
+	 * Delete sso by ID.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 **/
+	deleteAction: function(ssoId){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		return new KalturaRequestBuilder("sso_sso", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieves sso object.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 **/
+	get: function(ssoId){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		return new KalturaRequestBuilder("sso_sso", "get", kparams);
+	},
+	
+	/**
+	 * Lists sso objects that are associated with an account..
+	 * @param	filter	KalturaSsoFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		A limit for the number of records to display on a page (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("sso_sso", "list", kparams);
+	},
+	
+	/**
+	 * Login with SSO, getting redirect url according to application type and partner Id
+ *		 or according to application type and domain.
+	 * @param	userId	string		 (optional)
+	 * @param	applicationType	string		 (optional)
+	 * @param	partnerId	int		 (optional, default: null)
+	 **/
+	login: function(userId, applicationType, partnerId){
+		if(!partnerId)
+			partnerId = null;
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.applicationType = applicationType;
+		kparams.partnerId = partnerId;
+		return new KalturaRequestBuilder("sso_sso", "login", kparams);
+	},
+	
+	/**
+	 * Update sso by ID.
+	 * @param	ssoId	int		The unique identifier in the sso's object (optional)
+	 * @param	sso	KalturaSso		Id The unique identifier in the sso's object (optional)
+	 **/
+	update: function(ssoId, sso){
+		var kparams = new Object();
+		kparams.ssoId = ssoId;
+		kparams.sso = sso;
+		return new KalturaRequestBuilder("sso_sso", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: rating.
+ **/
+var KalturaRatingService = {
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	checkRating: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("rating_rating", "checkRating", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaRatingCountFilter		 (optional)
+	 **/
+	getRatingCounts: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("rating_rating", "getRatingCounts", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 * @param	rank	int		 (optional)
+	 **/
+	rate: function(entryId, rank){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.rank = rank;
+		return new KalturaRequestBuilder("rating_rating", "rate", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	entryId	string		 (optional)
+	 **/
+	removeRating: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("rating_rating", "removeRating", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: interactivity.
+ **/
+var KalturaInteractivityService = {
+	/**
+	 * Add a interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
+	 **/
+	add: function(entryId, kalturaInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.kalturaInteractivity = kalturaInteractivity;
+		return new KalturaRequestBuilder("interactivity_interactivity", "add", kparams);
+	},
+	
+	/**
+	 * Delete a interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	deleteAction: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_interactivity", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 * @param	dataFilter	KalturaInteractivityDataFilter		 (optional, default: null)
+	 **/
+	get: function(entryId, dataFilter){
+		if(!dataFilter)
+			dataFilter = null;
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		if (dataFilter != null)
+			kparams.dataFilter = dataFilter;
+		return new KalturaRequestBuilder("interactivity_interactivity", "get", kparams);
+	},
+	
+	/**
+	 * Update an existing interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	version	int		 (optional)
+	 * @param	kalturaInteractivity	KalturaInteractivity		 (optional)
+	 **/
+	update: function(entryId, version, kalturaInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.version = version;
+		kparams.kalturaInteractivity = kalturaInteractivity;
+		return new KalturaRequestBuilder("interactivity_interactivity", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: volatileInteractivity.
+ **/
+var KalturaVolatileInteractivityService = {
+	/**
+	 * add a volatile interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
+	 **/
+	add: function(entryId, kalturaVolatileInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "add", kparams);
+	},
+	
+	/**
+	 * Delete a volatile interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	deleteAction: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "delete", kparams);
+	},
+	
+	/**
+	 * Retrieve a volatile interactivity object by entry id.
+	 * @param	entryId	string		 (optional)
+	 **/
+	get: function(entryId){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "get", kparams);
+	},
+	
+	/**
+	 * Update a volatile interactivity object.
+	 * @param	entryId	string		 (optional)
+	 * @param	version	int		 (optional)
+	 * @param	kalturaVolatileInteractivity	KalturaVolatileInteractivity		 (optional)
+	 **/
+	update: function(entryId, version, kalturaVolatileInteractivity){
+		var kparams = new Object();
+		kparams.entryId = entryId;
+		kparams.version = version;
+		kparams.kalturaVolatileInteractivity = kalturaVolatileInteractivity;
+		return new KalturaRequestBuilder("interactivity_volatileinteractivity", "update", kparams);
 	}
 }
 
@@ -10459,21 +10730,187 @@ var KalturaVirtualEventService = {
 }
 
 /**
- *Class definition for the Kaltura service: widevineDrm.
+ *Class definition for the Kaltura service: userScore.
  **/
-var KalturaWidevineDrmService = {
+var KalturaUserScoreService = {
 	/**
-	 * Get license for encrypted content playback.
-	 * @param	flavorAssetId	string		 (optional)
-	 * @param	referrer	string		64base encoded (optional, default: null)
+	 * .
+	 * @param	gameObjectId	string		 (optional)
+	 * @param	gameObjectType	string		 (optional, enum: KalturaGameObjectType)
+	 * @param	userId	string		 (optional)
 	 **/
-	getLicense: function(flavorAssetId, referrer){
-		if(!referrer)
-			referrer = null;
+	deleteAction: function(gameObjectId, gameObjectType, userId){
 		var kparams = new Object();
-		kparams.flavorAssetId = flavorAssetId;
-		kparams.referrer = referrer;
-		return new KalturaRequestBuilder("widevine_widevinedrm", "getLicense", kparams);
+		kparams.gameObjectId = gameObjectId;
+		kparams.gameObjectType = gameObjectType;
+		kparams.userId = userId;
+		return new KalturaRequestBuilder("game_userscore", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaUserScorePropertiesFilter		 (optional)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("game_userscore", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	gameObjectId	string		 (optional)
+	 * @param	gameObjectType	string		 (optional, enum: KalturaGameObjectType)
+	 * @param	userId	string		 (optional)
+	 * @param	score	int		 (optional)
+	 **/
+	update: function(gameObjectId, gameObjectType, userId, score){
+		var kparams = new Object();
+		kparams.gameObjectId = gameObjectId;
+		kparams.gameObjectType = gameObjectType;
+		kparams.userId = userId;
+		kparams.score = score;
+		return new KalturaRequestBuilder("game_userscore", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: webexVendor.
+ **/
+var KalturaWebexVendorService = {
+	/**
+	 * .
+	 * @param	tokensData	string		 (optional)
+	 * @param	iv	string		 (optional)
+	 **/
+	fetchRegistrationPage: function(tokensData, iv){
+		var kparams = new Object();
+		kparams.tokensData = tokensData;
+		kparams.iv = iv;
+		return new KalturaRequestBuilder("webexapidropfolder_webexvendor", "fetchRegistrationPage", kparams);
+	},
+	
+	/**
+	 * List KalturaWebexAPIIntegrationSetting objects.
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("webexapidropfolder_webexvendor", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
+	oauthValidation: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("webexapidropfolder_webexvendor", "oauthValidation", kparams);
+	},
+	
+	/**
+	 * .
+	 **/
+	preOauthValidation: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("webexapidropfolder_webexvendor", "preOauthValidation", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	accountId	string		 (optional)
+	 * @param	integrationSetting	KalturaWebexAPIIntegrationSetting		 (optional)
+	 **/
+	submitRegistration: function(accountId, integrationSetting){
+		var kparams = new Object();
+		kparams.accountId = accountId;
+		kparams.integrationSetting = integrationSetting;
+		return new KalturaRequestBuilder("webexapidropfolder_webexvendor", "submitRegistration", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: room.
+ **/
+var KalturaRoomService = {
+	/**
+	 * .
+	 * @param	entry	KalturaRoomEntry		 (optional)
+	 **/
+	add: function(entry){
+		var kparams = new Object();
+		kparams.entry = entry;
+		return new KalturaRequestBuilder("room_room", "add", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	roomEntryId	string		 (optional)
+	 * @param	mediaEntryId	string		 (optional)
+	 **/
+	attachRecordedEntry: function(roomEntryId, mediaEntryId){
+		var kparams = new Object();
+		kparams.roomEntryId = roomEntryId;
+		kparams.mediaEntryId = mediaEntryId;
+		return new KalturaRequestBuilder("room_room", "attachRecordedEntry", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	roomId	string		 (optional)
+	 **/
+	deleteAction: function(roomId){
+		var kparams = new Object();
+		kparams.roomId = roomId;
+		return new KalturaRequestBuilder("room_room", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	roomId	string		 (optional)
+	 **/
+	get: function(roomId){
+		var kparams = new Object();
+		kparams.roomId = roomId;
+		return new KalturaRequestBuilder("room_room", "get", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaRoomEntryFilter		 (optional, default: null)
+	 * @param	pager	KalturaFilterPager		 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("room_room", "list", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	roomId	string		 (optional)
+	 * @param	room	KalturaRoomEntry		Id (optional)
+	 **/
+	update: function(roomId, room){
+		var kparams = new Object();
+		kparams.roomId = roomId;
+		kparams.room = room;
+		return new KalturaRequestBuilder("room_room", "update", kparams);
 	}
 }
 // ===================================================================================================
@@ -11075,8 +11512,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-03-23');
-	this.setApiVersion('19.4.0');
+	this.setClientTag('ajax:25-02-05');
+	this.setApiVersion('21.9.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

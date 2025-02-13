@@ -48,11 +48,11 @@ var KalturaZoomVendorService = {
 	
 	/**
 	 * .
-	 * @param	jwt	string		 (optional)
+	 * @param	zoomAccountId	string		 (optional)
 	 **/
-	localRegistrationPage: function(jwt){
+	localRegistrationPage: function(zoomAccountId){
 		var kparams = new Object();
-		kparams.jwt = jwt;
+		kparams.zoomAccountId = zoomAccountId;
 		return new KalturaRequestBuilder("vendor_zoomvendor", "localRegistrationPage", kparams);
 	},
 	

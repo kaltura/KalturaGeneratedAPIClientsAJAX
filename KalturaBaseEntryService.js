@@ -68,6 +68,16 @@ var KalturaBaseEntryService = {
 	},
 	
 	/**
+	 * .
+	 * @param	filter	KalturaBaseEntryFilter		 (optional)
+	 **/
+	bulkDelete: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("baseentry", "bulkDelete", kparams);
+	},
+	
+	/**
 	 * Clone an entry with optional attributes to apply to the clone.
 	 * @param	entryId	string		Id of entry to clone (optional)
 	 * @param	cloneOptions	array		 (optional, default: null)

@@ -268,6 +268,23 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * Replace a user's existing login data to a new or an existing login data
+ *		 to only be used when admin impersonates a partner.
+	 * @param	userId	string		The user's unique identifier in the partner's system (optional)
+	 * @param	newLoginId	string		The new user's email address that identifies the user for login (optional)
+	 * @param	existingLoginId	string		The user's email address that identifies the user for login (optional, default: null)
+	 **/
+	replaceUserLoginData: function(userId, newLoginId, existingLoginId){
+		if(!existingLoginId)
+			existingLoginId = null;
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.newLoginId = newLoginId;
+		kparams.existingLoginId = existingLoginId;
+		return new KalturaRequestBuilder("user", "replaceUserLoginData", kparams);
+	},
+	
+	/**
 	 * Reset user's password and send the user an email to generate a new one..
 	 * @param	email	string		The user's email address (login email) (optional)
 	 * @param	linkType	string		kmc or kms (optional, enum: KalturaResetPassLinkType, default: null)
