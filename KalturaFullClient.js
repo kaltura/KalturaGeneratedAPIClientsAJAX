@@ -5732,6 +5732,16 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * .
+	 * @param	userId	string		 (optional)
+	 **/
+	demoteAdmin: function(userId){
+		var kparams = new Object();
+		kparams.userId = userId;
+		return new KalturaRequestBuilder("user", "demoteAdmin", kparams);
+	},
+	
+	/**
 	 * Disables a user's ability to log into a partner account using an email address and a password.
  *		 You may use either a userId or a loginId parameter for this action..
 	 * @param	userId	string		The user's unique identifier in the partner's system (optional, default: null)
@@ -11512,8 +11522,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-03-08');
-	this.setApiVersion('21.11.0');
+	this.setClientTag('ajax:25-03-22');
+	this.setApiVersion('21.12.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

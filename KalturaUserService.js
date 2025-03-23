@@ -56,6 +56,16 @@ var KalturaUserService = {
 	},
 	
 	/**
+	 * .
+	 * @param	userId	string		 (optional)
+	 **/
+	demoteAdmin: function(userId){
+		var kparams = new Object();
+		kparams.userId = userId;
+		return new KalturaRequestBuilder("user", "demoteAdmin", kparams);
+	},
+	
+	/**
 	 * Disables a user's ability to log into a partner account using an email address and a password.
  *		 You may use either a userId or a loginId parameter for this action..
 	 * @param	userId	string		The user's unique identifier in the partner's system (optional, default: null)
