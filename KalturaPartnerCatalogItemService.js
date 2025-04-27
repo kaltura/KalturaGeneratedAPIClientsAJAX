@@ -6,10 +6,14 @@ var KalturaPartnerCatalogItemService = {
 	/**
 	 * Assign existing catalogItem to specific account.
 	 * @param	id	int		source catalog item to assign to partner (optional)
+	 * @param	defaultReachProfileId	int		 (optional, default: null)
 	 **/
-	add: function(id){
+	add: function(id, defaultReachProfileId){
+		if(!defaultReachProfileId)
+			defaultReachProfileId = null;
 		var kparams = new Object();
 		kparams.id = id;
+		kparams.defaultReachProfileId = defaultReachProfileId;
 		return new KalturaRequestBuilder("reach_partnercatalogitem", "add", kparams);
 	},
 	

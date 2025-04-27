@@ -10077,10 +10077,14 @@ var KalturaPartnerCatalogItemService = {
 	/**
 	 * Assign existing catalogItem to specific account.
 	 * @param	id	int		source catalog item to assign to partner (optional)
+	 * @param	defaultReachProfileId	int		 (optional, default: null)
 	 **/
-	add: function(id){
+	add: function(id, defaultReachProfileId){
+		if(!defaultReachProfileId)
+			defaultReachProfileId = null;
 		var kparams = new Object();
 		kparams.id = id;
+		kparams.defaultReachProfileId = defaultReachProfileId;
 		return new KalturaRequestBuilder("reach_partnercatalogitem", "add", kparams);
 	},
 	
@@ -11522,8 +11526,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-04-05');
-	this.setApiVersion('21.13.0');
+	this.setClientTag('ajax:25-04-26');
+	this.setApiVersion('21.14.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
