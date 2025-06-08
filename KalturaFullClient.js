@@ -10036,6 +10036,18 @@ var KalturaEntryVendorTaskService = {
 	},
 	
 	/**
+	 * .
+	 * @param	id	int		vendor task id (optional)
+	 * @param	newOutput	string		 (optional)
+	 **/
+	replaceOutput: function(id, newOutput){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.newOutput = newOutput;
+		return new KalturaRequestBuilder("reach_entryvendortask", "replaceOutput", kparams);
+	},
+	
+	/**
 	 * Will serve a requested csv.
 	 * @param	id	string		- the requested file id (optional)
 	 **/
@@ -11526,8 +11538,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-05-24');
-	this.setApiVersion('21.16.0');
+	this.setClientTag('ajax:25-06-07');
+	this.setApiVersion('21.17.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

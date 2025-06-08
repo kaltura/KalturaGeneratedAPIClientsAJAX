@@ -142,6 +142,18 @@ var KalturaEntryVendorTaskService = {
 	},
 	
 	/**
+	 * .
+	 * @param	id	int		vendor task id (optional)
+	 * @param	newOutput	string		 (optional)
+	 **/
+	replaceOutput: function(id, newOutput){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.newOutput = newOutput;
+		return new KalturaRequestBuilder("reach_entryvendortask", "replaceOutput", kparams);
+	},
+	
+	/**
 	 * Will serve a requested csv.
 	 * @param	id	string		- the requested file id (optional)
 	 **/
