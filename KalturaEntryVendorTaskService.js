@@ -154,6 +154,18 @@ var KalturaEntryVendorTaskService = {
 	},
 	
 	/**
+	 * Reset entry vendor task. change status back to pending with a new catalog item.
+	 * @param	id	int		vendor task id to reset (optional)
+	 * @param	catalogItemId	int		new catalog item (optional)
+	 **/
+	reset: function(id, catalogItemId){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.catalogItemId = catalogItemId;
+		return new KalturaRequestBuilder("reach_entryvendortask", "reset", kparams);
+	},
+	
+	/**
 	 * Will serve a requested csv.
 	 * @param	id	string		- the requested file id (optional)
 	 **/
