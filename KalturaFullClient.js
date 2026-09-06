@@ -8905,6 +8905,37 @@ var KalturaDrmLicenseAccessService = {
 }
 
 /**
+ *Class definition for the Kaltura service: keyManagementPolicy.
+ **/
+var KalturaKeyManagementPolicyService = {
+	/**
+	 * .
+	 * @param	objectType	int		 (optional, enum: KalturaKeyManagementPolicyObjectType)
+	 * @param	objectId	string		 (optional)
+	 **/
+	get: function(objectType, objectId){
+		var kparams = new Object();
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		return new KalturaRequestBuilder("drm_keymanagementpolicy", "get", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	objectType	int		 (optional, enum: KalturaKeyManagementPolicyObjectType)
+	 * @param	objectId	string		 (optional)
+	 * @param	keyManagementPolicy	KalturaKeyManagementPolicy		 (optional)
+	 **/
+	update: function(objectType, objectId, keyManagementPolicy){
+		var kparams = new Object();
+		kparams.objectType = objectType;
+		kparams.objectId = objectId;
+		kparams.keyManagementPolicy = keyManagementPolicy;
+		return new KalturaRequestBuilder("drm_keymanagementpolicy", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: widevineDrm.
  **/
 var KalturaWidevineDrmService = {
@@ -11550,8 +11581,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:26-08-25');
-	this.setApiVersion('23.6.0');
+	this.setClientTag('ajax:26-09-05');
+	this.setApiVersion('23.7.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
